@@ -1,4 +1,4 @@
-# Clean Architecture Sample with .NET Core
+# :cyclone: Clean Architecture Sample with .NET Core
 
 An example of the classic Clean Architecture from Uncle Bob.
 
