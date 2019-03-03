@@ -12,7 +12,7 @@ dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 
 * MacOS Sierra
 * VSCode :heart:
-* [.NET SDK 2.2](https://www.microsoft.com/net/download/dotnet-core/2.2).
+* [.NET Core SDK 2.2](https://www.microsoft.com/net/download/dotnet-core/2.2).
 
 ## :telephone: For Support and Issues
 
