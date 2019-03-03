@@ -1,12 +1,12 @@
 namespace TodoList.UnitTests {
     using System;
     using Moq;
+    using TodoList.Core.Gateways.InMemory;
+    using TodoList.Core.Gateways;
     using TodoList.Core.UseCases.UpdateTitle;
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using Xunit;
-    using TodoList.Core.Gateways;
-    using TodoList.Core.Gateways.InMemory;
 
     public sealed class UpdateTitleTests {
         [Fact]
@@ -35,12 +35,12 @@ namespace TodoList.UnitTests {
 
         [Fact]
         public void GivenTodoItem_TitleChanged () {
-            var context = new Context();
+            var context = new DBContext ();
             var gateway = new TodoItemGateway (context);
 
             Core.UseCases.AddTodoItem.Output actualOutput = null;
 
-            var outputHandler = new Mock<Core.UseCases.AddTodoItem.IOutputHandler> ();
+            var outputHandler = new Mock<Core.UseCases.IUseCaseOutputHandler<Core.UseCases.AddTodoItem.Output>> ();
             outputHandler.Setup (e => e.Handle (It.IsAny<Core.UseCases.AddTodoItem.Output> ()))
                 .Callback<Core.UseCases.AddTodoItem.Output> (output => actualOutput = output);
 

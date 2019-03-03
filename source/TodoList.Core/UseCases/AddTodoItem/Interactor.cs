@@ -4,11 +4,11 @@ namespace TodoList.Core.UseCases.AddTodoItem {
     using TodoList.Core.Gateways;
 
     public sealed class Interactor : IUseCase<Input> {
-        private IOutputHandler _outputHandler;
+        private IUseCaseOutputHandler<Output> _outputHandler;
         private ITodoItemGateway _todoItemGateway;
 
         public Interactor (
-            IOutputHandler outputHandler,
+            IUseCaseOutputHandler<Output> outputHandler,
             ITodoItemGateway todoItemGateway) {
             _outputHandler = outputHandler;
             _todoItemGateway = todoItemGateway;
@@ -21,8 +21,8 @@ namespace TodoList.Core.UseCases.AddTodoItem {
             if (string.IsNullOrWhiteSpace (input.Title))
                 throw new Exception ("Title is null");
 
-            TodoItem todoItem = new TodoItem(input.Title);
-            _todoItemGateway.Add(todoItem);
+            TodoItem todoItem = new TodoItem (input.Title);
+            _todoItemGateway.Add (todoItem);
 
             Output output = new Output (todoItem.Id);
             _outputHandler.Handle (output);

@@ -1,13 +1,13 @@
 namespace TodoList.Core.Gateways.InMemory {
     using System.Collections.ObjectModel;
-    using TodoList.Core.Entities;
     using System.Linq;
     using System;
+    using TodoList.Core.Entities;
 
     public sealed class TodoItemGateway : ITodoItemGateway {
-        private readonly Context _context;
+        private readonly DBContext _context;
 
-        public TodoItemGateway (Context context) {
+        public TodoItemGateway (DBContext context) {
             _context = context;
         }
 

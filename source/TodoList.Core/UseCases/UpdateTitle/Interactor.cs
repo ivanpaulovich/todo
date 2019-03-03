@@ -10,7 +10,7 @@ namespace TodoList.Core.UseCases.UpdateTitle {
             ITodoItemGateway todoItemGateway) {
             _todoItemGateway = todoItemGateway;
         }
-        
+
         public void Execute (Input input) {
             if (input == null)
                 throw new Exception ("Input is null");
@@ -18,9 +18,9 @@ namespace TodoList.Core.UseCases.UpdateTitle {
             if (string.IsNullOrWhiteSpace (input.Title))
                 throw new Exception ("Title is null");
 
-            TodoItem todoItem = _todoItemGateway.Get(input.TodoItemId);
-            todoItem.UpdateTitle(input.Title);
-            _todoItemGateway.Update(todoItem);
+            TodoItem todoItem = _todoItemGateway.Get (input.TodoItemId);
+            todoItem.UpdateTitle (input.Title);
+            _todoItemGateway.Update (todoItem);
         }
     }
 }

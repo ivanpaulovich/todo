@@ -1,11 +1,11 @@
 namespace TodoList.UnitTests {
     using System;
     using Moq;
+    using TodoList.Core.Gateways;
     using TodoList.Core.UseCases.AddTodoItem;
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using Xunit;
-    using TodoList.Core.Gateways;
 
     public sealed class AddTodoItemTests {
         [Fact]
@@ -35,7 +35,7 @@ namespace TodoList.UnitTests {
         [Fact]
         public void GivenNotNullTitle_InvokeOutputHandler () {
             var gateway = new Mock<ITodoItemGateway> ();
-            var outputHandler = new Mock<IOutputHandler> ();
+            var outputHandler = new Mock<IUseCaseOutputHandler<Output>> ();
             InputBuilder builder = new InputBuilder ();
             builder.WithTitle ("My Title");
             IUseCase<Input> AddTodoItem = new Interactor (outputHandler.Object, gateway.Object);
@@ -49,7 +49,7 @@ namespace TodoList.UnitTests {
         public void GivenNotNullTitle_ReturnsId () {
             var gateway = new Mock<ITodoItemGateway> ();
             Output actualOutput = null;
-            var outputHandler = new Mock<IOutputHandler> ();
+            var outputHandler = new Mock<IUseCaseOutputHandler<Output>> ();
             outputHandler.Setup (e => e.Handle (It.IsAny<Output> ()))
                 .Callback<Output> (output => actualOutput = output);
             InputBuilder builder = new InputBuilder ();
