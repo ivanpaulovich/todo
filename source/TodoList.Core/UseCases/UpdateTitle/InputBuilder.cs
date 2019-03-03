@@ -1,15 +1,15 @@
-namespace TodoList.Core.UseCases.AddTask
+namespace TodoList.Core.UseCases.UpdateTitle
 {
-    public sealed class Builder
+    public sealed class InputBuilder
     {
         private Input _input;
 
-        public Builder()
+        public InputBuilder()
         {
             _input = new Input();
         }
 
-        public Builder WithTitle(string title)
+        public InputBuilder WithTitle(string title)
         {
             _input.Title = title;
             return this;

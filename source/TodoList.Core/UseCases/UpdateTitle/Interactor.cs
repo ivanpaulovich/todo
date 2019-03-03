@@ -1,16 +1,9 @@
-namespace TodoList.Core.UseCases.AddTask
+namespace TodoList.Core.UseCases.UpdateTitle
 {
     using System;
 
     public sealed class Interactor : IUseCase<Input>
     {
-        private IOutputHandler _outputHandler;
-
-        public Interactor(IOutputHandler outputHandler)
-        {
-            _outputHandler = outputHandler;
-        }
-
         public void Execute(Input input)
         {
             if (input == null)
@@ -18,9 +11,6 @@ namespace TodoList.Core.UseCases.AddTask
                 
             if (string.IsNullOrWhiteSpace(input.Title))
                 throw new Exception("Title is null");
-
-            Output output = new Output(Guid.NewGuid());
-            _outputHandler.Handle(output);
         }
     }
 }
