@@ -1,4 +1,4 @@
-# Clean Architecture Implementation of Todo List app
+# Clean Architecture Sample in .NET Core
 
 An example of the classic Clean Architecture from Uncle Bob.
 
