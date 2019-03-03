@@ -16,4 +16,4 @@ dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 
 ## :telephone: Support and Issues
 
-Please open an issue and I will be happy to clarify. Give it a :start if you like the code.
+Please open an issue and I will be happy to clarify. Give it a :star if you like the code.
