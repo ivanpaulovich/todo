@@ -14,6 +14,6 @@ dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 * VSCode :heart:
 * [.NET Core SDK 2.2](https://www.microsoft.com/net/download/dotnet-core/2.2).
 
-## :telephone: For Support and Issues
+## :telephone: Support and Issues
 
 I am happy to be clarify the implementation through the **Issues Tab**.
