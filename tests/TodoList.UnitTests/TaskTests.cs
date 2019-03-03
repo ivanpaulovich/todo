@@ -32,5 +32,16 @@ namespace TodoList.UnitTests
             IUseCase addTask = new Interactor(null);
             Assert.Throws<Exception>(() => addTask.Execute(builder.Build()));
         }
+
+        [Fact]
+        public void AddTask_InvokeOutputHandler_WhenNotNullTitle()
+        {
+            var outputHandler = new Mock<IOutputHandler>();
+            Builder builder = new Builder();
+            builder.WithTitle("My Title");
+            IUseCase addTask = new Interactor(outputHandler.Object);
+            addTask.Execute(builder.Build());
+            outputHandler.Verify(e => e.Handle(It.IsAny<Output>()), Times.Once);
+        }
     }
 }
