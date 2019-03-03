@@ -3,11 +3,17 @@ namespace TodoList.Core.Entities {
 
     public class TodoItem {
         public Guid Id { get; }
-        public string Title { get; }
+        public string Title { get; private set; }
 
-        public TodoItem()
+        public TodoItem(string title)
         {
             Id = Guid.NewGuid();
+            Title = title;
+        }
+
+        internal void UpdateTitle(string title)
+        {
+            Title = title;
         }
     }
 }

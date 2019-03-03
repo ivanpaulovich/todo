@@ -5,7 +5,7 @@ namespace TodoList.Core.Gateways {
     public interface ITodoItemGateway {
         void Add (TodoItem todoItem);
         void Delete (TodoItem todoItem);
-        TodoItem Update (TodoItem todoItem);
+        void Update (TodoItem todoItem);
         TodoItem Get (Guid todoItemId);
     }
 }

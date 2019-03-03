@@ -1,4 +1,9 @@
-namespace TodoList.Infrastructure.InMemory {
+namespace TodoList.Core.Gateways.InMemory {
+    using System.Collections.ObjectModel;
+    using TodoList.Core.Entities;
+    using System.Linq;
+    using System;
+
     public sealed class TodoItemGateway : ITodoItemGateway {
         private readonly Context _context;
 
@@ -12,7 +17,7 @@ namespace TodoList.Infrastructure.InMemory {
 
         public void Delete (TodoItem todoItem) {
             TodoItem todoItemOld = _context.TodoItems
-                .Where (e => e.Id == TodoItem.Id)
+                .Where (e => e.Id == todoItem.Id)
                 .SingleOrDefault ();
 
             _context.TodoItems.Remove (todoItemOld);
@@ -26,7 +31,7 @@ namespace TodoList.Infrastructure.InMemory {
             return todoItem;
         }
 
-        public TodoItem Update (TodoItem todoItem) {
+        public void Update (TodoItem todoItem) {
             TodoItem todoItemOld = _context.TodoItems
                 .Where (e => e.Id == todoItem.Id)
                 .SingleOrDefault ();
