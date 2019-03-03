@@ -16,4 +16,4 @@ dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 
 ## :telephone: Support and Issues
 
-I am happy to be clarify the implementation through the **Issues Tab**.
+I am happy to clarify the implementation details via the **Issues Tab**.
