@@ -1,4 +1,4 @@
-# Clean Architecture Implementation of Todo List app
+# :cyclone: Clean Architecture Sample with .NET Core
 
 An example of the classic Clean Architecture from Uncle Bob.
 
@@ -12,8 +12,8 @@ dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 
 * MacOS Sierra
 * VSCode :heart:
-* [.NET SDK 2.2](https://www.microsoft.com/net/download/dotnet-core/2.2).
+* [.NET Core SDK 2.2](https://www.microsoft.com/net/download/dotnet-core/2.2).
 
-## :telephone: For Support and Issues
+## :telephone: Support and Issues
 
-I am happy to be clarify the implementation through the **Issues Tab**.
+Please open an issue and I will be happy to clarify. Give it a :star: if you like the code.
