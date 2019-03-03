@@ -7,7 +7,7 @@ namespace TodoList.UnitTests
     using TodoList.Core.UseCases;
     using Moq;
 
-    public class TaskTests
+    public sealed class TaskTests
     {
         [Fact]
         public void AddTask_ThrowsException_WhenNullInput()
@@ -42,6 +42,21 @@ namespace TodoList.UnitTests
             IUseCase addTask = new Interactor(outputHandler.Object);
             addTask.Execute(builder.Build());
             outputHandler.Verify(e => e.Handle(It.IsAny<Output>()), Times.Once);
+        }
+
+        [Fact]
+        public void AddTask_ReturnsId_WhenNotNullTitle()
+        {
+            Output actualOutput = null;
+            var outputHandler = new Mock<IOutputHandler>();
+            outputHandler.Setup(e => e.Handle(It.IsAny<Output>()))
+                .Callback<Output>(output => actualOutput = output);
+
+            Builder builder = new Builder();
+            builder.WithTitle("My Title");
+            IUseCase addTask = new Interactor(outputHandler.Object);
+            addTask.Execute(builder.Build());
+            Assert.True(actualOutput.Id != Guid.Empty);
         }
     }
 }

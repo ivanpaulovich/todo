@@ -19,7 +19,7 @@ namespace TodoList.Core.UseCases.AddTask
             if (string.IsNullOrWhiteSpace(input.Title))
                 throw new Exception("Title is null");
 
-            Output output = new Output();
+            Output output = new Output(Guid.NewGuid());
             _outputHandler.Handle(output);
         }
     }
