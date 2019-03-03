@@ -1,16 +1,9 @@
-namespace TodoList.Core.UseCases.UpdateTitle {
-    using System;
-
+namespace TodoList.Core.UseCases.AddTodoItem {
     public sealed class InputBuilder {
         private Input _input;
 
         public InputBuilder () {
             _input = new Input ();
-        }
-
-        public InputBuilder WithTodoItemId (Guid TodoItemId) {
-            _input.TodoItemId = TodoItemId;
-            return this;
         }
 
         public InputBuilder WithTitle (string title) {
