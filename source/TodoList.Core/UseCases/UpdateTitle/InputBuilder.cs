@@ -2,23 +2,22 @@ namespace TodoList.Core.UseCases.UpdateTitle {
     using System;
 
     public sealed class InputBuilder {
-        private Input _input;
 
-        public InputBuilder () {
-            _input = new Input ();
-        }
+        private Guid _todoItemId;
+        private string _title;
 
-        public InputBuilder WithTodoItemId (Guid TodoItemId) {
-            _input.TodoItemId = TodoItemId;
+        public InputBuilder WithTodoItemId (Guid todoItemId) {
+            _todoItemId = todoItemId;
             return this;
         }
 
         public InputBuilder WithTitle (string title) {
-            _input.Title = title;
+            _title = title;
             return this;
         }
 
         public Input Build () {
+            Input _input = new Input(_todoItemId, _title);
             return _input;
         }
     }

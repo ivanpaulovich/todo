@@ -1,4 +1,4 @@
-﻿namespace TodoList.ConsoleApp
+namespace TodoList.ConsoleApp
 {
     using System;
     using TodoList.Core;
@@ -23,8 +23,8 @@
                 if (string.Compare(input[0], "add", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.AddTodoItem(input);
 
-                if (string.Compare(input[0], "complete", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.CompleteTodoItem(input);
+                if (string.Compare(input[0], "finish", StringComparison.CurrentCultureIgnoreCase) == 0)
+                    startup.FinishTodoItem(input);
 
                 if (string.Compare(input[0], "list", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.ListTodoItem(input);
@@ -70,9 +70,13 @@
             list.Execute();
         }
 
-        public void CompleteTodoItem(string[] input)
+        public void FinishTodoItem(string[] input)
         {
-            throw new NotImplementedException();
+            IUseCase<Guid> finish = new Core.UseCases.FinishTodoItem.Interactor(
+                gateway
+            );
+
+            finish.Execute(new Guid(input[1]));
         }
 
         public void AddTodoItem(string[] input)
