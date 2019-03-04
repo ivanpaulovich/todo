@@ -10,26 +10,26 @@ namespace TodoList.UnitTests {
     public sealed class AddTodoItemTests {
         [Fact]
         public void GivenNullInput_ThrowsException () {
-            IUseCase<Input> AddTodoItem = new Interactor (null, null);
+            IUseCase<Input> addTodoItem = new Interactor (null, null);
 
-            Assert.Throws<Exception> (() => AddTodoItem.Execute (null));
+            Assert.Throws<Exception> (() => addTodoItem.Execute (null));
         }
 
         [Fact]
         public void GivenNullTitle_ThrowsException () {
             InputBuilder builder = new InputBuilder ();
-            IUseCase<Input> AddTodoItem = new Interactor (null, null);
+            IUseCase<Input> addTodoItem = new Interactor (null, null);
 
-            Assert.Throws<Exception> (() => AddTodoItem.Execute (builder.Build ()));
+            Assert.Throws<Exception> (() => addTodoItem.Execute (builder.Build ()));
         }
 
         [Fact]
         public void GivenEmptyTitle_ThrowsException () {
             InputBuilder builder = new InputBuilder ();
             builder.WithTitle (string.Empty);
-            IUseCase<Input> AddTodoItem = new Interactor (null, null);
+            IUseCase<Input> addTodoItem = new Interactor (null, null);
 
-            Assert.Throws<Exception> (() => AddTodoItem.Execute (builder.Build ()));
+            Assert.Throws<Exception> (() => addTodoItem.Execute (builder.Build ()));
         }
 
         [Fact]
@@ -38,9 +38,9 @@ namespace TodoList.UnitTests {
             var outputHandler = new Mock<IUseCaseOutputHandler<Output>> ();
             InputBuilder builder = new InputBuilder ();
             builder.WithTitle ("My Title");
-            IUseCase<Input> AddTodoItem = new Interactor (outputHandler.Object, gateway.Object);
+            IUseCase<Input> addTodoItem = new Interactor (outputHandler.Object, gateway.Object);
 
-            AddTodoItem.Execute (builder.Build ());
+            addTodoItem.Execute (builder.Build ());
 
             outputHandler.Verify (e => e.Handle (It.IsAny<Output> ()), Times.Once);
         }
@@ -54,9 +54,9 @@ namespace TodoList.UnitTests {
                 .Callback<Output> (output => actualOutput = output);
             InputBuilder builder = new InputBuilder ();
             builder.WithTitle ("My Title");
-            IUseCase<Input> AddTodoItem = new Interactor (outputHandler.Object, gateway.Object);
+            IUseCase<Input> addTodoItem = new Interactor (outputHandler.Object, gateway.Object);
 
-            AddTodoItem.Execute (builder.Build ());
+            addTodoItem.Execute (builder.Build ());
 
             Assert.True (actualOutput.Id != Guid.Empty);
         }

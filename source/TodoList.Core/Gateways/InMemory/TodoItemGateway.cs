@@ -1,4 +1,5 @@
 namespace TodoList.Core.Gateways.InMemory {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System;
@@ -29,6 +30,10 @@ namespace TodoList.Core.Gateways.InMemory {
                 .SingleOrDefault ();
 
             return todoItem;
+        }
+
+        public IList<TodoItem> List () {
+            return _context.TodoItems;
         }
 
         public void Update (TodoItem todoItem) {

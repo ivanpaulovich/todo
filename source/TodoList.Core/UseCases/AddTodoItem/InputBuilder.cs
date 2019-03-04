@@ -1,18 +1,14 @@
 namespace TodoList.Core.UseCases.AddTodoItem {
     public sealed class InputBuilder {
-        private Input _input;
-
-        public InputBuilder () {
-            _input = new Input ();
-        }
+        string _title;
 
         public InputBuilder WithTitle (string title) {
-            _input.Title = title;
+            _title = title;
             return this;
         }
 
         public Input Build () {
-            return _input;
+            return new Input (_title);
         }
     }
 }

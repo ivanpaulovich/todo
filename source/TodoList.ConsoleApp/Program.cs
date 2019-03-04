@@ -5,16 +5,13 @@
     using TodoList.Core.Gateways;
     using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.UseCases;
-    using TodoList.Core.UseCases.AddTodoItem;
 
-    class Program
+    public class Program
     {
-        static DBContext inMemoryContext = new DBContext();
-        static ITodoItemGateway gateway = new TodoItemGateway(inMemoryContext);
-        static ConsoleUseCaseOutputHandler outputHandler = new ConsoleUseCaseOutputHandler();
-
         static void Main(string[] args)
         {
+            Startup startup = new Startup();
+
             while (true)
             {
                 string command = Console.ReadLine();
@@ -23,21 +20,35 @@
 
                 string[] input = command.Split(' ');
 
-                if (string.Compare(input[0], "a", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    AddTodoItem(input);
+                if (string.Compare(input[0], "add", StringComparison.CurrentCultureIgnoreCase) == 0)
+                    startup.AddTodoItem(input);
 
-                if (string.Compare(input[0], "c", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    CompleteTodoItem(input);
+                if (string.Compare(input[0], "complete", StringComparison.CurrentCultureIgnoreCase) == 0)
+                    startup.CompleteTodoItem(input);
 
-                if (string.Compare(input[0], "l", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    ListTodoItem(input);
+                if (string.Compare(input[0], "list", StringComparison.CurrentCultureIgnoreCase) == 0)
+                    startup.ListTodoItem(input);
 
-                if (string.Compare(input[0], "l", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    UpdateTodoItem(input);
+                if (string.Compare(input[0], "update", StringComparison.CurrentCultureIgnoreCase) == 0)
+                    startup.UpdateTodoItem(input);
             }
         }
+    }
 
-        private static void UpdateTodoItem(string[] input)
+    public sealed class Startup
+    {
+        DBContext inMemoryContext;
+        ITodoItemGateway gateway;
+        ConsoleUseCaseOutputHandler outputHandler;
+
+        public Startup()
+        {
+            inMemoryContext = new DBContext();
+            gateway = new TodoItemGateway(inMemoryContext);
+            outputHandler = new ConsoleUseCaseOutputHandler();
+        }
+
+        public void UpdateTodoItem(string[] input)
         {
             IUseCase<Core.UseCases.UpdateTitle.Input> updateTodoItem = new Core.UseCases.UpdateTitle.Interactor(
                 gateway
@@ -49,17 +60,22 @@
             updateTodoItem.Execute(builder.Build());
         }
 
-        private static void ListTodoItem(string[] input)
+        public void ListTodoItem(string[] input)
+        {
+            IUseCase list = new Core.UseCases.ListTodoItems.Interactor(
+                outputHandler,
+                gateway
+            );
+
+            list.Execute();
+        }
+
+        public void CompleteTodoItem(string[] input)
         {
             throw new NotImplementedException();
         }
 
-        private static void CompleteTodoItem(string[] input)
-        {
-            throw new NotImplementedException();
-        }
-
-        static void AddTodoItem(string[] input)
+        public void AddTodoItem(string[] input)
         {
             IUseCase<Core.UseCases.AddTodoItem.Input> addTodoItem = new Core.UseCases.AddTodoItem.Interactor(
                 outputHandler,
@@ -72,11 +88,19 @@
         }
     }
 
-    public class ConsoleUseCaseOutputHandler : IUseCaseOutputHandler<Core.UseCases.AddTodoItem.Output>
+    public class ConsoleUseCaseOutputHandler : 
+        IUseCaseOutputHandler<Core.UseCases.AddTodoItem.Output>,
+        IUseCaseOutputHandler<Core.UseCases.ListTodoItems.Output>
     {
-        void IUseCaseOutputHandler<Core.UseCases.AddTodoItem.Output>.Handle(Output output)
+        public void Handle(Core.UseCases.AddTodoItem.Output output)
         {
             Console.WriteLine($"Added {output.Id}.");
+        }
+
+        public void Handle(Core.UseCases.ListTodoItems.Output output)
+        {
+            foreach(var item in output.Items)
+                Console.WriteLine($"Item {item.Id} - {item.Title}.");
         }
     }
 }

@@ -1,4 +1,5 @@
 namespace TodoList.Core.Gateways {
+    using System.Collections.Generic;
     using System;
     using TodoList.Core.Entities;
 
@@ -7,5 +8,6 @@ namespace TodoList.Core.Gateways {
         void Delete (TodoItem todoItem);
         void Update (TodoItem todoItem);
         TodoItem Get (Guid todoItemId);
+        IList<TodoItem> List ();
     }
 }
