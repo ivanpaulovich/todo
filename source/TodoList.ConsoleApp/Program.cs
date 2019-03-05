@@ -1,10 +1,10 @@
 namespace TodoList.ConsoleApp
 {
     using System;
-    using TodoList.Core;
-    using TodoList.Core.Gateways;
     using TodoList.Core.Gateways.InMemory;
+    using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
+    using TodoList.Core;
 
     public class Program
     {
@@ -48,63 +48,60 @@ namespace TodoList.ConsoleApp
             outputHandler = new ConsoleUseCaseOutputHandler();
         }
 
-        public void UpdateTodoItem(string[] input)
+        public void UpdateTodoItem(string[] args)
         {
-            IUseCase<Core.UseCases.UpdateTitle.Input> updateTodoItem = new Core.UseCases.UpdateTitle.Interactor(
+            var updateTodoItem = new Core.UseCases.UpdateTitle.Interactor(
                 gateway
             );
 
-            var builder = new Core.UseCases.UpdateTitle.InputBuilder();
-            builder.WithTodoItemId(new Guid(input[1]));
-            builder.WithTitle(input[2]);
-            updateTodoItem.Execute(builder.Build());
+            var input = new Core.UseCases.UpdateTitle.Input(new Guid(args[1]), args[2]);
+            updateTodoItem.Execute(input);
         }
 
-        public void ListTodoItem(string[] input)
+        public void ListTodoItem(string[] args)
         {
-            IUseCase list = new Core.UseCases.ListTodoItems.Interactor(
+            var list = new Core.UseCases.ListTodoItems.Interactor(
                 outputHandler,
                 gateway
             );
 
-            list.Execute();
+            list.Execute(new Core.UseCases.ListTodoItems.Input());
         }
 
-        public void FinishTodoItem(string[] input)
+        public void FinishTodoItem(string[] args)
         {
             IUseCase<Guid> finish = new Core.UseCases.FinishTodoItem.Interactor(
                 gateway
             );
 
-            finish.Execute(new Guid(input[1]));
+            finish.Execute(new Guid(args[1]));
         }
 
-        public void AddTodoItem(string[] input)
+        public void AddTodoItem(string[] args)
         {
             IUseCase<Core.UseCases.AddTodoItem.Input> addTodoItem = new Core.UseCases.AddTodoItem.Interactor(
                 outputHandler,
                 gateway
             );
 
-            var builder = new Core.UseCases.AddTodoItem.InputBuilder();
-            builder.WithTitle(input[1]);
-            addTodoItem.Execute(builder.Build());
+            var input = new Core.UseCases.AddTodoItem.Input(args[1]);
+            addTodoItem.Execute(input);
         }
     }
 
-    public class ConsoleUseCaseOutputHandler : 
-        IUseCaseOutputHandler<Core.UseCases.AddTodoItem.Output>,
-        IUseCaseOutputHandler<Core.UseCases.ListTodoItems.Output>
-    {
-        public void Handle(Core.UseCases.AddTodoItem.Output output)
+    public class ConsoleUseCaseOutputHandler:
+        IOutputHandler<Core.UseCases.AddTodoItem.Output>,
+        IOutputHandler<Core.UseCases.ListTodoItems.Output>
         {
-            Console.WriteLine($"Added {output.Id}.");
-        }
+            public void Handle(Core.UseCases.AddTodoItem.Output output)
+            {
+                Console.WriteLine($"Added {output.Id}.");
+            }
 
-        public void Handle(Core.UseCases.ListTodoItems.Output output)
-        {
-            foreach(var item in output.Items)
-                Console.WriteLine($"Item {item.Id} - {item.Title}.");
+            public void Handle(Core.UseCases.ListTodoItems.Output output)
+            {
+                foreach (var item in output.Items)
+                    Console.WriteLine($"Item {item.Id} - {item.Title}.");
+            }
         }
-    }
 }

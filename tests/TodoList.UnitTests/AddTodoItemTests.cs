@@ -1,64 +1,61 @@
-namespace TodoList.UnitTests {
+namespace TodoList.UnitTests
+{
     using System;
-    using Moq;
     using TodoList.Core.Gateways;
     using TodoList.Core.UseCases.AddTodoItem;
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using Xunit;
+    using TodoList.Core.Gateways.InMemory;
+    using System.Linq;
 
-    public sealed class AddTodoItemTests {
+    public sealed class AddTodoItemTests
+    {
         [Fact]
-        public void GivenNullInput_ThrowsException () {
-            IUseCase<Input> addTodoItem = new Interactor (null, null);
-
-            Assert.Throws<Exception> (() => addTodoItem.Execute (null));
+        public void GivenNullInput_ThrowsException()
+        {
+            IUseCase<Input> addTodoItem = new Interactor(null, null);
+            Assert.Throws<Exception>(() => addTodoItem.Execute(null));
         }
 
         [Fact]
-        public void GivenNullTitle_ThrowsException () {
-            InputBuilder builder = new InputBuilder ();
-            IUseCase<Input> addTodoItem = new Interactor (null, null);
-
-            Assert.Throws<Exception> (() => addTodoItem.Execute (builder.Build ()));
+        public void GivenNullTitle_ThrowsException()
+        {
+            var input = new Core.UseCases.AddTodoItem.Input(null);
+            IUseCase<Input> addTodoItem = new Interactor(null, null);
+            Assert.Throws<Exception>(() => addTodoItem.Execute(input));
         }
 
         [Fact]
-        public void GivenEmptyTitle_ThrowsException () {
-            InputBuilder builder = new InputBuilder ();
-            builder.WithTitle (string.Empty);
-            IUseCase<Input> addTodoItem = new Interactor (null, null);
-
-            Assert.Throws<Exception> (() => addTodoItem.Execute (builder.Build ()));
+        public void GivenEmptyTitle_ThrowsException()
+        {
+            var input = new Core.UseCases.AddTodoItem.Input(string.Empty);
+            IUseCase<Input> addTodoItem = new Interactor(null, null);
+            Assert.Throws<Exception>(() => addTodoItem.Execute(input));
         }
 
         [Fact]
-        public void GivenNotNullTitle_InvokeOutputHandler () {
-            var gateway = new Mock<ITodoItemGateway> ();
-            var outputHandler = new Mock<IUseCaseOutputHandler<Output>> ();
-            InputBuilder builder = new InputBuilder ();
-            builder.WithTitle ("My Title");
-            IUseCase<Input> addTodoItem = new Interactor (outputHandler.Object, gateway.Object);
-
-            addTodoItem.Execute (builder.Build ());
-
-            outputHandler.Verify (e => e.Handle (It.IsAny<Output> ()), Times.Once);
+        public void GivenNotNullTitle_InvokeOutputHandler()
+        {
+            var context = new DBContext();
+            var gateway = new TodoItemGateway(context);
+            var outputHandler = new OutputHandler();
+            Input input = new Input("My Title");
+            IUseCase<Input> addTodoItem = new Interactor(outputHandler, gateway);
+            addTodoItem.Execute(input);
+            Assert.Equal(1, outputHandler.AddTodoItems.Count);
         }
 
         [Fact]
-        public void GivenNotNullTitle_ReturnsId () {
-            var gateway = new Mock<ITodoItemGateway> ();
-            Output actualOutput = null;
-            var outputHandler = new Mock<IUseCaseOutputHandler<Output>> ();
-            outputHandler.Setup (e => e.Handle (It.IsAny<Output> ()))
-                .Callback<Output> (output => actualOutput = output);
-            InputBuilder builder = new InputBuilder ();
-            builder.WithTitle ("My Title");
-            IUseCase<Input> addTodoItem = new Interactor (outputHandler.Object, gateway.Object);
-
-            addTodoItem.Execute (builder.Build ());
-
-            Assert.True (actualOutput.Id != Guid.Empty);
+        public void GivenNotNullTitle_ReturnsId()
+        {
+            var context = new DBContext();
+            var gateway = new TodoItemGateway(context);
+            var outputHandler = new OutputHandler();
+            Input input = new Input("My Title");
+            IUseCase<Input> addTodoItem = new Interactor(outputHandler, gateway);
+            addTodoItem.Execute(input);
+            Assert.True(Guid.Empty != outputHandler.AddTodoItems[0].Id);
         }
     }
 }

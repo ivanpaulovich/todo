@@ -1,9 +1,11 @@
-namespace TodoList.Core.UseCases.AddTodoItem {
-    public sealed class Input {
-        internal Input () { }
-        public string Title { get; internal set; }
+namespace TodoList.Core.UseCases.AddTodoItem
+{
+    public sealed class Input
+    {
+        public string Title { get; }
 
-        public Input (string title) {
+        public Input(string title)
+        {
             Title = title;
         }
     }
