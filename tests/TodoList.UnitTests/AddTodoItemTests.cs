@@ -8,13 +8,14 @@ namespace TodoList.UnitTests
     using Xunit;
     using TodoList.Core.Gateways.InMemory;
     using System.Linq;
+    using TodoList.Core.Entities;
 
     public sealed class AddTodoItemTests
     {
         [Fact]
         public void GivenNullInput_ThrowsException()
         {
-            IUseCase<Input> addTodoItem = new Interactor(null, null);
+            IUseCase<Input> addTodoItem = new Interactor(null, null, null);
             Assert.Throws<Exception>(() => addTodoItem.Execute(null));
         }
 
@@ -22,7 +23,7 @@ namespace TodoList.UnitTests
         public void GivenNullTitle_ThrowsException()
         {
             var input = new Core.UseCases.AddTodoItem.Input(null);
-            IUseCase<Input> addTodoItem = new Interactor(null, null);
+            IUseCase<Input> addTodoItem = new Interactor(null, null, null);
             Assert.Throws<Exception>(() => addTodoItem.Execute(input));
         }
 
@@ -30,7 +31,7 @@ namespace TodoList.UnitTests
         public void GivenEmptyTitle_ThrowsException()
         {
             var input = new Core.UseCases.AddTodoItem.Input(string.Empty);
-            IUseCase<Input> addTodoItem = new Interactor(null, null);
+            IUseCase<Input> addTodoItem = new Interactor(null, null, null);
             Assert.Throws<Exception>(() => addTodoItem.Execute(input));
         }
 
@@ -40,8 +41,10 @@ namespace TodoList.UnitTests
             var context = new DBContext();
             var gateway = new TodoItemGateway(context);
             var outputHandler = new OutputHandler();
+            var entitiesFactory = new EntitiesFactory();
+
             Input input = new Input("My Title");
-            IUseCase<Input> addTodoItem = new Interactor(outputHandler, gateway);
+            IUseCase<Input> addTodoItem = new Interactor(outputHandler, gateway, entitiesFactory);
             addTodoItem.Execute(input);
             Assert.Equal(1, outputHandler.AddTodoItems.Count);
         }
@@ -52,8 +55,10 @@ namespace TodoList.UnitTests
             var context = new DBContext();
             var gateway = new TodoItemGateway(context);
             var outputHandler = new OutputHandler();
+            var entitiesFactory = new EntitiesFactory();
+
             Input input = new Input("My Title");
-            IUseCase<Input> addTodoItem = new Interactor(outputHandler, gateway);
+            IUseCase<Input> addTodoItem = new Interactor(outputHandler, gateway, entitiesFactory);
             addTodoItem.Execute(input);
             Assert.True(Guid.Empty != outputHandler.AddTodoItems[0].Id);
         }

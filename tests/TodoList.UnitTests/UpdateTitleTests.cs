@@ -7,6 +7,7 @@ namespace TodoList.UnitTests
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using Xunit;
+    using TodoList.Core.Entities;
 
     public sealed class UpdateTitleTests
     {
@@ -39,8 +40,9 @@ namespace TodoList.UnitTests
             var context = new DBContext();
             var gateway = new TodoItemGateway(context);
             var outputHandler = new OutputHandler();
+            var entitiesFactory = new EntitiesFactory();
 
-            var addTodoItem = new Core.UseCases.AddTodoItem.Interactor(outputHandler, gateway);
+            var addTodoItem = new Core.UseCases.AddTodoItem.Interactor(outputHandler, gateway, entitiesFactory);
             addTodoItem.Execute(new Core.UseCases.AddTodoItem.Input("My Title"));
 
             Input input = new Input(outputHandler.AddTodoItems[0].Id, "New Title");

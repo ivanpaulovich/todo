@@ -8,6 +8,12 @@ An example of the classic Clean Architecture from Uncle Bob.
 dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 ```
 
+# :zap: Running Console Demo
+
+```
+dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj"
+```
+
 ## :checkered_flag: Developer Environment
 
 * MacOS Sierra

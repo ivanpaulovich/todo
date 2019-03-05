@@ -5,6 +5,7 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
     using TodoList.Core;
+    using TodoList.Core.Entities;
 
     public class Program
     {
@@ -12,12 +13,12 @@ namespace TodoList.ConsoleApp
         {
             Startup startup = new Startup();
 
-            Console.WriteLine("Use:\n\tadd [title]\n\tfinish [id]\n\tlist\n\tupdate [id] [title]\n\texit");
+            Console.WriteLine("Usage:\n\tadd [title]\n\tfinish [id]\n\tlist\n\tupdate [id] [title]\n\texit");
 
             while (true)
             {
                 string command = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(command))
+                if (string.IsNullOrWhiteSpace(command) || string.Compare(command, "exit", StringComparison.CurrentCultureIgnoreCase) == 0)
                     break;
 
                 string[] input = command.Split(' ');
@@ -33,9 +34,6 @@ namespace TodoList.ConsoleApp
 
                 if (string.Compare(input[0], "update", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.UpdateTodoItem(input);
-
-                if (string.Compare(input[0], "exit", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    break;
             }
         }
     }
@@ -45,12 +43,14 @@ namespace TodoList.ConsoleApp
         DBContext inMemoryContext;
         ITodoItemGateway gateway;
         ConsoleUseCaseOutputHandler outputHandler;
+        EntitiesFactory entitiesFactory;
 
         public Startup()
         {
             inMemoryContext = new DBContext();
             gateway = new TodoItemGateway(inMemoryContext);
             outputHandler = new ConsoleUseCaseOutputHandler();
+            entitiesFactory = new EntitiesFactory();
         }
 
         public void UpdateTodoItem(string[] args)
@@ -103,7 +103,8 @@ namespace TodoList.ConsoleApp
 
             IUseCase<Core.UseCases.AddTodoItem.Input> addTodoItem = new Core.UseCases.AddTodoItem.Interactor(
                 outputHandler,
-                gateway
+                gateway,
+                entitiesFactory
             );
 
             var input = new Core.UseCases.AddTodoItem.Input(args[1]);
@@ -114,16 +115,16 @@ namespace TodoList.ConsoleApp
     public class ConsoleUseCaseOutputHandler:
         IOutputHandler<Core.UseCases.AddTodoItem.Output>,
         IOutputHandler<Core.UseCases.ListTodoItems.Output>
+    {
+        public void Handle(Core.UseCases.AddTodoItem.Output output)
         {
-            public void Handle(Core.UseCases.AddTodoItem.Output output)
-            {
-                Console.WriteLine($"Added {output.Id}.");
-            }
-
-            public void Handle(Core.UseCases.ListTodoItems.Output output)
-            {
-                foreach (var item in output.Items)
-                    Console.WriteLine($"{item.Id} - {item.Title}.");
-            }
+            Console.WriteLine($"Added {output.Id}.");
         }
+
+        public void Handle(Core.UseCases.ListTodoItems.Output output)
+        {
+            foreach (var item in output.Items)
+                Console.WriteLine($"{item.Id} - {item.Title}.");
+        }
+    }
 }

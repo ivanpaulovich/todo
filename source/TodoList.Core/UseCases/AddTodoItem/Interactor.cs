@@ -8,13 +8,16 @@ namespace TodoList.Core.UseCases.AddTodoItem
     {
         private IOutputHandler<Output> _outputHandler;
         private ITodoItemGateway _todoItemGateway;
+        private IEntitiesFactory _entitiesFactory;
 
         public Interactor(
             IOutputHandler<Output> outputHandler,
-            ITodoItemGateway todoItemGateway)
+            ITodoItemGateway todoItemGateway,
+            IEntitiesFactory entitiesFactory)
         {
             _outputHandler = outputHandler;
             _todoItemGateway = todoItemGateway;
+            _entitiesFactory = entitiesFactory;
         }
 
         public void Execute(Input input)
@@ -25,7 +28,7 @@ namespace TodoList.Core.UseCases.AddTodoItem
             if (string.IsNullOrWhiteSpace(input.Title))
                 throw new Exception("Title is null");
 
-            TodoItem todoItem = new TodoItem(input.Title);
+            TodoItem todoItem = _entitiesFactory.NewTodoItem(input.Title);
             _todoItemGateway.Add(todoItem);
 
             Output output = new Output(todoItem.Id);
