@@ -12,6 +12,8 @@ namespace TodoList.ConsoleApp
         {
             Startup startup = new Startup();
 
+            Console.WriteLine("Use:\n\tadd [title]\n\tfinish [id]\n\tlist\n\tupdate [id] [title]\n\texit");
+
             while (true)
             {
                 string command = Console.ReadLine();
@@ -31,6 +33,9 @@ namespace TodoList.ConsoleApp
 
                 if (string.Compare(input[0], "update", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.UpdateTodoItem(input);
+
+                if (string.Compare(input[0], "exit", StringComparison.CurrentCultureIgnoreCase) == 0)
+                    break;
             }
         }
     }
@@ -50,16 +55,27 @@ namespace TodoList.ConsoleApp
 
         public void UpdateTodoItem(string[] args)
         {
+            if (args.Length != 3)
+                return;
+
+            Guid id;
+
+            if (!Guid.TryParse(args[1], out id))
+                return;
+
             var updateTodoItem = new Core.UseCases.UpdateTitle.Interactor(
                 gateway
             );
 
-            var input = new Core.UseCases.UpdateTitle.Input(new Guid(args[1]), args[2]);
+            var input = new Core.UseCases.UpdateTitle.Input(id, args[2]);
             updateTodoItem.Execute(input);
         }
 
         public void ListTodoItem(string[] args)
         {
+            if (args.Length != 1)
+                return;
+
             var list = new Core.UseCases.ListTodoItems.Interactor(
                 outputHandler,
                 gateway
@@ -70,6 +86,9 @@ namespace TodoList.ConsoleApp
 
         public void FinishTodoItem(string[] args)
         {
+            if (args.Length != 2)
+                return;
+
             IUseCase<Guid> finish = new Core.UseCases.FinishTodoItem.Interactor(
                 gateway
             );
@@ -79,6 +98,9 @@ namespace TodoList.ConsoleApp
 
         public void AddTodoItem(string[] args)
         {
+            if (args.Length != 2)
+                return;
+
             IUseCase<Core.UseCases.AddTodoItem.Input> addTodoItem = new Core.UseCases.AddTodoItem.Interactor(
                 outputHandler,
                 gateway
@@ -101,7 +123,7 @@ namespace TodoList.ConsoleApp
             public void Handle(Core.UseCases.ListTodoItems.Output output)
             {
                 foreach (var item in output.Items)
-                    Console.WriteLine($"Item {item.Id} - {item.Title}.");
+                    Console.WriteLine($"{item.Id} - {item.Title}.");
             }
         }
 }
