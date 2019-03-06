@@ -2,8 +2,8 @@ namespace TodoList.ConsoleApp
 {
     using System;
     using TodoList.Core.Entities;
-    using TodoList.Core.Gateways;
     using TodoList.Core.Gateways.InMemory;
+    using TodoList.Core.Gateways;
 
     public class Program
     {

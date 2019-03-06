@@ -1,20 +1,20 @@
 namespace TodoList.ConsoleApp
 {
     using System;
+    using TodoList.Core.UseCases.AddTodoItem;
+    using TodoList.Core.UseCases.ListTodoItems;
     using TodoList.Core.UseCases;
 
-    public sealed class Presenter: 
-        IOutputHandler<Core.UseCases.AddTodoItem.AddTodoItemResponse>,
-        IOutputHandler<Core.UseCases.ListTodoItems.ListTodoItemsResponse>
+    public sealed class Presenter : IOutputHandler<AddTodoItemResponse>, IOutputHandler<ListTodoItemsResponse>
     {
-        public void Handle(Core.UseCases.AddTodoItem.AddTodoItemResponse output)
+        public void Handle(AddTodoItemResponse response)
         {
-            Console.WriteLine($"Added {output.Id}.");
+            Console.WriteLine($"Added {response.Id}.");
         }
 
-        public void Handle(Core.UseCases.ListTodoItems.ListTodoItemsResponse output)
+        public void Handle(ListTodoItemsResponse response)
         {
-            foreach (var item in output.Items)
+            foreach (var item in response.Items)
                 Console.WriteLine($"{item.Id} - {item.Title}.");
         }
     }

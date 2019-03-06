@@ -12,6 +12,12 @@ dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 
 ```
 dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj"
+Usage:
+        add [title]
+        finish [id]
+        list
+        update [id] [title]
+        exit
 ```
 
 ## :checkered_flag: Developer Environment

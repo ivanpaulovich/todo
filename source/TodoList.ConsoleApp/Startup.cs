@@ -1,15 +1,15 @@
 namespace TodoList.ConsoleApp
 {
     using System;
+    using TodoList.Core.Entities;
     using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
-    using TodoList.Core.UseCases;
-    using TodoList.Core;
-    using TodoList.Core.Entities;
     using TodoList.Core.UseCases.AddTodoItem;
     using TodoList.Core.UseCases.UpdateTitle;
+    using TodoList.Core.UseCases;
+    using TodoList.Core;
 
-    public sealed class Startup 
+    public sealed class Startup
     {
         private IUseCase<AddTodoItemRequest> _addTodoItem;
         private IUseCase<Guid> _finishTodoItem;

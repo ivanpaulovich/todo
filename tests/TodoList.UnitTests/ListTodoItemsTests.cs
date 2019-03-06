@@ -15,7 +15,7 @@ namespace TodoList.UnitTests
             var gateway = new TodoItemGateway(context);
             var outputHandler = new OutputHandler();
             var list = new Interactor(outputHandler, gateway);
-            list.Execute(new Input());
+            list.Execute();
         }
     }
 }
