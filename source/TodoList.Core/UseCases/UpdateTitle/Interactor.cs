@@ -4,7 +4,7 @@ namespace TodoList.Core.UseCases.UpdateTitle
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
 
-    public sealed class Interactor : IUseCase<Input>
+    public sealed class Interactor : IUseCase<UpdateTitleRequest>
     {
         private ITodoItemGateway _todoItemGateway;
 
@@ -14,7 +14,7 @@ namespace TodoList.Core.UseCases.UpdateTitle
             _todoItemGateway = todoItemGateway;
         }
 
-        public void Execute(Input input)
+        public void Execute(UpdateTitleRequest input)
         {
             if (input == null)
                 throw new Exception("Input is null");

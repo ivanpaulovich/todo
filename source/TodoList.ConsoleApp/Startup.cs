@@ -6,19 +6,21 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using TodoList.Core.Entities;
+    using TodoList.Core.UseCases.AddTodoItem;
+    using TodoList.Core.UseCases.UpdateTitle;
 
     public sealed class Startup 
     {
-        private IUseCase<Core.UseCases.AddTodoItem.Input> _addTodoItem;
+        private IUseCase<AddTodoItemRequest> _addTodoItem;
         private IUseCase<Guid> _finishTodoItem;
-        private IUseCase<Core.UseCases.ListTodoItems.Input> _listTodoItems;
-        private IUseCase<Core.UseCases.UpdateTitle.Input> _updateTitle;
+        private IUseCase _listTodoItems;
+        private IUseCase<UpdateTitleRequest> _updateTitle;
 
         public Startup(
-            IUseCase<Core.UseCases.AddTodoItem.Input> addTodoItem,
+            IUseCase<AddTodoItemRequest> addTodoItem,
             IUseCase<Guid> finishTodoItem,
-            IUseCase<Core.UseCases.ListTodoItems.Input> listTodoItems,
-            IUseCase<Core.UseCases.UpdateTitle.Input> updateTitle)
+            IUseCase listTodoItems,
+            IUseCase<UpdateTitleRequest> updateTitle)
         {
             _addTodoItem = addTodoItem;
             _finishTodoItem = finishTodoItem;
@@ -36,7 +38,7 @@ namespace TodoList.ConsoleApp
             if (!Guid.TryParse(args[1], out id))
                 return;
 
-            var input = new Core.UseCases.UpdateTitle.Input(id, args[2]);
+            var input = new UpdateTitleRequest(id, args[2]);
             _updateTitle.Execute(input);
         }
 
@@ -45,7 +47,7 @@ namespace TodoList.ConsoleApp
             if (args.Length != 1)
                 return;
 
-            _listTodoItems.Execute(new Core.UseCases.ListTodoItems.Input());
+            _listTodoItems.Execute();
         }
 
         public void FinishTodoItem(string[] args)
@@ -61,7 +63,7 @@ namespace TodoList.ConsoleApp
             if (args.Length != 2)
                 return;
 
-            var input = new Core.UseCases.AddTodoItem.Input(args[1]);
+            var input = new AddTodoItemRequest(args[1]);
             _addTodoItem.Execute(input);
         }
     }

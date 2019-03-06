@@ -2,11 +2,11 @@ namespace TodoList.Core.UseCases.AddTodoItem
 {
     using System;
 
-    public sealed class Output
+    public sealed class AddTodoItemResponse
     {
         public Guid Id { get; }
 
-        public Output(Guid id)
+        public AddTodoItemResponse(Guid id)
         {
             Id = id;
         }

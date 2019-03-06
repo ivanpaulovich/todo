@@ -1,10 +1,10 @@
 namespace TodoList.Core.UseCases.AddTodoItem
 {
-    public sealed class Input
+    public sealed class AddTodoItemRequest
     {
         public string Title { get; }
 
-        public Input(string title)
+        public AddTodoItemRequest(string title)
         {
             Title = title;
         }

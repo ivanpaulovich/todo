@@ -3,29 +3,29 @@ namespace TodoList.Core.UseCases.ListTodoItems
     using System.Collections.Generic;
     using TodoList.Core.Gateways;
 
-    public sealed class Interactor : IUseCase<Input>
+    public sealed class Interactor : IUseCase
     {
-        private IOutputHandler<Output> _outputHandler;
+        private IOutputHandler<ListTodoItemsResponse> _outputHandler;
         private ITodoItemGateway _todoItemGateway;
 
         public Interactor(
-            IOutputHandler<Output> outputHandler,
+            IOutputHandler<ListTodoItemsResponse> outputHandler,
             ITodoItemGateway todoItemGateway)
         {
             _outputHandler = outputHandler;
             _todoItemGateway = todoItemGateway;
         }
 
-        public void Execute(Input input)
+        public void Execute()
         {
             var todoItems = _todoItemGateway.List();
-            Output output = CreateOutput(todoItems);
+            ListTodoItemsResponse output = CreateOutput(todoItems);
             _outputHandler.Handle(output);
         }
 
-        private Output CreateOutput(IList<Entities.TodoItem> todoItems)
+        private ListTodoItemsResponse CreateOutput(IList<Entities.TodoItem> todoItems)
         {
-            OutputBuilder output = new OutputBuilder();
+            ResponseBuilder output = new ResponseBuilder();
             foreach (var item in todoItems)
                 output.WithItem(item.Id, item.Title);
 

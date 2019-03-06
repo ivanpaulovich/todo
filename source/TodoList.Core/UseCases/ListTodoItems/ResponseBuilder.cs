@@ -3,24 +3,24 @@ namespace TodoList.Core.UseCases.ListTodoItems
     using System.Collections.Generic;
     using System;
 
-    public sealed class OutputBuilder
+    public sealed class ResponseBuilder
     {
         private IList<TodoItem> _todoItems;
 
-        public OutputBuilder()
+        public ResponseBuilder()
         {
             _todoItems = new List<TodoItem>();
         }
 
-        public OutputBuilder WithItem(Guid todoItemId, string title)
+        public ResponseBuilder WithItem(Guid todoItemId, string title)
         {
             _todoItems.Add(new TodoItem(todoItemId, title));
             return this;
         }
 
-        public Output Build()
+        public ListTodoItemsResponse Build()
         {
-            var output = new Output(_todoItems);
+            var output = new ListTodoItemsResponse(_todoItems);
             return output;
         }
     }

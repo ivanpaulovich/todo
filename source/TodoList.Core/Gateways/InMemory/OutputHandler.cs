@@ -7,24 +7,24 @@ namespace TodoList.Core.Gateways.InMemory
     using TodoList.Core.UseCases.ListTodoItems;
 
     public sealed class OutputHandler :
-        IOutputHandler<Core.UseCases.AddTodoItem.Output>,
-        IOutputHandler<Core.UseCases.ListTodoItems.Output>
+        IOutputHandler<Core.UseCases.AddTodoItem.AddTodoItemResponse>,
+        IOutputHandler<Core.UseCases.ListTodoItems.ListTodoItemsResponse>
     {
-        public Collection<Core.UseCases.AddTodoItem.Output> AddTodoItems { get; }
-        public Collection<Core.UseCases.ListTodoItems.Output> ListTodoItems { get; }
+        public Collection<Core.UseCases.AddTodoItem.AddTodoItemResponse> AddTodoItems { get; }
+        public Collection<Core.UseCases.ListTodoItems.ListTodoItemsResponse> ListTodoItems { get; }
 
         public OutputHandler()
         {
-            AddTodoItems = new Collection<Core.UseCases.AddTodoItem.Output>();
-            ListTodoItems = new Collection<Core.UseCases.ListTodoItems.Output>();
+            AddTodoItems = new Collection<Core.UseCases.AddTodoItem.AddTodoItemResponse>();
+            ListTodoItems = new Collection<Core.UseCases.ListTodoItems.ListTodoItemsResponse>();
         }
 
-        public void Handle(Core.UseCases.AddTodoItem.Output output)
+        public void Handle(Core.UseCases.AddTodoItem.AddTodoItemResponse output)
         {
             AddTodoItems.Add(output);
         }
 
-        public void Handle(UseCases.ListTodoItems.Output output)
+        public void Handle(UseCases.ListTodoItems.ListTodoItemsResponse output)
         {
             ListTodoItems.Add(output);
         }

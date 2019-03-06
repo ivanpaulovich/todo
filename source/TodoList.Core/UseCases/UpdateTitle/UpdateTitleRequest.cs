@@ -2,9 +2,9 @@ namespace TodoList.Core.UseCases.UpdateTitle
 {
     using System;
 
-    public sealed class Input
+    public sealed class UpdateTitleRequest
     {
-        public Input(Guid todoItemId, string title)
+        public UpdateTitleRequest(Guid todoItemId, string title)
         {
             TodoItemId = todoItemId;
             Title = title;

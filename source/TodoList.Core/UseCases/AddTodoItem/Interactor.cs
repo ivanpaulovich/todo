@@ -4,14 +4,14 @@ namespace TodoList.Core.UseCases.AddTodoItem
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
 
-    public sealed class Interactor : IUseCase<Input>
+    public sealed class Interactor : IUseCase<AddTodoItemRequest>
     {
-        private IOutputHandler<Output> _outputHandler;
+        private IOutputHandler<AddTodoItemResponse> _outputHandler;
         private ITodoItemGateway _todoItemGateway;
         private IEntitiesFactory _entitiesFactory;
 
         public Interactor(
-            IOutputHandler<Output> outputHandler,
+            IOutputHandler<AddTodoItemResponse> outputHandler,
             ITodoItemGateway todoItemGateway,
             IEntitiesFactory entitiesFactory)
         {
@@ -20,7 +20,7 @@ namespace TodoList.Core.UseCases.AddTodoItem
             _entitiesFactory = entitiesFactory;
         }
 
-        public void Execute(Input input)
+        public void Execute(AddTodoItemRequest input)
         {
             if (input == null)
                 throw new Exception("Input is null");
@@ -31,7 +31,7 @@ namespace TodoList.Core.UseCases.AddTodoItem
             TodoItem todoItem = _entitiesFactory.NewTodoItem(input.Title);
             _todoItemGateway.Add(todoItem);
 
-            Output output = new Output(todoItem.Id);
+            AddTodoItemResponse output = new AddTodoItemResponse(todoItem.Id);
             _outputHandler.Handle(output);
         }
     }

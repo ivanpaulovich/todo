@@ -4,4 +4,9 @@ namespace TodoList.Core.UseCases
     {
         void Execute(TInput input);
     }
+
+    public interface IUseCase
+    {
+        void Execute();
+    }
 }
