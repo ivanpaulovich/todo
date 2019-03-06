@@ -13,7 +13,13 @@ namespace TodoList.ConsoleApp
             ITodoItemGateway gateway = new TodoItemGateway(inMemoryContext);
             EntitiesFactory entitiesFactory = new EntitiesFactory();
             Presenter presenter = new Presenter();
-            Startup startup = new Startup(gateway, entitiesFactory, presenter);
+
+            var update = new Core.UseCases.UpdateTitle.Interactor(gateway);
+            var list = new Core.UseCases.ListTodoItems.Interactor(presenter, gateway);
+            var finish = new Core.UseCases.FinishTodoItem.Interactor(gateway);
+            var add = new Core.UseCases.AddTodoItem.Interactor(presenter, gateway, entitiesFactory);
+
+            Startup startup = new Startup(add, finish, list, update);
 
             Console.WriteLine("Usage:\n\tadd [title]\n\tfinish [id]\n\tlist\n\tupdate [id] [title]\n\texit");
 

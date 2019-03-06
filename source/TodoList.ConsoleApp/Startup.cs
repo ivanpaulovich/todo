@@ -9,18 +9,21 @@ namespace TodoList.ConsoleApp
 
     public sealed class Startup 
     {
-        private ITodoItemGateway _gateway;
-        private IEntitiesFactory _entitiesFactory;
-        private Presenter _presenter;
+        private IUseCase<Core.UseCases.AddTodoItem.Input> _addTodoItem;
+        private IUseCase<Guid> _finishTodoItem;
+        private IUseCase<Core.UseCases.ListTodoItems.Input> _listTodoItems;
+        private IUseCase<Core.UseCases.UpdateTitle.Input> _updateTitle;
 
         public Startup(
-            ITodoItemGateway gateway,
-            IEntitiesFactory entitiesFactory,
-            Presenter presenter)
+            IUseCase<Core.UseCases.AddTodoItem.Input> addTodoItem,
+            IUseCase<Guid> finishTodoItem,
+            IUseCase<Core.UseCases.ListTodoItems.Input> listTodoItems,
+            IUseCase<Core.UseCases.UpdateTitle.Input> updateTitle)
         {
-            _gateway = gateway;
-            _entitiesFactory = entitiesFactory;
-            _presenter = presenter;
+            _addTodoItem = addTodoItem;
+            _finishTodoItem = finishTodoItem;
+            _listTodoItems = listTodoItems;
+            _updateTitle = updateTitle;
         }
 
         public void UpdateTodoItem(string[] args)
@@ -33,12 +36,8 @@ namespace TodoList.ConsoleApp
             if (!Guid.TryParse(args[1], out id))
                 return;
 
-            var updateTodoItem = new Core.UseCases.UpdateTitle.Interactor(
-                _gateway
-            );
-
             var input = new Core.UseCases.UpdateTitle.Input(id, args[2]);
-            updateTodoItem.Execute(input);
+            _updateTitle.Execute(input);
         }
 
         public void ListTodoItem(string[] args)
@@ -46,12 +45,7 @@ namespace TodoList.ConsoleApp
             if (args.Length != 1)
                 return;
 
-            var list = new Core.UseCases.ListTodoItems.Interactor(
-                _presenter,
-                _gateway
-            );
-
-            list.Execute(new Core.UseCases.ListTodoItems.Input());
+            _listTodoItems.Execute(new Core.UseCases.ListTodoItems.Input());
         }
 
         public void FinishTodoItem(string[] args)
@@ -59,11 +53,7 @@ namespace TodoList.ConsoleApp
             if (args.Length != 2)
                 return;
 
-            IUseCase<Guid> finish = new Core.UseCases.FinishTodoItem.Interactor(
-                _gateway
-            );
-
-            finish.Execute(new Guid(args[1]));
+            _finishTodoItem.Execute(new Guid(args[1]));
         }
 
         public void AddTodoItem(string[] args)
@@ -71,14 +61,8 @@ namespace TodoList.ConsoleApp
             if (args.Length != 2)
                 return;
 
-            IUseCase<Core.UseCases.AddTodoItem.Input> addTodoItem = new Core.UseCases.AddTodoItem.Interactor(
-                _presenter,
-                _gateway,
-                _entitiesFactory
-            );
-
             var input = new Core.UseCases.AddTodoItem.Input(args[1]);
-            addTodoItem.Execute(input);
+            _addTodoItem.Execute(input);
         }
     }
 }
