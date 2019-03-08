@@ -5,62 +5,62 @@ namespace TodoList.UnitTests
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
-    using TodoList.Core.UseCases.AddTodoItem;
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using Xunit;
+    using TodoList.Core.Boundaries.AddTodoItem;
 
     public sealed class AddTodoItemTests
     {
         [Fact]
         public void GivenNullInput_ThrowsException()
         {
-            var addTodoItem = new Interactor(null, null, null);
+            var addTodoItem = new AddTodoItem(null, null, null);
             Assert.Throws<Exception>(() => addTodoItem.Execute(null));
         }
 
-        [Fact]
+        [Fact] 
         public void GivenNullTitle_ThrowsException()
         {
-            var input = new Core.UseCases.AddTodoItem.AddTodoItemRequest(null);
-            var addTodoItem = new Interactor(null, null, null);
-            Assert.Throws<Exception>(() => addTodoItem.Execute(input));
+            var request = new Core.Boundaries.AddTodoItem.Request(null);
+            var addTodoItem = new AddTodoItem(null, null, null);
+            Assert.Throws<Exception>(() => addTodoItem.Execute(request));
         }
 
         [Fact]
         public void GivenEmptyTitle_ThrowsException()
         {
-            var input = new Core.UseCases.AddTodoItem.AddTodoItemRequest(string.Empty);
-            var addTodoItem = new Interactor(null, null, null);
-            Assert.Throws<Exception>(() => addTodoItem.Execute(input));
+            var request = new Request(string.Empty);
+            var addTodoItem = new AddTodoItem(null, null, null);
+            Assert.Throws<Exception>(() => addTodoItem.Execute(request));
         }
 
         [Fact]
         public void GivenNotNullTitle_InvokeOutputHandler()
         {
-            var context = new DBContext();
+            var context = new InMemoryContext();
             var gateway = new TodoItemGateway(context);
-            var outputHandler = new OutputHandler();
+            var responseHandler = new ResponseHandler();
             var entitiesFactory = new EntitiesFactory();
 
-            var input = new AddTodoItemRequest("My Title");
-            var addTodoItem = new Interactor(outputHandler, gateway, entitiesFactory);
-            addTodoItem.Execute(input);
-            Assert.Single(outputHandler.AddTodoItems);
+            var request = new Request("My Title");
+            var addTodoItem = new AddTodoItem(responseHandler, gateway, entitiesFactory);
+            addTodoItem.Execute(request);
+            Assert.Single(responseHandler.AddTodoItems);
         }
 
         [Fact]
         public void GivenNotNullTitle_ReturnsId()
         {
-            var context = new DBContext();
+            var context = new InMemoryContext();
             var gateway = new TodoItemGateway(context);
-            var outputHandler = new OutputHandler();
+            var responseHandler = new ResponseHandler();
             var entitiesFactory = new EntitiesFactory();
 
-            var input = new AddTodoItemRequest("My Title");
-            var addTodoItem = new Interactor(outputHandler, gateway, entitiesFactory);
-            addTodoItem.Execute(input);
-            Assert.True(Guid.Empty != outputHandler.AddTodoItems[0].Id);
+            var request = new Request("My Title");
+            var addTodoItem = new AddTodoItem(responseHandler, gateway, entitiesFactory);
+            addTodoItem.Execute(request);
+            Assert.True(Guid.Empty != responseHandler.AddTodoItems[0].Id);
         }
     }
 }

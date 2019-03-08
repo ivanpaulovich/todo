@@ -4,50 +4,50 @@ namespace TodoList.UnitTests
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
-    using TodoList.Core.UseCases.UpdateTitle;
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using Xunit;
+    using TodoList.Core.Boundaries.UpdateTitle;
 
     public sealed class UpdateTitleTests
     {
         [Fact]
         public void GivenNullInput_ThrowsException()
         {
-            var updatedTitle = new Interactor(null);
+            var updatedTitle = new UpdateTitle(null);
             Assert.Throws<Exception>(() => updatedTitle.Execute(null));
         }
 
         [Fact]
         public void GivenNullTitle_ThrowsException()
         {
-            var input = new UpdateTitleRequest(Guid.Empty, null);
-            var updatedTitle = new Interactor(null);
-            Assert.Throws<Exception>(() => updatedTitle.Execute(input));
+            var request = new Request(Guid.Empty, null);
+            var updatedTitle = new UpdateTitle(null);
+            Assert.Throws<Exception>(() => updatedTitle.Execute(request));
         }
 
         [Fact]
         public void GivenEmptyTitle_ThrowsException()
         {
-            var input = new UpdateTitleRequest(Guid.Empty, string.Empty);
-            var updatedTitle = new Interactor(null);
-            Assert.Throws<Exception>(() => updatedTitle.Execute(input));
+            var request = new Request(Guid.Empty, string.Empty);
+            var updatedTitle = new UpdateTitle(null);
+            Assert.Throws<Exception>(() => updatedTitle.Execute(request));
         }
 
         [Fact]
         public void GivenTodoItem_TitleChanged()
         {
-            var context = new DBContext();
+            var context = new InMemoryContext();
             var gateway = new TodoItemGateway(context);
-            var outputHandler = new OutputHandler();
+            var responseHandler = new ResponseHandler();
             var entitiesFactory = new EntitiesFactory();
 
-            var addTodoItem = new Core.UseCases.AddTodoItem.Interactor(outputHandler, gateway, entitiesFactory);
-            addTodoItem.Execute(new Core.UseCases.AddTodoItem.AddTodoItemRequest("My Title"));
+            var addTodoItem = new Core.UseCases.AddTodoItem(responseHandler, gateway, entitiesFactory);
+            addTodoItem.Execute(new Core.Boundaries.AddTodoItem.Request("My Title"));
 
-            var input = new UpdateTitleRequest(outputHandler.AddTodoItems[0].Id, "New Title");
-            var updatedTitle = new Interactor(gateway);
-            Exception ex = Record.Exception(() => updatedTitle.Execute(input));
+            var request = new Request(responseHandler.AddTodoItems[0].Id, "New Title");
+            var updatedTitle = new UpdateTitle(gateway);
+            Exception ex = Record.Exception(() => updatedTitle.Execute(request));
             Assert.Null(ex);
         }
     }

@@ -8,9 +8,9 @@ namespace TodoList.Core.Gateways.InMemory
 
     public sealed class TodoItemGateway : ITodoItemGateway
     {
-        private readonly DBContext _context;
+        private readonly InMemoryContext _context;
 
-        public TodoItemGateway(DBContext context)
+        public TodoItemGateway(InMemoryContext context)
         {
             _context = context;
         }

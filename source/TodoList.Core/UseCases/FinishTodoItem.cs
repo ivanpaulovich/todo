@@ -1,14 +1,15 @@
-namespace TodoList.Core.UseCases.FinishTodoItem
+namespace TodoList.Core.UseCases
 {
     using System;
+    using TodoList.Core.Boundaries.FinishTodoItem;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
 
-    public sealed class Interactor : IUseCase<Guid>
+    public sealed class FinishTodoItem : IUseCase
     {
         private ITodoItemGateway _todoItemGateway;
 
-        public Interactor(
+        public FinishTodoItem(
             ITodoItemGateway todoItemGateway)
         {
             _todoItemGateway = todoItemGateway;

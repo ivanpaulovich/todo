@@ -1,14 +1,15 @@
-namespace TodoList.Core.UseCases.UpdateTitle
+namespace TodoList.Core.Boundaries.UpdateTitle
 {
     using System;
 
-    public sealed class UpdateTitleRequest
+    public sealed class Request : IRequest
     {
-        public UpdateTitleRequest(Guid todoItemId, string title)
+        public Request(Guid todoItemId, string title)
         {
             TodoItemId = todoItemId;
             Title = title;
         }
+        
         public Guid TodoItemId { get; }
         public string Title { get; }
     }

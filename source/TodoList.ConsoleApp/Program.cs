@@ -9,15 +9,15 @@ namespace TodoList.ConsoleApp
     {
         static void Main(string[] args)
         {
-            DBContext inMemoryContext = new DBContext();
+            InMemoryContext inMemoryContext = new InMemoryContext();
             ITodoItemGateway gateway = new TodoItemGateway(inMemoryContext);
             EntitiesFactory entitiesFactory = new EntitiesFactory();
             Presenter presenter = new Presenter();
 
-            var update = new Core.UseCases.UpdateTitle.Interactor(gateway);
-            var list = new Core.UseCases.ListTodoItems.Interactor(presenter, gateway);
-            var finish = new Core.UseCases.FinishTodoItem.Interactor(gateway);
-            var add = new Core.UseCases.AddTodoItem.Interactor(presenter, gateway, entitiesFactory);
+            var update = new Core.UseCases.UpdateTitle(gateway);
+            var list = new Core.UseCases.ListTodoItems(presenter, gateway);
+            var finish = new Core.UseCases.FinishTodoItem(gateway);
+            var add = new Core.UseCases.AddTodoItem(presenter, gateway, entitiesFactory);
 
             Startup startup = new Startup(add, finish, list, update);
 

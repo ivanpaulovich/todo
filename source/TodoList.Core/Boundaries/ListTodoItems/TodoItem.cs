@@ -1,4 +1,4 @@
-namespace TodoList.Core.UseCases.ListTodoItems
+namespace TodoList.Core.Boundaries.ListTodoItems
 {
     using System;
 

@@ -1,22 +1,18 @@
 using System.Collections.ObjectModel;
+using TodoList.Core.Boundaries;
 using TodoList.Core.UseCases;
-using TodoList.Core.UseCases.AddTodoItem;
-using TodoList.Core.UseCases.ListTodoItems;
 using TodoList.WebApi.Models;
 
 namespace TodoList.WebApi.Controllers
 {
-    public sealed class Presenter : IOutputHandler<AddTodoItemResponse>, IOutputHandler<ListTodoItemsResponse>
+    public sealed class Presenter : 
+        IResponseHandler<Core.Boundaries.AddTodoItem.Response>, 
+        IResponseHandler<Core.Boundaries.ListTodoItems.Response>
     {
-        public Collection<TodoItemViewModel> ListItems { get; set; }
-        public TodoItemViewModel CreatedItem { get; set; }
+        public Collection<TodoItemViewModel> ListItems { get; private set; }
+        public TodoItemViewModel CreatedItem { get; private set; }
 
-        public Presenter()
-        {
-
-        }
-
-        public void Handle(AddTodoItemResponse response)
+        public void Handle(Core.Boundaries.AddTodoItem.Response response)
         {
             CreatedItem = new TodoItemViewModel()
             { 
@@ -24,7 +20,7 @@ namespace TodoList.WebApi.Controllers
             };
         }
 
-        public void Handle(ListTodoItemsResponse response)
+        public void Handle(Core.Boundaries.ListTodoItems.Response response)
         {
             ListItems = new Collection<TodoItemViewModel>();
             foreach (var item in response.Items)

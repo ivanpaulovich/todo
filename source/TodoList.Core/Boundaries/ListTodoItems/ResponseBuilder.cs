@@ -1,4 +1,4 @@
-namespace TodoList.Core.UseCases.ListTodoItems
+namespace TodoList.Core.Boundaries.ListTodoItems
 {
     using System.Collections.Generic;
     using System;
@@ -18,9 +18,9 @@ namespace TodoList.Core.UseCases.ListTodoItems
             return this;
         }
 
-        public ListTodoItemsResponse Build()
+        public Response Build()
         {
-            var output = new ListTodoItemsResponse(_todoItems);
+            var output = new Response(_todoItems);
             return output;
         }
     }

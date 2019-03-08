@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TodoList.Core.Entities;
+using TodoList.Core.Gateways.InMemory;
+using TodoList.Core.Gateways;
 using TodoList.Core.UseCases;
-using TodoList.Core.UseCases.AddTodoItem;
-using TodoList.Core.UseCases.ListTodoItems;
-using TodoList.Core.UseCases.UpdateTitle;
+using TodoList.Core;
+using TodoList.Core.Boundaries;
 using TodoList.WebApi.Models;
 
 namespace TodoList.WebApi.Controllers
@@ -16,19 +18,18 @@ namespace TodoList.WebApi.Controllers
     [ApiController]
     public class TodoItemsController : ControllerBase
     {
-        private IUseCase<AddTodoItemRequest> _addTodoItem;
-        private IUseCase<Guid> _finishTodoItem;
-        private IUseCase _listTodoItems;
-        private IUseCase<UpdateTitleRequest> _updateTitle;
+        private IUseCase<Core.Boundaries.AddTodoItem.Request> _addTodoItem;
+        private Core.Boundaries.FinishTodoItem.IUseCase _finishTodoItem;
+        private Core.Boundaries.ListTodoItems.IUseCase _listTodoItems;
+        private IUseCase<Core.Boundaries.UpdateTitle.Request> _updateTitle;
         private Presenter _presenter;
 
         public TodoItemsController(
-            IUseCase<AddTodoItemRequest> addTodoItem,
-            IUseCase<Guid> finishTodoItem,
-            IUseCase listTodoItems,
-            IUseCase<UpdateTitleRequest> updateTitle,
-            Presenter presenter
-        )
+            IUseCase<Core.Boundaries.AddTodoItem.Request>  addTodoItem,
+            Core.Boundaries.FinishTodoItem.IUseCase finishTodoItem,
+            Core.Boundaries.ListTodoItems.IUseCase listTodoItems,
+            IUseCase<Core.Boundaries.UpdateTitle.Request> updateTitle,
+            Presenter presenter)
         {
             _addTodoItem = addTodoItem;
             _finishTodoItem = finishTodoItem;
@@ -49,7 +50,7 @@ namespace TodoList.WebApi.Controllers
         [HttpPost]
         public ActionResult<TodoItemViewModel> Post([FromBody] string value)
         {
-            AddTodoItemRequest request = new AddTodoItemRequest(value);
+            var request = new Core.Boundaries.AddTodoItem.Request(value);
             _addTodoItem.Execute(request);
             return CreatedAtAction(nameof(Post), new { id = _presenter.CreatedItem.Id }, _presenter.CreatedItem);
         }
@@ -58,7 +59,7 @@ namespace TodoList.WebApi.Controllers
         [HttpPut("{id}")]
         public void Put(Guid id, [FromBody] string value)
         {
-            UpdateTitleRequest request = new UpdateTitleRequest(id, value);
+            var request = new Core.Boundaries.UpdateTitle.Request(id, value);
             _updateTitle.Execute(request);
         }
 

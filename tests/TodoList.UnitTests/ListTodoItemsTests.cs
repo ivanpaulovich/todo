@@ -2,7 +2,6 @@ namespace TodoList.UnitTests
 {
     using System;
     using TodoList.Core.Gateways.InMemory;
-    using TodoList.Core.UseCases.ListTodoItems;
     using TodoList.Core.UseCases;
     using Xunit;
 
@@ -11,10 +10,10 @@ namespace TodoList.UnitTests
         [Fact]
         public void GivenNullContext_ThrowsException()
         {
-            var context = new DBContext();
+            var context = new InMemoryContext();
             var gateway = new TodoItemGateway(context);
-            var outputHandler = new OutputHandler();
-            var list = new Interactor(outputHandler, gateway);
+            var responseHandler = new ResponseHandler();
+            var list = new ListTodoItems(responseHandler, gateway);
             list.Execute();
         }
     }

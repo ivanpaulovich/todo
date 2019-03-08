@@ -13,12 +13,15 @@ using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using TodoList.Core.Entities;
 using TodoList.Core.Gateways;
-using TodoList.Core.Gateways.InMemory;
 using TodoList.Core.UseCases;
-using TodoList.Core.UseCases.AddTodoItem;
-using TodoList.Core.UseCases.ListTodoItems;
-using TodoList.Core.UseCases.UpdateTitle;
+using TodoList.Core.Boundaries.AddTodoItem;
+using TodoList.Core.Boundaries.ListTodoItems;
+using TodoList.Core.Boundaries.UpdateTitle;
 using TodoList.WebApi.Controllers;
+using Microsoft.EntityFrameworkCore.SqlServer;
+using TodoList.Infrastructure.EntityFrameworkDataAccess;
+using Microsoft.EntityFrameworkCore;
+using TodoList.Core.Boundaries;
 
 namespace TodoList.WebApi
 {
@@ -35,23 +38,40 @@ namespace TodoList.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            AddSwagger(services);
+            AddTodoListCore(services);
+            
+        }
+
+        private void AddSQL(IServiceCollection services)
+        {
+            services.AddDbContext<TodoListContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
+            ));
+        }
+
+        private void AddSwagger(IServiceCollection services)
+        {
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
+        }
 
-            services.AddSingleton<DBContext, DBContext>();
+        private void AddTodoListCore(IServiceCollection services)
+        {
             services.AddScoped<ITodoItemGateway, TodoItemGateway>();
             services.AddScoped<IEntitiesFactory, EntitiesFactory>();
 
             services.AddScoped<Presenter, Presenter>();
-            services.AddScoped<IOutputHandler<AddTodoItemResponse>>(x => x.GetRequiredService<Presenter>());
-            services.AddScoped<IOutputHandler<ListTodoItemsResponse>>(x => x.GetRequiredService<Presenter>());
+            services.AddScoped<IResponseHandler<Core.Boundaries.AddTodoItem.Response>>(x => x.GetRequiredService<Presenter>());
+            services.AddScoped<IResponseHandler<Core.Boundaries.ListTodoItems.Response>>(x => x.GetRequiredService<Presenter>());
 
-            services.AddScoped<IUseCase<AddTodoItemRequest>, Core.UseCases.AddTodoItem.Interactor>();
-            services.AddScoped<IUseCase<Guid>, Core.UseCases.FinishTodoItem.Interactor>();
-            services.AddScoped<IUseCase, Core.UseCases.ListTodoItems.Interactor>();
-            services.AddScoped<IUseCase<UpdateTitleRequest>, Core.UseCases.UpdateTitle.Interactor>();
+            services.AddScoped<IUseCase<Core.Boundaries.AddTodoItem.Request>, AddTodoItem>();
+            services.AddScoped<Core.Boundaries.FinishTodoItem.IUseCase, Core.UseCases.FinishTodoItem>();
+            services.AddScoped<Core.Boundaries.ListTodoItems.IUseCase, Core.UseCases.ListTodoItems>();
+            services.AddScoped<IUseCase<Core.Boundaries.UpdateTitle.Request>, Core.UseCases.UpdateTitle>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +87,14 @@ namespace TodoList.WebApi
                 app.UseHsts();
             }
 
+            UseSwagger(app);
+
+            app.UseHttpsRedirection();
+            app.UseMvc();
+        }
+
+        private void UseSwagger(IApplicationBuilder app)
+        {
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
 
@@ -76,9 +104,6 @@ namespace TodoList.WebApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-
-            app.UseHttpsRedirection();
-            app.UseMvc();
         }
     }
 }

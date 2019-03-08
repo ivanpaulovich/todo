@@ -4,23 +4,22 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
-    using TodoList.Core.UseCases.AddTodoItem;
-    using TodoList.Core.UseCases.UpdateTitle;
     using TodoList.Core.UseCases;
     using TodoList.Core;
+    using TodoList.Core.Boundaries;
 
     public sealed class Startup
     {
-        private IUseCase<AddTodoItemRequest> _addTodoItem;
-        private IUseCase<Guid> _finishTodoItem;
-        private IUseCase _listTodoItems;
-        private IUseCase<UpdateTitleRequest> _updateTitle;
+        private IUseCase<Core.Boundaries.AddTodoItem.Request> _addTodoItem;
+        private TodoList.Core.Boundaries.FinishTodoItem.IUseCase _finishTodoItem;
+        private TodoList.Core.Boundaries.ListTodoItems.IUseCase _listTodoItems;
+        private IUseCase<Core.Boundaries.UpdateTitle.Request> _updateTitle;
 
         public Startup(
-            IUseCase<AddTodoItemRequest> addTodoItem,
-            IUseCase<Guid> finishTodoItem,
-            IUseCase listTodoItems,
-            IUseCase<UpdateTitleRequest> updateTitle)
+            IUseCase<Core.Boundaries.AddTodoItem.Request> addTodoItem,
+            TodoList.Core.Boundaries.FinishTodoItem.IUseCase finishTodoItem,
+            TodoList.Core.Boundaries.ListTodoItems.IUseCase listTodoItems,
+            IUseCase<TodoList.Core.Boundaries.UpdateTitle.Request> updateTitle)
         {
             _addTodoItem = addTodoItem;
             _finishTodoItem = finishTodoItem;
@@ -38,7 +37,7 @@ namespace TodoList.ConsoleApp
             if (!Guid.TryParse(args[1], out id))
                 return;
 
-            var input = new UpdateTitleRequest(id, args[2]);
+            var input = new TodoList.Core.Boundaries.UpdateTitle.Request(id, args[2]);
             _updateTitle.Execute(input);
         }
 
@@ -63,7 +62,7 @@ namespace TodoList.ConsoleApp
             if (args.Length != 2)
                 return;
 
-            var input = new AddTodoItemRequest(args[1]);
+            var input = new TodoList.Core.Boundaries.AddTodoItem.Request(args[1]);
             _addTodoItem.Execute(input);
         }
     }
