@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TodoList.Core.UseCases;
 using TodoList.Core.UseCases.AddTodoItem;
 using TodoList.Core.UseCases.ListTodoItems;
-using TodoList.Core.UseCases;
 using TodoList.Core.UseCases.UpdateTitle;
 using TodoList.WebApi.Models;
-using System.Collections.ObjectModel;
 
 namespace TodoList.WebApi.Controllers
 {
@@ -28,7 +28,7 @@ namespace TodoList.WebApi.Controllers
             IUseCase listTodoItems,
             IUseCase<UpdateTitleRequest> updateTitle,
             Presenter presenter
-            )
+        )
         {
             _addTodoItem = addTodoItem;
             _finishTodoItem = finishTodoItem;
@@ -48,7 +48,7 @@ namespace TodoList.WebApi.Controllers
         // POST api/values
         [HttpPost]
         public ActionResult<TodoItemViewModel> Post([FromBody] string value)
-        { 
+        {
             AddTodoItemRequest request = new AddTodoItemRequest(value);
             _addTodoItem.Execute(request);
             return CreatedAtAction(nameof(Post), new { id = _presenter.CreatedItem.Id }, _presenter.CreatedItem);
@@ -57,7 +57,7 @@ namespace TodoList.WebApi.Controllers
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(Guid id, [FromBody] string value)
-        { 
+        {
             UpdateTitleRequest request = new UpdateTitleRequest(id, value);
             _updateTitle.Execute(request);
         }
@@ -65,7 +65,7 @@ namespace TodoList.WebApi.Controllers
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(Guid id)
-        { 
+        {
             _finishTodoItem.Execute(id);
         }
     }

@@ -20,6 +20,32 @@ Usage:
         exit
 ```
 
+## :floppy_disk: [Optional] Running on SQL Server
+
+### Setup SQL Server in Docker
+
+Run `scripts/sql-docker-up.sh` to setup a SQL Server in a Docker container with the following Connection String:
+
+```
+Server=localhost;User Id=sa;Password=<YourNewStrong!Passw0rd>;
+```
+
+#### Update the Database
+
+Generate tables and seed the database via Entity Framework Tool:
+
+```sh
+dotnet ef database update --project source/TodoList.Infrastructure --startup-project source/TodoList.WebApi
+```
+
+#### Add Migration
+
+Run the EF Tool to add a migration to the `TodoList.Infrastructure` project.
+
+```sh
+dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migrations" --project source/TodoList.Infrastructure --startup-project source/TodoList.WebApi
+```
+
 ## :checkered_flag: Developer Environment
 
 * MacOS Sierra

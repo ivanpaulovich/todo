@@ -4,7 +4,8 @@ namespace TodoList.Core.Entities
     {
         public TodoItem NewTodoItem(string title)
         {
-            return new TodoItem(title);
+            var todoItem = new TodoItem(title);
+            return todoItem;
         }
     }
 }

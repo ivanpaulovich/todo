@@ -19,15 +19,15 @@ namespace TodoList.WebApi.Controllers
         public void Handle(AddTodoItemResponse response)
         {
             CreatedItem = new TodoItemViewModel()
-            {
-                Id = response.Id
+            { 
+                Id = response.Id
             };
         }
 
         public void Handle(ListTodoItemsResponse response)
         {
             ListItems = new Collection<TodoItemViewModel>();
-            foreach(var item in response.Items)
+            foreach (var item in response.Items)
                 ListItems.Add(new TodoItemViewModel() { Title = item.Title, Id = item.Id });
         }
     }

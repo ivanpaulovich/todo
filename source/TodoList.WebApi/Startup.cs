@@ -12,13 +12,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using TodoList.Core.Entities;
-using TodoList.Core.Gateways.InMemory;
 using TodoList.Core.Gateways;
+using TodoList.Core.Gateways.InMemory;
 using TodoList.Core.UseCases;
 using TodoList.Core.UseCases.AddTodoItem;
-using TodoList.WebApi.Controllers;
 using TodoList.Core.UseCases.ListTodoItems;
 using TodoList.Core.UseCases.UpdateTitle;
+using TodoList.WebApi.Controllers;
 
 namespace TodoList.WebApi
 {
@@ -39,7 +39,6 @@ namespace TodoList.WebApi
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
-
 
             services.AddSingleton<DBContext, DBContext>();
             services.AddScoped<ITodoItemGateway, TodoItemGateway>();
