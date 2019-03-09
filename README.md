@@ -44,6 +44,10 @@ Soon.
 
 Soon.
 
+## Frameworks and Drivers
+
+Soon.
+
 ## User Interface
 
 Soon.
@@ -52,21 +56,17 @@ Soon.
 
 Soon.
 
-## Frameworks and Drivers
-
-Soon.
-
-# :zap: Running
+## :zap: Running
 
 You can run the application uses cases from the `Tests`, `Console` or from the `Web API`.
 
-## Unit Tests
+### Unit Tests
 
 ```
 dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 ```
 
-## Console Demo with InMemory Persistence
+### Console Demo with InMemory Persistence
 
 ```
 dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj"
@@ -82,13 +82,13 @@ Usage:
         exit
 ```
 
-## Web API with InMemory Persistence
+### Web API with InMemory Persistence
 
 ```
 dotnet run --project "source/TodoList.WebApi/TodoList.WebApi.csproj"
 ```
 
-## Web API with SQL Server Persistence
+### Web API with SQL Server Persistence
 
 ```
 dotnet run --project --environment="production" "source/TodoList.WebApi/TodoList.WebApi.csproj"
