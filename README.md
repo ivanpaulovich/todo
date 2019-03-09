@@ -32,27 +32,37 @@ Soon.
 
 Soon.
 
-## The Dependency Rule
+## Implmentation Guide
+
+### The Dependency Rule
 
 Soon.
 
-## Entities
+### Entities
 
 Soon.
 
-## Use Cases
+### Use Cases
 
 Soon.
 
-## Frameworks and Drivers
+### Frameworks and Drivers
 
 Soon.
 
-## User Interface
+### User Interface
 
 Soon.
 
-### Presenter Objects
+#### Presenter Objects
+
+Soon.
+
+### The Stable Dependencies Principle
+
+Soon.
+
+### The Stable Abstractions Principle
 
 Soon.
 
