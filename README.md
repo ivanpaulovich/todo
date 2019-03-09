@@ -1,6 +1,6 @@
-# :cyclone: Clean Architecture Sample with .NET Core
+# :cyclone: Clean Architecture Sample with .NET Core [![Play with Docker](https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/ivanpaulovich/dotnet-clean-architecture/master/source/docker-compose.yml&stack_name=dotnet-clean-architecture)
 
-An example of the classic Clean Architecture from Uncle Bob.
+An implmentation example of the classic Clean Architecture based on Uncle Bob books.
 
 # :zap: Running Unit Tests
 
