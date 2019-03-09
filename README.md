@@ -32,6 +32,8 @@ Running the **Web API** which is configured to use SQL Server persistence.
 dotnet run --project "source/TodoList.WebApi/TodoList.WebApi.csproj"
 ```
 
+Then navigate to `https://localhost:5001/`.
+
 ## :floppy_disk: Running on SQL Server (Optional)
 
 ### Setup SQL Server in Docker
