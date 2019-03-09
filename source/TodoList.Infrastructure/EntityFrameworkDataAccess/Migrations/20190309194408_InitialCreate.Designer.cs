@@ -10,7 +10,7 @@ using TodoList.Infrastructure.EntityFrameworkDataAccess;
 namespace TodoList.Infrastructure.EntityFrameworkDataAccess.Migrations
 {
     [DbContext(typeof(TodoListContext))]
-    [Migration("20190309174342_InitialCreate")]
+    [Migration("20190309194408_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

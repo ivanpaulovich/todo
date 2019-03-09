@@ -2,25 +2,27 @@ namespace TodoList.Core.Entities
 {
     using System;
 
-    public class TodoItem
+    public class TodoItem : ITodoItem
     {
-        public virtual Guid Id { get; set; }
-        public virtual string Title { get; set; }
+        public virtual Guid Id { get; protected set; }
+        public virtual string Title { get; protected set; }
 
         public TodoItem()
         {
-
-        }
-        
-        public TodoItem(string title)
-        {
             Id = Guid.NewGuid();
+        }
+
+        public void UpdateTitle(string title)
+        {
             Title = title;
         }
 
-        internal void UpdateTitle(string title)
+        public static TodoItem Restore(Guid id, string title)
         {
-            Title = title;
+            TodoItem restoredTodoItem = new TodoItem();
+            restoredTodoItem.Id = id;
+            restoredTodoItem.Title = title;
+            return restoredTodoItem;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace TodoList.Core.UseCases
             if (string.IsNullOrWhiteSpace(request.Title))
                 throw new Exception("Title is null");
 
-            TodoItem todoItem = _todoItemGateway.Get(request.TodoItemId);
+            ITodoItem todoItem = _todoItemGateway.Get(request.TodoItemId);
             todoItem.UpdateTitle(request.Title);
             _todoItemGateway.Update(todoItem);
         }

@@ -15,37 +15,37 @@ namespace TodoList.Core.Gateways.InMemory
             _context = context;
         }
 
-        public void Add(TodoItem todoItem)
+        public void Add(ITodoItem todoItem)
         {
             _context.TodoItems.Add(todoItem);
         }
 
-        public void Delete(TodoItem todoItem)
+        public void Delete(ITodoItem todoItem)
         {
-            TodoItem todoItemOld = _context.TodoItems
+            ITodoItem todoItemOld = _context.TodoItems
                 .Where(e => e.Id == todoItem.Id)
                 .SingleOrDefault();
 
             _context.TodoItems.Remove(todoItemOld);
         }
 
-        public TodoItem Get(Guid todoItemId)
+        public ITodoItem Get(Guid todoItemId)
         {
-            TodoItem todoItem = _context.TodoItems
+            ITodoItem todoItem = _context.TodoItems
                 .Where(e => e.Id == todoItemId)
                 .SingleOrDefault();
 
             return todoItem;
         }
 
-        public IList<TodoItem> List()
+        public IList<ITodoItem> List()
         {
-            return _context.TodoItems;
+            return _context.TodoItems.ToList();
         }
 
-        public void Update(TodoItem todoItem)
+        public void Update(ITodoItem todoItem)
         {
-            TodoItem todoItemOld = _context.TodoItems
+            ITodoItem todoItemOld = _context.TodoItems
                 .Where(e => e.Id == todoItem.Id)
                 .SingleOrDefault();
 

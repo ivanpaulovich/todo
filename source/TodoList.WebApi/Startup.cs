@@ -6,22 +6,22 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
-using TodoList.Core.Entities;
-using TodoList.Core.Gateways;
-using TodoList.Core.UseCases;
+using TodoList.Core.Boundaries;
 using TodoList.Core.Boundaries.AddTodoItem;
 using TodoList.Core.Boundaries.ListTodoItems;
 using TodoList.Core.Boundaries.UpdateTitle;
-using TodoList.WebApi.Controllers;
-using Microsoft.EntityFrameworkCore.SqlServer;
+using TodoList.Core.Entities;
+using TodoList.Core.Gateways;
+using TodoList.Core.UseCases;
 using TodoList.Infrastructure.EntityFrameworkDataAccess;
-using Microsoft.EntityFrameworkCore;
-using TodoList.Core.Boundaries;
+using TodoList.WebApi.Controllers;
 
 namespace TodoList.WebApi
 {
@@ -38,7 +38,7 @@ namespace TodoList.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
+
             AddSwagger(services);
             AddSQL(services);
             AddTodoListCore(services);
@@ -47,8 +47,7 @@ namespace TodoList.WebApi
         private void AddSQL(IServiceCollection services)
         {
             services.AddDbContext<TodoListContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")
-            ));
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         private void AddSwagger(IServiceCollection services)

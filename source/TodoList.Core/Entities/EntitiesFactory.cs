@@ -2,10 +2,10 @@ namespace TodoList.Core.Entities
 {
     public sealed class EntitiesFactory : IEntitiesFactory
     {
-        public TodoItem NewTodoItem(string title)
+        public ITodoItem NewTodoItem(string title)
         {
             var todoItem = new TodoItem();
-            todoItem.Title = title;
+            todoItem.UpdateTitle(title);
             return todoItem;
         }
     }

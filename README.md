@@ -8,10 +8,16 @@ An example of the classic Clean Architecture from Uncle Bob.
 dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 ```
 
-# :zap: Running Console Demo
+# :zap: Running
+
+Running the Console Demo which is configured to use InMemory persistence.
 
 ```
 dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj"
+
+```
+
+```
 Usage:
         add [title]
         finish [id]
@@ -20,7 +26,13 @@ Usage:
         exit
 ```
 
-## :floppy_disk: [Optional] Running on SQL Server
+Running the Web API which is configured to use SQL Server persistence.
+
+```
+dotnet run --project "source/TodoList.WebApi/TodoList.WebApi.csproj"
+```
+
+## :floppy_disk: Running on SQL Server (Optional)
 
 ### Setup SQL Server in Docker
 
@@ -28,14 +40,6 @@ Run `scripts/sql-docker-up.sh` to setup a SQL Server in a Docker container with 
 
 ```
 Server=localhost;User Id=sa;Password=<YourNewStrong!Passw0rd>;
-```
-
-#### Update the Database
-
-Generate tables and seed the database via Entity Framework Tool:
-
-```sh
-dotnet ef database update --project source/TodoList.Infrastructure --startup-project source/TodoList.WebApi
 ```
 
 #### Add Migration
@@ -46,7 +50,15 @@ Run the EF Tool to add a migration to the `TodoList.Infrastructure` project.
 dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migrations" --project source/TodoList.Infrastructure --startup-project source/TodoList.WebApi
 ```
 
-## :checkered_flag: Developer Environment
+#### Update the Database
+
+Generate tables and seed the database via Entity Framework Tool:
+
+```sh
+dotnet ef database update --project source/TodoList.Infrastructure --startup-project source/TodoList.WebApi
+```
+
+## :checkered_flag: Development Environment
 
 * MacOS Sierra
 * VSCode :heart:
@@ -54,4 +66,4 @@ dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migration
 
 ## :telephone: Support and Issues
 
-Please open an issue and I am happy to answer. Give the project a :star: if you like the code.
+I am happy to answer issues. Give a :star: if you like the project.

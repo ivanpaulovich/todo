@@ -15,33 +15,33 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess
             _todoListContext = todoListContext;
         }
 
-        public void Add(TodoItem todoItem)
+        public void Add(ITodoItem todoItem)
         {
-            _todoListContext.TodoItems.Add (todoItem);
+            _todoListContext.TodoItems.Add ((TodoItem)todoItem);
             _todoListContext.SaveChanges ();
         }
 
-        public void Delete(TodoItem todoItem)
+        public void Delete(ITodoItem todoItem)
         {
-            _todoListContext.TodoItems.Remove (todoItem);
+            _todoListContext.TodoItems.Remove ((TodoItem)todoItem);
             _todoListContext.SaveChanges ();
         }
 
-        public TodoItem Get(Guid todoItemId)
+        public ITodoItem Get(Guid todoItemId)
         {
             TodoItem item = _todoListContext.TodoItems.Single (e => e.Id == todoItemId);
             return item;
         }
 
-        public IList<TodoItem> List()
+        public IList<ITodoItem> List()
         {
             var items = _todoListContext.TodoItems;
-            return items.ToList();
+            return items.Cast<ITodoItem>().ToList();
         }
 
-        public void Update(TodoItem todoItem)
+        public void Update(ITodoItem todoItem)
         {
-            _todoListContext.TodoItems.Update (todoItem);
+            _todoListContext.TodoItems.Update ((TodoItem)todoItem);
             _todoListContext.SaveChanges ();
         }
     }

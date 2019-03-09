@@ -17,7 +17,7 @@ namespace TodoList.Core.UseCases
 
         public void Execute(Guid todoItemId)
         {
-            TodoItem todoItem = _todoItemGateway.Get(todoItemId);
+            ITodoItem todoItem = _todoItemGateway.Get(todoItemId);
             _todoItemGateway.Delete(todoItem);
         }
     }

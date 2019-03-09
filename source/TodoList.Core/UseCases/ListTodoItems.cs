@@ -25,7 +25,7 @@ namespace TodoList.Core.UseCases
             _outputHandler.Handle(output);
         }
 
-        private Response BuildOutput(IList<Entities.TodoItem> todoItems)
+        private Response BuildOutput(IList<Entities.ITodoItem> todoItems)
         {
             ResponseBuilder builder = new ResponseBuilder();
             foreach (var item in todoItems)

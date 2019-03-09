@@ -6,10 +6,10 @@ namespace TodoList.Core.Gateways
 
     public interface ITodoItemGateway
     {
-        void Add(TodoItem todoItem);
-        void Delete(TodoItem todoItem);
-        void Update(TodoItem todoItem);
-        TodoItem Get(Guid todoItemId);
-        IList<TodoItem> List();
+        void Add(ITodoItem todoItem);
+        void Delete(ITodoItem todoItem);
+        void Update(ITodoItem todoItem);
+        ITodoItem Get(Guid todoItemId);
+        IList<ITodoItem> List();
     }
 }
