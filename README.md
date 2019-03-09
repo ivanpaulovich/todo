@@ -8,9 +8,9 @@ An example of the classic Clean Architecture from Uncle Bob.
 dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 ```
 
-# :zap: Running
+# :zap: Running Demos
 
-Running the Console Demo which is configured to use InMemory persistence.
+Running the **Console Demo** which is configured to use InMemory persistence.
 
 ```
 dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj"
@@ -26,7 +26,7 @@ Usage:
         exit
 ```
 
-Running the Web API which is configured to use SQL Server persistence.
+Running the **Web API** which is configured to use SQL Server persistence.
 
 ```
 dotnet run --project "source/TodoList.WebApi/TodoList.WebApi.csproj"
@@ -63,6 +63,8 @@ dotnet ef database update --project source/TodoList.Infrastructure --startup-pro
 * MacOS Sierra
 * VSCode :heart:
 * [.NET Core SDK 2.2](https://www.microsoft.com/net/download/dotnet-core/2.2).
+* Docker :whale:
+* SQL Server.
 
 ## :telephone: Support and Issues
 

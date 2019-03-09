@@ -30,7 +30,8 @@ namespace TodoList.Core.UseCases
             if (string.IsNullOrWhiteSpace(request.Title))
                 throw new Exception("Title is null");
 
-            ITodoItem todoItem = _entitiesFactory.NewTodoItem(request.Title);
+            ITodoItem todoItem = _entitiesFactory.NewTodoItem();
+            todoItem.UpdateTitle(request.Title);
             _todoItemGateway.Add(todoItem);
 
             Response response = new Response(todoItem.Id);

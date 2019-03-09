@@ -25,9 +25,9 @@ using TodoList.WebApi.Controllers;
 
 namespace TodoList.WebApi
 {
-    public class Startup
+    public class StartupProduction
     {
-        public Startup(IConfiguration configuration)
+        public StartupProduction(IConfiguration configuration)
         {
             Configuration = configuration;
         }
@@ -41,15 +41,16 @@ namespace TodoList.WebApi
 
             AddSwagger(services);
             AddTodoListCore(services);
-            AddInMemoryPersistence(services);
+            AddSQLPersistence(services);
         }
 
-        private void AddInMemoryPersistence(IServiceCollection services)
+        private void AddSQLPersistence(IServiceCollection services)
         {
-            Console.WriteLine("Using InMemory persistence.");
+            Console.WriteLine("Using SQL Server persistence.");
 
-            services.AddScoped<Core.Gateways.InMemory.InMemoryContext, Core.Gateways.InMemory.InMemoryContext>();
-            services.AddScoped<ITodoItemGateway, TodoList.Core.Gateways.InMemory.TodoItemGateway>();
+            services.AddDbContext<TodoList.Infrastructure.EntityFrameworkDataAccess.TodoListContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<ITodoItemGateway, TodoList.Infrastructure.EntityFrameworkDataAccess.TodoItemGateway>();
         }
 
         private void AddSwagger(IServiceCollection services)
@@ -77,7 +78,8 @@ namespace TodoList.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseHsts();
 
             UseSwagger(app);
 
