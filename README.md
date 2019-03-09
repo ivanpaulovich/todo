@@ -1,16 +1,47 @@
-# :cyclone: Clean Architecture Sample with .NET Core [![Play with Docker](https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/ivanpaulovich/dotnet-clean-architecture/master/source/docker-compose.yml&stack_name=dotnet-clean-architecture)
+# :cyclone: Clean Architecture Implementation Sample with .NET Core [![Play with Docker](https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/ivanpaulovich/dotnet-clean-architecture/master/source/docker-compose.yml&stack_name=dotnet-clean-architecture)
 
-An implmentation example of the classic Clean Architecture based on Uncle Bob books.
+An implmentation implementation sample of the classic Clean Architecture based on Uncle Bob books.
 
-# :zap: Running Unit Tests
+## Use Cases
+
+The application is designed around the uses cases of a Todo List app. The user can: 
+
+* Add a todo item.
+* List the todo items.
+* Update the todo item titles.
+* Complete a todo item.
+
+## Project Organisation
+
+### Core
+
+### Infrastructure
+
+### Console App and Web APi
+
+### Tests
+
+## The Dependency Rule
+
+## Entities
+
+## Use Cases
+
+## User Interface
+
+### Presenter Objects
+
+## Frameworks and Drivers
+
+# :zap: Running
+
+## Unit Tests
 
 ```
 dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 ```
 
-# :zap: Running Demos
-
-Running the **Console Demo** which is configured to use InMemory persistence.
+## Console Demo with InMemory Persistence
 
 ```
 dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj"
@@ -26,10 +57,16 @@ Usage:
         exit
 ```
 
-Running the **Web API** which is configured to use SQL Server persistence.
+## Web API with InMemory Persistence
 
 ```
 dotnet run --project "source/TodoList.WebApi/TodoList.WebApi.csproj"
+```
+
+## Web API with SQL Server Persistence
+
+```
+dotnet run --project --environment="production" "source/TodoList.WebApi/TodoList.WebApi.csproj"
 ```
 
 Then navigate to `https://localhost:5001/`.
