@@ -1,6 +1,7 @@
-# :cyclone: Clean Architecture Implementation Sample with .NET Core [![Play with Docker](https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/ivanpaulovich/dotnet-clean-architecture/master/source/docker-compose.yml&stack_name=dotnet-clean-architecture)
+# :cyclone: Clean Architecture Implementation Sample with .NET Core
+[![Play with Docker](https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/ivanpaulovich/dotnet-clean-architecture/master/source/docker-compose.yml&stack_name=dotnet-clean-architecture)
 
-An implmentation implementation sample of the classic Clean Architecture based on Uncle Bob books.
+An implementation implementation sample of the classic Clean Architecture based on Uncle Bob books.
 
 ## Use Cases
 
@@ -13,27 +14,51 @@ The application is designed around the uses cases of a Todo List app. The user c
 
 ## Project Organisation
 
+Soon.
+
 ### Core
+
+Soon.
 
 ### Infrastructure
 
-### Console App and Web APi
+Soon.
+
+### Console App and Web API
+
+Soon.
 
 ### Tests
 
+Soon.
+
 ## The Dependency Rule
+
+Soon.
 
 ## Entities
 
+Soon.
+
 ## Use Cases
+
+Soon.
 
 ## User Interface
 
+Soon.
+
 ### Presenter Objects
+
+Soon.
 
 ## Frameworks and Drivers
 
+Soon.
+
 # :zap: Running
+
+You can run the application uses cases from the `Tests`, `Console` or from the `Web API`.
 
 ## Unit Tests
 
