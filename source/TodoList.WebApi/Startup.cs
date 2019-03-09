@@ -40,8 +40,8 @@ namespace TodoList.WebApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
             AddSwagger(services);
+            AddSQL(services);
             AddTodoListCore(services);
-            
         }
 
         private void AddSQL(IServiceCollection services)

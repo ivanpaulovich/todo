@@ -4,9 +4,14 @@ namespace TodoList.Core.Entities
 
     public class TodoItem
     {
-        public virtual Guid Id { get; private set; }
-        public virtual string Title { get; private set; }
+        public virtual Guid Id { get; set; }
+        public virtual string Title { get; set; }
 
+        public TodoItem()
+        {
+
+        }
+        
         public TodoItem(string title)
         {
             Id = Guid.NewGuid();
