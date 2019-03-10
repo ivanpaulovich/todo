@@ -5,7 +5,7 @@ After reading the great books from Robert C. Martin and watching his talks on yo
 
 ## Use Cases
 
-The application is designed around the uses cases of a Todo List app. The user can: 
+The application is designed around the uses cases of a Todo List app. The user can do the following: 
 
 * Add a todo item.
 * List the todo items.
@@ -14,23 +14,14 @@ The application is designed around the uses cases of a Todo List app. The user c
 
 ## Project Organisation
 
-Soon.
+The solution is divided between `Production Code` and `Unit Tests`. For the `Production Code` I created the following four layers:
 
-### Core
+* The Core project with Use Cases, Entities and Boundary Objects.
+* The Infrastructure with the Data Access implementation.
+* The Console App as the initial delivery mechanism.
+* The Web API as the second delivery mechanism I implemented.
 
-Soon.
-
-### Infrastructure
-
-Soon.
-
-### Console App and Web API
-
-Soon.
-
-### Tests
-
-Soon.
+On the `Unit Tests` you will code to ensure the use cases business.
 
 ## Implementation Guide
 
