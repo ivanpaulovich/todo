@@ -70,7 +70,7 @@ Soon.
 
 ## :zap: Running
 
-You can run the application uses cases from the `Tests`, `Console` or from the `Web API`.
+You can run the application uses cases from the `Tests`, `Console` or from the `Web API`. We are continuously delivering the [Swagger](http://35.188.17.14/index.html) on Google Cloud.
 
 ### Unit Tests
 
