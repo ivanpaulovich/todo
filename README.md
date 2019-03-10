@@ -1,7 +1,7 @@
 # :cyclone: Clean Architecture Implementation Sample with .NET Core
 [![Play with Docker](https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/ivanpaulovich/dotnet-clean-architecture/master/source/docker-compose.yml&stack_name=dotnet-clean-architecture) [![Build status](https://ci.appveyor.com/api/projects/status/005aoqa8g79skmn6/branch/master?svg=true)](https://ci.appveyor.com/project/ivanpaulovich/dotnet-clean-architecture/branch/master) [![Docker Cloud Automated Build](https://img.shields.io/docker/cloud/automated/ivanpaulovich/dotnet-clean-architecture.svg?style=plastic)](https://cloud.docker.com/repository/docker/ivanpaulovich/dotnet-clean-architecture)
 
-After reading the great books from Robert C. Martin and watching his talks on youtube I was challenged to implement a Clean Architecture sample. If you share the same interest you are on the right place.
+After reading the great books from Robert C. Martin and watching his talks on youtube I was challenged to implement a Clean Architecture sample. To acomplish this goal, I selected the simple domain of a **Todo List app** and started to design the solution, following the principles from the book. If you share the same interest you are on the right place.
 
 ## Use Cases
 
