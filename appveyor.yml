@@ -1,9 +1,33 @@
 version: '1.0.{build}'
-
-image:
-- Visual Studio 2017
-- Ubuntu1804
-
+image: 
+  - Ubuntu
+services:
+  - docker
+environment:
+  CLOUDSDK_CORE_DISABLE_PROMPTS: 1
+  PROJECT_ID: todolist-227202
+  IMAGE_NAME: webapi
+cache:
+  - $HOME/google-cloud-sdk
+install:
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf "$HOME/google-cloud-sdk"; curl https://sdk.cloud.google.com | bash > /dev/null; fi
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components update kubectl
+  - gcloud version
 build_script:
-  - dotnet build
-  - dotnet test
+  - echo $GOOGLE_AUTH > $HOME/gcp-key.json
+  - pushd source && docker build --rm=false -t gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION . && popd
+  - gcloud auth activate-service-account --key-file $HOME/gcp-key.json
+  - gcloud config set project $PROJECT_ID
+  - gcloud config set compute/zone us-central1-b
+  - gcloud container clusters create todolist --num-nodes=3 2> /dev/null || true
+  - gcloud auth configure-docker
+  - docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION
+  - gcloud container clusters get-credentials todolist
+  - kubectl run todolist --image=gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION --port 80 2> /dev/null || true
+  - kubectl set image deployment/todolist todolist=gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION
+  - kubectl expose deployment todolist --type=LoadBalancer --port 80 --target-port 80 2> /dev/null || true
+  - kubectl get pods
+  - kubectl get service
+test_script:
+  - dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
