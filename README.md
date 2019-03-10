@@ -102,6 +102,8 @@ dotnet run --project "source/TodoList.WebApi/TodoList.WebApi.csproj"
 
 ### Web API (SQL Server Persistence)
 
+When you change the environment to `Production` then the `StartupProduction` class will be instantiated which uses the SQL Server persistence.
+
 ```
 dotnet run --project --environment="production" "source/TodoList.WebApi/TodoList.WebApi.csproj"
 ```
