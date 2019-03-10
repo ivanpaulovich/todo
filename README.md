@@ -70,7 +70,7 @@ Soon.
 
 ## :zap: Running
 
-You can run the application uses cases from the `Tests`, `Console` or from the `Web API`. We are continuously delivering the [Swagger](http://35.188.17.14/index.html) demo on Google Cloud.
+You can run the application uses cases from the `Tests`, `Console` or from the `Web API`. We are continuously delivering the [Todo List Swagger Demo on Google Cloud](http://35.188.17.14/index.html).
 
 ### Unit Tests
 
