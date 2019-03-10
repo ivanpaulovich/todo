@@ -78,7 +78,7 @@ You can run the application uses cases from the `Tests`, `Console` or from the `
 dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 ```
 
-### Console Demo with InMemory Persistence
+### Console Demo (InMemory Persistence)
 
 ```
 dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj"
@@ -94,13 +94,13 @@ Usage:
         exit
 ```
 
-### Web API with InMemory Persistence
+### Web API (InMemory Persistence)
 
 ```
 dotnet run --project "source/TodoList.WebApi/TodoList.WebApi.csproj"
 ```
 
-### Web API with SQL Server Persistence
+### Web API (SQL Server Persistence)
 
 ```
 dotnet run --project --environment="production" "source/TodoList.WebApi/TodoList.WebApi.csproj"
@@ -108,7 +108,7 @@ dotnet run --project --environment="production" "source/TodoList.WebApi/TodoList
 
 Then navigate to `https://localhost:5001/`.
 
-## :floppy_disk: Running on SQL Server (Optional)
+## :floppy_disk: Setup SQL Server (Optional)
 
 ### Setup SQL Server in Docker
 
