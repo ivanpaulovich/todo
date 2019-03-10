@@ -20,7 +20,7 @@ build_script:
   - gcloud auth activate-service-account --key-file $HOME/gcp-key.json
   - gcloud config set project $PROJECT_ID
   - gcloud config set compute/zone us-central1-b
-  - gcloud container clusters create todolist --num-nodes=3 2> /dev/null || true
+  - gcloud container clusters create todolist --num-nodes=1 2> /dev/null || true
   - gcloud auth configure-docker
   - docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION
   - gcloud container clusters get-credentials todolist
