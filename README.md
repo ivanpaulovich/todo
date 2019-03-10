@@ -1,5 +1,5 @@
 # :cyclone: Clean Architecture Implementation Sample with .NET Core
-[![Play with Docker](https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/ivanpaulovich/dotnet-clean-architecture/master/source/docker-compose.yml&stack_name=dotnet-clean-architecture)
+[![Play with Docker](https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png)](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/ivanpaulovich/dotnet-clean-architecture/master/source/docker-compose.yml&stack_name=dotnet-clean-architecture) [![Build status](https://ci.appveyor.com/api/projects/status/005aoqa8g79skmn6/branch/master?svg=true)](https://ci.appveyor.com/project/ivanpaulovich/dotnet-clean-architecture/branch/master)
 
 An implementation implementation sample of the classic Clean Architecture based on Uncle Bob books.
 
