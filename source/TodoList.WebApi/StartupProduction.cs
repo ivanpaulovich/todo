@@ -46,8 +46,6 @@ namespace TodoList.WebApi
 
         private void AddSQLPersistence(IServiceCollection services)
         {
-            Console.WriteLine("Using SQL Server persistence.");
-
             services.AddDbContext<TodoList.Infrastructure.EntityFrameworkDataAccess.TodoListContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddScoped<ITodoItemGateway, TodoList.Infrastructure.EntityFrameworkDataAccess.TodoItemGateway>();
@@ -57,7 +55,7 @@ namespace TodoList.WebApi
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "My API (Production)", Version = "v1" });
             });
         }
 

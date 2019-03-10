@@ -46,8 +46,6 @@ namespace TodoList.WebApi
 
         private void AddInMemoryPersistence(IServiceCollection services)
         {
-            Console.WriteLine("Using InMemory persistence.");
-
             services.AddScoped<Core.Gateways.InMemory.InMemoryContext, Core.Gateways.InMemory.InMemoryContext>();
             services.AddScoped<ITodoItemGateway, TodoList.Core.Gateways.InMemory.TodoItemGateway>();
         }
@@ -56,7 +54,7 @@ namespace TodoList.WebApi
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "My API (Development)", Version = "v1" });
             });
         }
 
