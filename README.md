@@ -32,7 +32,9 @@ Soon.
 
 Soon.
 
-## Implmentation Guide
+## Implementation Guide
+
+Soon.
 
 ### The Dependency Rule
 
