@@ -24,7 +24,7 @@ build_script:
   - gcloud auth configure-docker
   - docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION
   - gcloud container clusters get-credentials todolist
-  - kubectl run todolist --image=gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION --port 80 2> /dev/null || true
+  - kubectl run todolist --image=gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION --port 80 --env ASPNETCORE_ENVIRONMENT=Development 2> /dev/null || true
   - kubectl set image deployment/todolist todolist=gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION
   - kubectl expose deployment todolist --type=LoadBalancer --port 80 --target-port 80 2> /dev/null || true
   - kubectl get pods
