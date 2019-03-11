@@ -20,13 +20,14 @@ namespace TodoList.Core.Gateways.InMemory
             _context.TodoItems.Add(todoItem);
         }
 
-        public void Delete(ITodoItem todoItem)
+        public void Delete(Guid todoItemId)
         {
             ITodoItem todoItemOld = _context.TodoItems
-                .Where(e => e.Id == todoItem.Id)
+                .Where(e => e.Id == todoItemId)
                 .SingleOrDefault();
 
-            _context.TodoItems.Remove(todoItemOld);
+            if (todoItemOld != null)
+                _context.TodoItems.Remove(todoItemOld);
         }
 
         public ITodoItem Get(Guid todoItemId)

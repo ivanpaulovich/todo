@@ -21,10 +21,15 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess
             _todoListContext.SaveChanges ();
         }
 
-        public void Delete(ITodoItem todoItem)
+        public void Delete(Guid todoItemId)
         {
-            _todoListContext.TodoItems.Remove ((TodoItem)todoItem);
-            _todoListContext.SaveChanges ();
+            ITodoItem todoItem = Get(todoItemId);
+
+            if (todoItem != null)
+            {
+                _todoListContext.TodoItems.Remove ((TodoItem)todoItem);
+                _todoListContext.SaveChanges ();
+            }
         }
 
         public ITodoItem Get(Guid todoItemId)
