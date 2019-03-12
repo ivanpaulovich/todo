@@ -25,39 +25,39 @@ On the `Unit Tests` you will code to ensure the use cases business.
 
 ## Implementation Guide
 
-Soon.
+A few excerpts from Clean Architecture book that will help you.
 
 ### The Dependency Rule
 
-Soon.
-
-### Entities
-
-Soon.
-
-### Use Cases
-
-Soon.
-
-### Frameworks and Drivers
-
-Soon.
-
-### User Interface
-
-Soon.
-
-#### Presenter Objects
-
-Soon.
+> Source code dependencies must point only inward, toward higher-level policies.
 
 ### The Stable Dependencies Principle
 
-Soon.
+> Modules that are intended to be easy to change are not depended on by modules that are harder to change.
 
 ### The Stable Abstractions Principle
 
-Soon.
+> A component should be as abstract as it is stable.
+
+### Entities
+
+> These entities are the business objects of the application. They encapsulate the most general and high-level rules
+
+### Use Cases
+
+> The software in the use cases layer contains application-specific business rules.
+
+### Frameworks and Drivers
+
+The frameworks and drivers layer is where all the details go. The web is a detail. The database is a detail. We keep these things on the outside where they can do little harm.
+
+### User Interface
+
+> Interface adapters layer is a set of adapters that convert data from the format most convenient for the use cases and entities, to the format most convenient for some external agency such as the database or the web.
+
+#### Presenter Objects
+
+The Presenter is the testable object. Its job is to accept data from the application and format it for presentation so that the View can simply move it to the scree.
 
 ## :zap: Running
 
