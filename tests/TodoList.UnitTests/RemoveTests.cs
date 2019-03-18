@@ -2,22 +2,22 @@ namespace TodoList.UnitTests
 {
     using System;
     using System.Linq;
-    using TodoList.Core.Boundaries.FinishTodoItem;
+    using TodoList.Core.Boundaries.RemoveTodoItem;
     using TodoList.Core.Gateways;
     using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.UseCases;
     using Xunit;
 
-    public sealed class FinishTests
+    public sealed class RemoveTests
     {
-        Guid existingTodoItemId = new System.Guid("3b35f11e-7080-45e2-a152-afff5a325508");
+        Guid existingTodoItemId = new Guid("3b35f11e-7080-45e2-a152-afff5a325508");
 
         [Fact]
-        public void FinishRemovesTodoItem()
+        public void RemoveRemovesTodoItem()
         {
             InMemoryContext inMemory = new InMemoryContext();
             ITodoItemGateway gateway = new TodoItemGateway(inMemory);
-            IUseCase sut = new FinishTodoItem(gateway);
+            IUseCase sut = new RemoveTodoItem(gateway);
 
             sut.Execute(existingTodoItemId);
 
@@ -25,11 +25,11 @@ namespace TodoList.UnitTests
         }
 
         [Fact]
-        public void FinishRemovesDoesNotRemoveTodoItem_WhenDoesNotExist()
+        public void RemoveRemovesDoesNotRemoveTodoItem_WhenDoesNotExist()
         {
             InMemoryContext inMemory = new InMemoryContext();
             ITodoItemGateway gateway = new TodoItemGateway(inMemory);
-            IUseCase sut = new FinishTodoItem(gateway);
+            IUseCase sut = new RemoveTodoItem(gateway);
 
             sut.Execute(Guid.NewGuid());
 

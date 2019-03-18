@@ -16,7 +16,7 @@ namespace TodoList.ConsoleApp
 
             var update = new Core.UseCases.UpdateTitle(gateway);
             var list = new Core.UseCases.ListTodoItems(presenter, gateway);
-            var finish = new Core.UseCases.FinishTodoItem(gateway);
+            var finish = new Core.UseCases.RemoveTodoItem(gateway);
             var add = new Core.UseCases.AddTodoItem(presenter, gateway, entitiesFactory);
 
             Startup startup = new Startup(add, finish, list, update);
@@ -35,7 +35,7 @@ namespace TodoList.ConsoleApp
                     startup.AddTodoItem(input);
 
                 if (string.Compare(input[0], "finish", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.FinishTodoItem(input);
+                    startup.RemoveTodoItem(input);
 
                 if (string.Compare(input[0], "list", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.ListTodoItem(input);

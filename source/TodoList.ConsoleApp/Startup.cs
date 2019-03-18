@@ -11,18 +11,18 @@ namespace TodoList.ConsoleApp
     public sealed class Startup
     {
         private IUseCase<Core.Boundaries.AddTodoItem.Request> _addTodoItem;
-        private TodoList.Core.Boundaries.FinishTodoItem.IUseCase _finishTodoItem;
+        private TodoList.Core.Boundaries.RemoveTodoItem.IUseCase _removeTodoItem;
         private TodoList.Core.Boundaries.ListTodoItems.IUseCase _listTodoItems;
         private IUseCase<Core.Boundaries.UpdateTitle.Request> _updateTitle;
 
         public Startup(
             IUseCase<Core.Boundaries.AddTodoItem.Request> addTodoItem,
-            TodoList.Core.Boundaries.FinishTodoItem.IUseCase finishTodoItem,
+            TodoList.Core.Boundaries.RemoveTodoItem.IUseCase removeTodoItem,
             TodoList.Core.Boundaries.ListTodoItems.IUseCase listTodoItems,
             IUseCase<TodoList.Core.Boundaries.UpdateTitle.Request> updateTitle)
         {
             _addTodoItem = addTodoItem;
-            _finishTodoItem = finishTodoItem;
+            _removeTodoItem = removeTodoItem;
             _listTodoItems = listTodoItems;
             _updateTitle = updateTitle;
         }
@@ -49,12 +49,12 @@ namespace TodoList.ConsoleApp
             _listTodoItems.Execute();
         }
 
-        public void FinishTodoItem(string[] args)
+        public void RemoveTodoItem(string[] args)
         {
             if (args.Length != 2)
                 return;
 
-            _finishTodoItem.Execute(new Guid(args[1]));
+            _removeTodoItem.Execute(new Guid(args[1]));
         }
 
         public void AddTodoItem(string[] args)

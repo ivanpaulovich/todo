@@ -1,4 +1,4 @@
-namespace TodoList.Core.Boundaries.FinishTodoItem
+namespace TodoList.Core.Boundaries.RemoveTodoItem
 {
     using System;
 

@@ -1,15 +1,15 @@
 namespace TodoList.Core.UseCases
 {
     using System;
-    using TodoList.Core.Boundaries.FinishTodoItem;
+    using TodoList.Core.Boundaries.RemoveTodoItem;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
 
-    public sealed class FinishTodoItem : IUseCase
+    public sealed class RemoveTodoItem : IUseCase
     {
         private ITodoItemGateway _todoItemGateway;
 
-        public FinishTodoItem(
+        public RemoveTodoItem(
             ITodoItemGateway todoItemGateway)
         {
             _todoItemGateway = todoItemGateway;

@@ -19,20 +19,20 @@ namespace TodoList.WebApi.Controllers
     public class TodoItemsController : ControllerBase
     {
         private IUseCase<Core.Boundaries.AddTodoItem.Request> _addTodoItem;
-        private Core.Boundaries.FinishTodoItem.IUseCase _finishTodoItem;
+        private Core.Boundaries.RemoveTodoItem.IUseCase _removeTodoItem;
         private Core.Boundaries.ListTodoItems.IUseCase _listTodoItems;
         private IUseCase<Core.Boundaries.UpdateTitle.Request> _updateTitle;
         private Presenter _presenter;
 
         public TodoItemsController(
             IUseCase<Core.Boundaries.AddTodoItem.Request>  addTodoItem,
-            Core.Boundaries.FinishTodoItem.IUseCase finishTodoItem,
+            Core.Boundaries.RemoveTodoItem.IUseCase removeTodoItem,
             Core.Boundaries.ListTodoItems.IUseCase listTodoItems,
             IUseCase<Core.Boundaries.UpdateTitle.Request> updateTitle,
             Presenter presenter)
         {
             _addTodoItem = addTodoItem;
-            _finishTodoItem = finishTodoItem;
+            _removeTodoItem = removeTodoItem;
             _listTodoItems = listTodoItems;
             _updateTitle = updateTitle;
             _presenter = presenter;
@@ -67,7 +67,7 @@ namespace TodoList.WebApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(Guid id)
         {
-            _finishTodoItem.Execute(id);
+            _removeTodoItem.Execute(id);
         }
     }
 }
