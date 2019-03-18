@@ -8,6 +8,7 @@ namespace TodoList.Core.Entities
         string Title { get; }
         bool IsCompleted { get; }
         void UpdateTitle(string title);
-        void Complete();
+        void MarkCompleted();
+        void MarkIncomplete();
     }
 }

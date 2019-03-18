@@ -5,11 +5,11 @@ namespace TodoList.Core.UseCases
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
 
-    public sealed class MarkItemCompleted : IUseCase
+    public sealed class MarkItemIncompleted : IUseCase
     {
         private ITodoItemGateway _todoItemGateway;
 
-        public MarkItemCompleted(
+        public MarkItemIncompleted(
             ITodoItemGateway todoItemGateway)
         {
             _todoItemGateway = todoItemGateway;
@@ -18,7 +18,7 @@ namespace TodoList.Core.UseCases
         public void Execute(Guid itemId)
         {
             ITodoItem todoItem = _todoItemGateway.Get(itemId);
-            todoItem.MarkCompleted();
+            todoItem.MarkIncomplete();
             _todoItemGateway.Update(todoItem);
         }
     }

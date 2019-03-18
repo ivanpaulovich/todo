@@ -10,20 +10,20 @@ namespace TodoList.UnitTests
     using Xunit;
     using System.Linq;
 
-    public sealed class MarkItemCompletedTests
+    public sealed class MarkItemIncompletedTests
     {
         Guid existingTodoItemId = new Guid("3b35f11e-7080-45e2-a152-afff5a325508");
 
         [Fact]
-        public void MarkItemCompletedSuccess()
+        public void MarkItemIncompletedSuccess()
         {
             InMemoryContext inMemory = new InMemoryContext();
             ITodoItemGateway gateway = new TodoItemGateway(inMemory);
-            IUseCase sut = new MarkItemCompleted(gateway);
+            IUseCase sut = new MarkItemIncompleted(gateway);
 
             sut.Execute(existingTodoItemId);
 
-            Assert.NotEmpty(inMemory.TodoItems.Where(e => e.Id == existingTodoItemId && e.IsCompleted));
+            Assert.NotEmpty(inMemory.TodoItems.Where(e => e.Id == existingTodoItemId && !e.IsCompleted));
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace TodoList.UnitTests
 
             sut.Execute(Guid.NewGuid());
 
-            Assert.Empty(inMemory.TodoItems.Where(e => e.Id == existingTodoItemId && e.IsCompleted));
+            Assert.NotEmpty(inMemory.TodoItems.Where(e => e.Id == existingTodoItemId && !e.IsCompleted));
         }
     }
 }

@@ -26,9 +26,14 @@ namespace TodoList.Core.Entities
             return restoredTodoItem;
         }
 
-        public void Complete()
+        public void MarkCompleted()
         {
             IsCompleted = true;
+        }
+
+        public void MarkIncomplete()
+        {
+            IsCompleted = false;
         }
     }
 }
