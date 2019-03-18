@@ -6,6 +6,8 @@ namespace TodoList.Core.Entities
     {
         Guid Id { get; }
         string Title { get; }
+        bool IsCompleted { get; }
         void UpdateTitle(string title);
+        void Complete();
     }
 }

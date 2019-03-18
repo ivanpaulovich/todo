@@ -35,7 +35,7 @@ namespace TodoList.WebApi
                         config.AddCommandLine(args);
                     }
                 })
-                .UseStartup(Assembly.GetEntryAssembly().FullName);
+                .UseStartup(typeof(Program).Assembly.FullName);
         }
     }
 }

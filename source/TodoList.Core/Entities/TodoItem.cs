@@ -6,6 +6,7 @@ namespace TodoList.Core.Entities
     {
         public virtual Guid Id { get; protected set; }
         public virtual string Title { get; protected set; }
+        public virtual bool IsCompleted { get; protected set; }
 
         public TodoItem()
         {
@@ -23,6 +24,11 @@ namespace TodoList.Core.Entities
             restoredTodoItem.Id = id;
             restoredTodoItem.Title = title;
             return restoredTodoItem;
+        }
+
+        public void Complete()
+        {
+            IsCompleted = true;
         }
     }
 }

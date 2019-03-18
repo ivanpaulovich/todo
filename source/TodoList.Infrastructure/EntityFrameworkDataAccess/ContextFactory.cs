@@ -20,9 +20,10 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess
 
         private string ReadDefaultConnectionStringFromAppSettings()
         {
+            Console.WriteLine("aa" + Directory.GetCurrentDirectory());
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.production.json")
                 .Build();
 
             string connectionString = configuration.GetConnectionString("DefaultConnection");
