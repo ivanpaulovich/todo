@@ -18,10 +18,19 @@ namespace TodoList.ConsoleApp
             var list = new Core.UseCases.ListTodoItems(presenter, gateway);
             var finish = new Core.UseCases.RemoveTodoItem(gateway);
             var add = new Core.UseCases.AddTodoItem(presenter, gateway, entitiesFactory);
+            var markCompleted = new Core.UseCases.MarkItemCompleted(gateway);
+            var markIncomplete = new Core.UseCases.MarkItemIncomplete(gateway);
 
-            Startup startup = new Startup(add, finish, list, update);
+            Startup startup = new Startup(add, finish, list, update, markCompleted, markIncomplete);
 
-            Console.WriteLine("Usage:\n\tadd [title]\n\tfinish [id]\n\tlist\n\tupdate [id] [title]\n\texit");
+            Console.WriteLine("Usage");
+            Console.WriteLine("\tadd [title]");
+            Console.WriteLine("\tupdate [id] [title]");
+            Console.WriteLine("\tcomplete [id]");
+            Console.WriteLine("\tincomplete [id]");
+            Console.WriteLine("\tlist");
+            Console.WriteLine("\tremove [id]");
+            Console.WriteLine("\texit");
 
             while (true)
             {
@@ -32,16 +41,22 @@ namespace TodoList.ConsoleApp
                 string[] input = command.Split(' ');
 
                 if (string.Compare(input[0], "add", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.AddTodoItem(input);
+                    startup.AddTodoItem(command);
 
-                if (string.Compare(input[0], "finish", StringComparison.CurrentCultureIgnoreCase) == 0)
+                if (string.Compare(input[0], "remove", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.RemoveTodoItem(input);
 
                 if (string.Compare(input[0], "list", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.ListTodoItem(input);
 
                 if (string.Compare(input[0], "update", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.UpdateTodoItem(input);
+                    startup.UpdateTodoItem(input, command);
+
+                if (string.Compare(input[0], "complete", StringComparison.CurrentCultureIgnoreCase) == 0)
+                    startup.CompleteTodoItem(input);
+
+                if (string.Compare(input[0], "incomplete", StringComparison.CurrentCultureIgnoreCase) == 0)
+                    startup.IncompleteTodoItem(input);
             }
         }
     }

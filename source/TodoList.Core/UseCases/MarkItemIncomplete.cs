@@ -1,15 +1,15 @@
 namespace TodoList.Core.UseCases
 {
     using System;
-    using TodoList.Core.Boundaries.MarkItemCompleted;
+    using TodoList.Core.Boundaries.MarkItemIncomplete;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
 
-    public sealed class MarkItemIncompleted : IUseCase
+    public sealed class MarkItemIncomplete : IUseCase
     {
         private ITodoItemGateway _todoItemGateway;
 
-        public MarkItemIncompleted(
+        public MarkItemIncomplete(
             ITodoItemGateway todoItemGateway)
         {
             _todoItemGateway = todoItemGateway;

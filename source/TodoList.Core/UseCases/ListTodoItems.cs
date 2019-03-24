@@ -29,7 +29,12 @@ namespace TodoList.Core.UseCases
         {
             ResponseBuilder builder = new ResponseBuilder();
             foreach (var item in todoItems)
-                builder.WithItem(item.Id, item.Title);
+            {
+                if (item.IsCompleted)
+                    builder.WithCompletedItem(item.Id, item.Title);
+                else
+                    builder.WithIncompleteItem(item.Id, item.Title);
+            }
 
             return builder.Build();
         }

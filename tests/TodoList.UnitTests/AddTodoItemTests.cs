@@ -36,7 +36,7 @@ namespace TodoList.UnitTests
         }
 
         [Fact]
-        public void GivenNotNullTitle_InvokeOutputHandler()
+        public void GivenTitle_ItemsWasAdded()
         {
             var context = new InMemoryContext();
             var gateway = new TodoItemGateway(context);
@@ -50,7 +50,7 @@ namespace TodoList.UnitTests
         }
 
         [Fact]
-        public void GivenNotNullTitle_ReturnsId()
+        public void GivenTitle_ReturnsId()
         {
             var context = new InMemoryContext();
             var gateway = new TodoItemGateway(context);

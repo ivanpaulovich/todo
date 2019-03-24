@@ -18,11 +18,12 @@ namespace TodoList.Core.Entities
             Title = title;
         }
 
-        public static TodoItem Restore(Guid id, string title)
+        public static TodoItem Restore(Guid id, string title, bool completed)
         {
             TodoItem restoredTodoItem = new TodoItem();
             restoredTodoItem.Id = id;
             restoredTodoItem.Title = title;
+            restoredTodoItem.IsCompleted = completed;
             return restoredTodoItem;
         }
 

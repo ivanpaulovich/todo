@@ -16,7 +16,12 @@ namespace TodoList.ConsoleApp
             public void Handle(Core.Boundaries.ListTodoItems.Response response)
             {
                 foreach (var item in response.Items)
-                    Console.WriteLine($"{item.Id} - {item.Title}.");
+                {
+                    if (item.IsCompleted)
+                        Console.WriteLine($"{item.Id} [X] {item.Title}.");
+                    else
+                        Console.WriteLine($"{item.Id} [ ] {item.Title}.");
+                }
             }
         }
 }

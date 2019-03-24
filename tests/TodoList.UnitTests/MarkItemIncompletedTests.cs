@@ -2,14 +2,14 @@ namespace TodoList.UnitTests
 {
     using System.Linq;
     using System;
-    using TodoList.Core.Boundaries.MarkItemCompleted;
+    using TodoList.Core.Boundaries.MarkItemIncomplete;
     using TodoList.Core.Entities;
     using TodoList.Core.Exceptions;
     using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
-    using TodoList.Core.UseCases;
     using TodoList.Core;
     using Xunit;
+    using TodoList.Core.UseCases;
 
     public sealed class MarkItemIncompletedTests
     {
@@ -20,7 +20,7 @@ namespace TodoList.UnitTests
         {
             InMemoryContext inMemory = new InMemoryContext();
             ITodoItemGateway gateway = new TodoItemGateway(inMemory);
-            IUseCase sut = new MarkItemIncompleted(gateway);
+            IUseCase sut = new MarkItemIncomplete(gateway);
 
             sut.Execute(existingTodoItemId);
 
@@ -32,7 +32,7 @@ namespace TodoList.UnitTests
         {
             InMemoryContext inMemory = new InMemoryContext();
             ITodoItemGateway gateway = new TodoItemGateway(inMemory);
-            IUseCase sut = new MarkItemCompleted(gateway);
+            IUseCase sut = new MarkItemIncomplete(gateway);
 
             Exception ex = Record.Exception(() => sut.Execute(Guid.NewGuid()));
 

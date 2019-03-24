@@ -8,13 +8,14 @@ namespace TodoList.UnitTests
     public sealed class ListTodoItemsTests
     {
         [Fact]
-        public void GivenNullContext_ThrowsException()
+        public void GivenContext_ReturnsItems()
         {
             var context = new InMemoryContext();
             var gateway = new TodoItemGateway(context);
             var responseHandler = new ResponseHandler();
             var list = new ListTodoItems(responseHandler, gateway);
             list.Execute();
+            Assert.NotNull(responseHandler.ListTodoItems);
         }
     }
 }

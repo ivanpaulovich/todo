@@ -14,22 +14,29 @@ namespace TodoList.ConsoleApp
         private TodoList.Core.Boundaries.RemoveTodoItem.IUseCase _removeTodoItem;
         private TodoList.Core.Boundaries.ListTodoItems.IUseCase _listTodoItems;
         private IUseCase<Core.Boundaries.UpdateTitle.Request> _updateTitle;
+        private TodoList.Core.Boundaries.MarkItemCompleted.IUseCase _markItemCompleted;
+        private TodoList.Core.Boundaries.MarkItemIncomplete.IUseCase _markItemIncomplete;
+
 
         public Startup(
             IUseCase<Core.Boundaries.AddTodoItem.Request> addTodoItem,
             TodoList.Core.Boundaries.RemoveTodoItem.IUseCase removeTodoItem,
             TodoList.Core.Boundaries.ListTodoItems.IUseCase listTodoItems,
-            IUseCase<TodoList.Core.Boundaries.UpdateTitle.Request> updateTitle)
+            IUseCase<TodoList.Core.Boundaries.UpdateTitle.Request> updateTitle,
+            TodoList.Core.Boundaries.MarkItemCompleted.IUseCase markItemCompleted,
+            TodoList.Core.Boundaries.MarkItemIncomplete.IUseCase markItemIncomplete)
         {
             _addTodoItem = addTodoItem;
             _removeTodoItem = removeTodoItem;
             _listTodoItems = listTodoItems;
             _updateTitle = updateTitle;
+            _markItemCompleted = markItemCompleted;
+            _markItemIncomplete = markItemIncomplete;
         }
 
-        public void UpdateTodoItem(string[] args)
+        internal void UpdateTodoItem(string[] args, string line)
         {
-            if (args.Length != 3)
+            if (args.Length < 3)
                 return;
 
             Guid id;
@@ -37,11 +44,21 @@ namespace TodoList.ConsoleApp
             if (!Guid.TryParse(args[1], out id))
                 return;
 
-            var input = new TodoList.Core.Boundaries.UpdateTitle.Request(id, args[2]);
+            int firstSeparatorIndex = line.IndexOf(' ');
+            if (firstSeparatorIndex <= 0)
+                return;
+
+            int secondSeparatorIndex = line.IndexOf(' ', firstSeparatorIndex);
+            if (secondSeparatorIndex <= 0)
+                return;
+            
+            string title = line.Substring(secondSeparatorIndex + 1);
+
+            var input = new TodoList.Core.Boundaries.UpdateTitle.Request(id, title);
             _updateTitle.Execute(input);
         }
 
-        public void ListTodoItem(string[] args)
+        internal void ListTodoItem(string[] args)
         {
             if (args.Length != 1)
                 return;
@@ -49,7 +66,7 @@ namespace TodoList.ConsoleApp
             _listTodoItems.Execute();
         }
 
-        public void RemoveTodoItem(string[] args)
+        internal void RemoveTodoItem(string[] args)
         {
             if (args.Length != 2)
                 return;
@@ -57,13 +74,33 @@ namespace TodoList.ConsoleApp
             _removeTodoItem.Execute(new Guid(args[1]));
         }
 
-        public void AddTodoItem(string[] args)
+        internal void AddTodoItem(string line)
+        {
+            int separatorIndex = line.IndexOf(' ');
+            
+            if (separatorIndex <= 0)
+                return;
+            
+            string title = line.Substring(separatorIndex + 1);
+
+            var input = new TodoList.Core.Boundaries.AddTodoItem.Request(title);
+            _addTodoItem.Execute(input);
+        }
+
+        internal void IncompleteTodoItem(string[] args)
         {
             if (args.Length != 2)
                 return;
 
-            var input = new TodoList.Core.Boundaries.AddTodoItem.Request(args[1]);
-            _addTodoItem.Execute(input);
+            _markItemIncomplete.Execute(new Guid(args[1]));
+        }
+
+        internal void CompleteTodoItem(string[] args)
+        {
+            if (args.Length != 2)
+                return;
+
+            _markItemCompleted.Execute(new Guid(args[1]));
         }
     }
 }
