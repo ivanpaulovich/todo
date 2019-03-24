@@ -22,15 +22,8 @@ namespace TodoList.ConsoleApp
             var markIncomplete = new Core.UseCases.MarkItemIncomplete(gateway);
 
             Startup startup = new Startup(add, finish, list, update, markCompleted, markIncomplete);
-
-            Console.WriteLine("Usage");
-            Console.WriteLine("\tadd [title]");
-            Console.WriteLine("\tupdate [id] [title]");
-            Console.WriteLine("\tcomplete [id]");
-            Console.WriteLine("\tincomplete [id]");
-            Console.WriteLine("\tlist");
-            Console.WriteLine("\tremove [id]");
-            Console.WriteLine("\texit");
+            presenter.DisplayInstructions();
+            startup.ListTodoItem();
 
             while (true)
             {
@@ -47,7 +40,7 @@ namespace TodoList.ConsoleApp
                     startup.RemoveTodoItem(input);
 
                 if (string.Compare(input[0], "list", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.ListTodoItem(input);
+                    startup.ListTodoItem();
 
                 if (string.Compare(input[0], "update", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.UpdateTodoItem(input, command);

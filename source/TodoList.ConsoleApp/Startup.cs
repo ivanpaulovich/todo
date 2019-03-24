@@ -58,11 +58,8 @@ namespace TodoList.ConsoleApp
             _updateTitle.Execute(input);
         }
 
-        internal void ListTodoItem(string[] args)
+        internal void ListTodoItem()
         {
-            if (args.Length != 1)
-                return;
-
             _listTodoItems.Execute();
         }
 
