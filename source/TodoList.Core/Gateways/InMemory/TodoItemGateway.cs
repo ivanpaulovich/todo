@@ -5,6 +5,7 @@ namespace TodoList.Core.Gateways.InMemory
     using System.Linq;
     using System;
     using TodoList.Core.Entities;
+    using TodoList.Core.Exceptions;
 
     public sealed class TodoItemGateway : ITodoItemGateway
     {
@@ -22,21 +23,26 @@ namespace TodoList.Core.Gateways.InMemory
 
         public void Delete(Guid todoItemId)
         {
-            ITodoItem todoItemOld = _context.TodoItems
+            ITodoItem existingTodoItem = _context.TodoItems
                 .Where(e => e.Id == todoItemId)
                 .SingleOrDefault();
 
-            if (todoItemOld != null)
-                _context.TodoItems.Remove(todoItemOld);
+            if (existingTodoItem == null)
+                throw new BusinessException($"Item with id { todoItemId } was not found.");
+
+            _context.TodoItems.Remove(existingTodoItem);
         }
 
         public ITodoItem Get(Guid todoItemId)
         {
-            ITodoItem todoItem = _context.TodoItems
+            ITodoItem existingTodoItem = _context.TodoItems
                 .Where(e => e.Id == todoItemId)
                 .SingleOrDefault();
 
-            return todoItem;
+            if (existingTodoItem == null)
+                throw new BusinessException($"Item with id { todoItemId } was not found.");
+
+            return existingTodoItem;
         }
 
         public IList<ITodoItem> List()
@@ -46,11 +52,14 @@ namespace TodoList.Core.Gateways.InMemory
 
         public void Update(ITodoItem todoItem)
         {
-            ITodoItem todoItemOld = _context.TodoItems
+            ITodoItem oldTodoItem = _context.TodoItems
                 .Where(e => e.Id == todoItem.Id)
                 .SingleOrDefault();
 
-            todoItemOld = todoItem;
+            if (oldTodoItem == null)
+                throw new BusinessException($"Item with id { todoItem.Id } was not found.");
+
+            oldTodoItem = todoItem;
         }
     }
 }

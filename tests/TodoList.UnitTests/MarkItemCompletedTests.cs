@@ -9,6 +9,7 @@ namespace TodoList.UnitTests
     using TodoList.Core.Boundaries.MarkItemCompleted;
     using Xunit;
     using System.Linq;
+    using TodoList.Core.Exceptions;
 
     public sealed class MarkItemCompletedTests
     {
@@ -27,15 +28,16 @@ namespace TodoList.UnitTests
         }
 
         [Fact]
-        public void MarkItemCompletedDoesNotChange()
+        public void MarkItemCompleted_ThrowsException_WhenItemDoesNotExist()
         {
             InMemoryContext inMemory = new InMemoryContext();
             ITodoItemGateway gateway = new TodoItemGateway(inMemory);
             IUseCase sut = new MarkItemCompleted(gateway);
 
-            sut.Execute(Guid.NewGuid());
+            Exception ex = Record.Exception(() => sut.Execute(Guid.NewGuid()));
 
-            Assert.Empty(inMemory.TodoItems.Where(e => e.Id == existingTodoItemId && e.IsCompleted));
+            Assert.NotNull(ex);
+            Assert.IsType<BusinessException>(ex);
         }
     }
 }
