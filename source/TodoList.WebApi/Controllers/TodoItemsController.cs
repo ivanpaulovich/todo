@@ -4,12 +4,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TodoList.Core.Entities;
-using TodoList.Core.Gateways.InMemory;
-using TodoList.Core.Gateways;
-using TodoList.Core.UseCases;
 using TodoList.Core;
 using TodoList.Core.Boundaries;
+using TodoList.Core.Entities;
+using TodoList.Core.Gateways;
+using TodoList.Core.Gateways.InMemory;
+using TodoList.Core.UseCases;
 using TodoList.WebApi.Models;
 
 namespace TodoList.WebApi.Controllers
@@ -25,7 +25,7 @@ namespace TodoList.WebApi.Controllers
         private Presenter _presenter;
 
         public TodoItemsController(
-            IUseCase<Core.Boundaries.AddTodoItem.Request>  addTodoItem,
+            IUseCase<Core.Boundaries.AddTodoItem.Request> addTodoItem,
             Core.Boundaries.RemoveTodoItem.IUseCase removeTodoItem,
             Core.Boundaries.ListTodoItems.IUseCase listTodoItems,
             IUseCase<Core.Boundaries.UpdateTitle.Request> updateTitle,

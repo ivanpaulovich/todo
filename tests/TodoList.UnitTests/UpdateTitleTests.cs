@@ -1,13 +1,13 @@
 namespace TodoList.UnitTests
 {
     using System;
+    using TodoList.Core.Boundaries.UpdateTitle;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using Xunit;
-    using TodoList.Core.Boundaries.UpdateTitle;
 
     public sealed class UpdateTitleTests
     {

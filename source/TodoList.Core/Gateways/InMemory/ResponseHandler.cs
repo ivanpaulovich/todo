@@ -2,8 +2,8 @@ namespace TodoList.Core.Gateways.InMemory
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    using TodoList.Core.UseCases;
     using TodoList.Core.Boundaries;
+    using TodoList.Core.UseCases;
 
     public sealed class ResponseHandler:
         IResponseHandler<Boundaries.AddTodoItem.Response>,

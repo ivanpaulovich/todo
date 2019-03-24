@@ -1,9 +1,9 @@
 namespace TodoList.Core.Gateways.InMemory
 {
     using System.Collections.ObjectModel;
-    using TodoList.Core.Entities;
     using System.Linq;
     using System;
+    using TodoList.Core.Entities;
 
     public sealed class InMemoryContext
     {

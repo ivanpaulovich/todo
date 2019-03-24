@@ -4,19 +4,19 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.Boundaries;
     using TodoList.Core.UseCases;
 
-    public sealed class Presenter : 
-        IResponseHandler<Core.Boundaries.AddTodoItem.Response>, 
+    public sealed class Presenter:
+        IResponseHandler<Core.Boundaries.AddTodoItem.Response>,
         IResponseHandler<Core.Boundaries.ListTodoItems.Response>
-    {
-        public void Handle(Core.Boundaries.AddTodoItem.Response response)
         {
-            Console.WriteLine($"Added {response.Id}.");
-        }
+            public void Handle(Core.Boundaries.AddTodoItem.Response response)
+            {
+                Console.WriteLine($"Added {response.Id}.");
+            }
 
-        public void Handle(Core.Boundaries.ListTodoItems.Response response)
-        {
-            foreach (var item in response.Items)
-                Console.WriteLine($"{item.Id} - {item.Title}.");
+            public void Handle(Core.Boundaries.ListTodoItems.Response response)
+            {
+                foreach (var item in response.Items)
+                    Console.WriteLine($"{item.Id} - {item.Title}.");
+            }
         }
-    }
 }

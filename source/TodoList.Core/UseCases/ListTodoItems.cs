@@ -1,8 +1,8 @@
 namespace TodoList.Core.UseCases
 {
     using System.Collections.Generic;
-    using TodoList.Core.Boundaries;
     using TodoList.Core.Boundaries.ListTodoItems;
+    using TodoList.Core.Boundaries;
     using TodoList.Core.Gateways;
 
     public sealed class ListTodoItems : IUseCase

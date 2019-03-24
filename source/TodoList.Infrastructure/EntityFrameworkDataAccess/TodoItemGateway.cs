@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TodoList.Core.Entities;
 using TodoList.Core.Gateways;
-using System.Linq;
 
 namespace TodoList.Infrastructure.EntityFrameworkDataAccess
 {
@@ -17,8 +17,8 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess
 
         public void Add(ITodoItem todoItem)
         {
-            _todoListContext.TodoItems.Add ((TodoItem)todoItem);
-            _todoListContext.SaveChanges ();
+            _todoListContext.TodoItems.Add((TodoItem) todoItem);
+            _todoListContext.SaveChanges();
         }
 
         public void Delete(Guid todoItemId)
@@ -27,14 +27,14 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess
 
             if (todoItem != null)
             {
-                _todoListContext.TodoItems.Remove ((TodoItem)todoItem);
-                _todoListContext.SaveChanges ();
+                _todoListContext.TodoItems.Remove((TodoItem) todoItem);
+                _todoListContext.SaveChanges();
             }
         }
 
         public ITodoItem Get(Guid todoItemId)
         {
-            TodoItem item = _todoListContext.TodoItems.Single (e => e.Id == todoItemId);
+            TodoItem item = _todoListContext.TodoItems.Single(e => e.Id == todoItemId);
             return item;
         }
 
@@ -46,8 +46,8 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess
 
         public void Update(ITodoItem todoItem)
         {
-            _todoListContext.TodoItems.Update ((TodoItem)todoItem);
-            _todoListContext.SaveChanges ();
+            _todoListContext.TodoItems.Update((TodoItem) todoItem);
+            _todoListContext.SaveChanges();
         }
     }
 }

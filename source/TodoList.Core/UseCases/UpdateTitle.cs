@@ -1,8 +1,8 @@
 namespace TodoList.Core.UseCases
 {
     using System;
-    using TodoList.Core.Boundaries;
     using TodoList.Core.Boundaries.UpdateTitle;
+    using TodoList.Core.Boundaries;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
 

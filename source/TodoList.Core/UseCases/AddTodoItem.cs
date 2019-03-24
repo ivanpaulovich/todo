@@ -1,10 +1,10 @@
 namespace TodoList.Core.UseCases
 {
     using System;
-    using TodoList.Core.Entities;
-    using TodoList.Core.Gateways;
     using TodoList.Core.Boundaries.AddTodoItem;
     using TodoList.Core.Boundaries;
+    using TodoList.Core.Entities;
+    using TodoList.Core.Gateways;
 
     public sealed class AddTodoItem : IUseCase<Request>
     {

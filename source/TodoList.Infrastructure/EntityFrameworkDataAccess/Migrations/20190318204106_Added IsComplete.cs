@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TodoList.Infrastructure.EntityFrameworkDataAccess.Migrations
 {
@@ -9,8 +9,8 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess.Migrations
             migrationBuilder.AddColumn<bool>(
                 name: "IsCompleted",
                 table: "TodoItem",
-                nullable: false,
-                defaultValue: false);
+                nullable : false,
+                defaultValue : false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -25,8 +25,8 @@ namespace TodoList.WebApi
                 {
                     var env = hostingContext.HostingEnvironment;
 
-                    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                    config.AddJsonFile("appsettings.json", optional : true, reloadOnChange : true)
+                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional : true, reloadOnChange : true);
 
                     config.AddEnvironmentVariables();
 

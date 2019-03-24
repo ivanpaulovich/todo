@@ -14,7 +14,7 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess
             string connectionString = ReadDefaultConnectionStringFromAppSettings();
 
             var builder = new DbContextOptionsBuilder<TodoListContext>();
-            builder.UseSqlServer (connectionString);
+            builder.UseSqlServer(connectionString);
             return new TodoListContext(builder.Options);
         }
 

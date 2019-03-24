@@ -9,7 +9,7 @@ namespace TodoList.Core.Boundaries.UpdateTitle
             TodoItemId = todoItemId;
             Title = title;
         }
-        
+
         public Guid TodoItemId { get; }
         public string Title { get; }
     }

@@ -1,12 +1,12 @@
 namespace TodoList.ConsoleApp
 {
     using System;
+    using TodoList.Core.Boundaries;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
     using TodoList.Core;
-    using TodoList.Core.Boundaries;
 
     public sealed class Startup
     {

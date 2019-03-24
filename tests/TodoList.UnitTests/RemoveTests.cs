@@ -1,11 +1,11 @@
 namespace TodoList.UnitTests
 {
-    using System;
     using System.Linq;
+    using System;
     using TodoList.Core.Boundaries.RemoveTodoItem;
     using TodoList.Core.Exceptions;
-    using TodoList.Core.Gateways;
     using TodoList.Core.Gateways.InMemory;
+    using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
     using Xunit;
 
