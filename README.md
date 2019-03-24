@@ -8,9 +8,11 @@ After reading the great books from Robert C. Martin and watching his talks on yo
 The application is designed around the uses cases of a Todo List app. The user can do the following: 
 
 * Add a todo item.
-* List the todo items.
-* Update the todo item titles.
-* Complete a todo item.
+* Update the items titles.
+* Mark item as completed.
+* Mark item as incomplete.
+* List the items.
+* Remove an item.
 
 ## Project Organisation
 
@@ -77,11 +79,13 @@ dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj"
 ```
 
 ```
-Usage:
+Usage
         add [title]
-        finish [id]
-        list
         update [id] [title]
+        complete [id]
+        incomplete [id]
+        list
+        remove [id]
         exit
 ```
 
