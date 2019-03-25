@@ -39,10 +39,10 @@ namespace TodoList.ConsoleApp
                 if (string.Compare(input[0], "rm", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.RemoveTodoItem(input);
 
-                if (string.Compare(input[0], "print", StringComparison.CurrentCultureIgnoreCase) == 0)
+                if (string.Compare(input[0], "ls", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.ListTodoItem();
 
-                if (string.Compare(input[0], "rename", StringComparison.CurrentCultureIgnoreCase) == 0)
+                if (string.Compare(input[0], "ren", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.UpdateTodoItem(input, command);
 
                 if (string.Compare(input[0], "do", StringComparison.CurrentCultureIgnoreCase) == 0)

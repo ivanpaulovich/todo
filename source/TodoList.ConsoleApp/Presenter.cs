@@ -18,7 +18,7 @@ namespace TodoList.ConsoleApp
                 Console.WriteLine("\tren [id] [title]");
                 Console.WriteLine("\tdo [id]");
                 Console.WriteLine("\tundo [id]");
-                Console.WriteLine("\tprint");
+                Console.WriteLine("\tls");
                 Console.WriteLine("\trm [id]");
                 Console.WriteLine("\texit");
             }

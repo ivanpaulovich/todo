@@ -80,7 +80,7 @@ Usage
         ren [id] [title]
         do [id]
         undo [id]
-        print
+        ls
         rm [id]
         exit
 ```
