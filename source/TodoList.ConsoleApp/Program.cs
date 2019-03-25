@@ -33,22 +33,22 @@ namespace TodoList.ConsoleApp
 
                 string[] input = command.Split(' ');
 
-                if (string.Compare(input[0], "add", StringComparison.CurrentCultureIgnoreCase) == 0)
+                if (string.Compare(input[0], "todo", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.AddTodoItem(command);
 
-                if (string.Compare(input[0], "remove", StringComparison.CurrentCultureIgnoreCase) == 0)
+                if (string.Compare(input[0], "rm", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.RemoveTodoItem(input);
 
-                if (string.Compare(input[0], "list", StringComparison.CurrentCultureIgnoreCase) == 0)
+                if (string.Compare(input[0], "print", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.ListTodoItem();
 
-                if (string.Compare(input[0], "update", StringComparison.CurrentCultureIgnoreCase) == 0)
+                if (string.Compare(input[0], "rename", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.UpdateTodoItem(input, command);
 
-                if (string.Compare(input[0], "complete", StringComparison.CurrentCultureIgnoreCase) == 0)
+                if (string.Compare(input[0], "do", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.CompleteTodoItem(input);
 
-                if (string.Compare(input[0], "incomplete", StringComparison.CurrentCultureIgnoreCase) == 0)
+                if (string.Compare(input[0], "undo", StringComparison.CurrentCultureIgnoreCase) == 0)
                     startup.IncompleteTodoItem(input);
             }
         }

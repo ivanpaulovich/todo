@@ -14,12 +14,12 @@ namespace TodoList.ConsoleApp
             public void DisplayInstructions()
             {
                 Console.WriteLine("Usage");
-                Console.WriteLine("\tadd [title]");
-                Console.WriteLine("\tupdate [id] [title]");
-                Console.WriteLine("\tcomplete [id]");
-                Console.WriteLine("\tincomplete [id]");
-                Console.WriteLine("\tlist");
-                Console.WriteLine("\tremove [id]");
+                Console.WriteLine("\ttodo [title]");
+                Console.WriteLine("\tren [id] [title]");
+                Console.WriteLine("\tdo [id]");
+                Console.WriteLine("\tundo [id]");
+                Console.WriteLine("\tprint");
+                Console.WriteLine("\trm [id]");
                 Console.WriteLine("\texit");
             }
 

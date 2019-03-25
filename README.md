@@ -75,17 +75,13 @@ dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 
 ```
 dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj"
-
-```
-
-```
 Usage
-        add [title]
-        update [id] [title]
-        complete [id]
-        incomplete [id]
-        list
-        remove [id]
+        todo [title]
+        ren [id] [title]
+        do [id]
+        undo [id]
+        print
+        rm [id]
         exit
 ```
 
