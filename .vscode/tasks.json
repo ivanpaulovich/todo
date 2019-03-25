@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/tests/TodoList.UnitTests/TodoList.UnitTests.csproj"
+                "${workspaceFolder}/TodoList.sln"
             ],
             "problemMatcher": "$msCompile"
         },

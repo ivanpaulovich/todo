@@ -10,19 +10,13 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/tests/TodoList.UnitTests/bin/Debug/netcoreapp2.2/TodoList.UnitTests.dll",
+            "program": "${workspaceFolder}/source/TodoList.ConsoleApp/bin/Debug/netcoreapp2.2/TodoList.ConsoleApp.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/tests/TodoList.UnitTests",
+            "cwd": "${workspaceFolder}/source/TodoList.ConsoleApp",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
-            "console": "internalConsole",
-            "stopAtEntry": false,
+            "console": "integratedTerminal",
+            "stopAtEntry": true,
             "internalConsoleOptions": "openOnSessionStart"
-        },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach",
-            "processId": "${command:pickProcess}"
         }
     ,]
 }
