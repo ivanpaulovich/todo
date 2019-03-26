@@ -10,20 +10,20 @@ namespace TodoList.ConsoleApp
         static void Main(string[] args)
         {
             InMemoryContext inMemoryContext = new InMemoryContext();
-            ITodoItemGateway gateway = new TodoItemGateway(inMemoryContext);
+            IItemGateway gateway = new ItemGateway(inMemoryContext);
             EntitiesFactory entitiesFactory = new EntitiesFactory();
             Presenter presenter = new Presenter();
 
-            var update = new Core.UseCases.UpdateTitle(gateway);
-            var list = new Core.UseCases.ListTodoItems(presenter, gateway);
-            var finish = new Core.UseCases.RemoveTodoItem(gateway);
-            var add = new Core.UseCases.AddTodoItem(presenter, gateway, entitiesFactory);
-            var markCompleted = new Core.UseCases.MarkItemCompleted(gateway);
-            var markIncomplete = new Core.UseCases.MarkItemIncomplete(gateway);
+            var renameUseCase = new Core.UseCases.Rename(gateway);
+            var listUseCase = new Core.UseCases.List(presenter, gateway);
+            var removeUseCase = new Core.UseCases.Remove(gateway);
+            var todoUseCase = new Core.UseCases.Todo(presenter, gateway, entitiesFactory);
+            var doUseCase = new Core.UseCases.Do(gateway);
+            var undoUseCase = new Core.UseCases.Undo(gateway);
 
-            Startup startup = new Startup(add, finish, list, update, markCompleted, markIncomplete);
+            Startup startup = new Startup(todoUseCase, removeUseCase, listUseCase, renameUseCase, doUseCase, undoUseCase);
             presenter.DisplayInstructions();
-            startup.ListTodoItem();
+            startup.List();
 
             while (true)
             {
@@ -34,22 +34,22 @@ namespace TodoList.ConsoleApp
                 string[] input = command.Split(' ');
 
                 if (string.Compare(input[0], "todo", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.AddTodoItem(command);
+                    startup.Todo(command);
 
                 if (string.Compare(input[0], "rm", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.RemoveTodoItem(input);
+                    startup.Remove(input);
 
                 if (string.Compare(input[0], "ls", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.ListTodoItem();
+                    startup.List();
 
                 if (string.Compare(input[0], "ren", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.UpdateTodoItem(input, command);
+                    startup.Rename(input, command);
 
                 if (string.Compare(input[0], "do", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.CompleteTodoItem(input);
+                    startup.Do(input);
 
                 if (string.Compare(input[0], "undo", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.IncompleteTodoItem(input);
+                    startup.Undo(input);
             }
         }
     }
