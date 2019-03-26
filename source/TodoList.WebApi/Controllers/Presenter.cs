@@ -6,25 +6,25 @@ using TodoList.WebApi.Models;
 namespace TodoList.WebApi.Controllers
 {
     public sealed class Presenter:
-        IResponseHandler<Core.Boundaries.AddTodoItem.Response>,
-        IResponseHandler<Core.Boundaries.ListTodoItems.Response>
+        IResponseHandler<Core.Boundaries.Todo.Response>,
+        IResponseHandler<Core.Boundaries.List.Response>
         {
             public Collection<TodoItemViewModel> ListItems { get; private set; }
             public TodoItemViewModel CreatedItem { get; private set; }
 
-            public void Handle(Core.Boundaries.AddTodoItem.Response response)
+            public void Handle(Core.Boundaries.Todo.Response response)
             {
                 CreatedItem = new TodoItemViewModel()
                 { 
-                    Id = response.Id
+                    Id = response.ItemId
                 };
             }
 
-            public void Handle(Core.Boundaries.ListTodoItems.Response response)
+            public void Handle(Core.Boundaries.List.Response response)
             {
                 ListItems = new Collection<TodoItemViewModel>();
                 foreach (var item in response.Items)
-                    ListItems.Add(new TodoItemViewModel() { Title = item.Title, Id = item.Id });
+                    ListItems.Add(new TodoItemViewModel() { Title = item.Title, Id = item.ItemId });
             }
         }
 }

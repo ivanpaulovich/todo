@@ -6,26 +6,26 @@ namespace TodoList.Core.Gateways.InMemory
     using TodoList.Core.UseCases;
 
     public sealed class ResponseHandler:
-        IResponseHandler<Boundaries.AddTodoItem.Response>,
-        IResponseHandler<Boundaries.ListTodoItems.Response>
+        IResponseHandler<Boundaries.Todo.Response>,
+        IResponseHandler<Boundaries.List.Response>
         {
-            public Collection<Boundaries.AddTodoItem.Response> AddTodoItems { get; }
-            public Collection<Boundaries.ListTodoItems.Response> ListTodoItems { get; }
+            public Collection<Boundaries.Todo.Response> TodoItems { get; }
+            public Collection<Boundaries.List.Response> ListItems { get; }
 
             public ResponseHandler()
             {
-                AddTodoItems = new Collection<Boundaries.AddTodoItem.Response>();
-                ListTodoItems = new Collection<Boundaries.ListTodoItems.Response>();
+                TodoItems = new Collection<Boundaries.Todo.Response>();
+                ListItems = new Collection<Boundaries.List.Response>();
             }
 
-            public void Handle(Boundaries.AddTodoItem.Response response)
+            public void Handle(Boundaries.Todo.Response response)
             {
-                AddTodoItems.Add(response);
+                TodoItems.Add(response);
             }
 
-            public void Handle(Boundaries.ListTodoItems.Response response)
+            public void Handle(Boundaries.List.Response response)
             {
-                ListTodoItems.Add(response);
+                ListItems.Add(response);
             }
         }
 }

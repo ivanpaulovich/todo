@@ -14,9 +14,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using TodoList.Core.Boundaries;
-using TodoList.Core.Boundaries.AddTodoItem;
-using TodoList.Core.Boundaries.ListTodoItems;
-using TodoList.Core.Boundaries.UpdateTitle;
+using TodoList.Core.Boundaries.Todo;
+using TodoList.Core.Boundaries.List;
+using TodoList.Core.Boundaries.Rename;
 using TodoList.Core.Entities;
 using TodoList.Core.Gateways;
 using TodoList.Core.UseCases;
@@ -47,7 +47,7 @@ namespace TodoList.WebApi
         private void AddInMemoryPersistence(IServiceCollection services)
         {
             services.AddScoped<Core.Gateways.InMemory.InMemoryContext, Core.Gateways.InMemory.InMemoryContext>();
-            services.AddScoped<ITodoItemGateway, TodoList.Core.Gateways.InMemory.TodoItemGateway>();
+            services.AddScoped<IItemGateway, TodoList.Core.Gateways.InMemory.ItemGateway>();
         }
 
         private void AddSwagger(IServiceCollection services)
@@ -63,13 +63,13 @@ namespace TodoList.WebApi
             services.AddScoped<IEntitiesFactory, EntitiesFactory>();
 
             services.AddScoped<Presenter, Presenter>();
-            services.AddScoped<IResponseHandler<Core.Boundaries.AddTodoItem.Response>>(x => x.GetRequiredService<Presenter>());
-            services.AddScoped<IResponseHandler<Core.Boundaries.ListTodoItems.Response>>(x => x.GetRequiredService<Presenter>());
+            services.AddScoped<IResponseHandler<Core.Boundaries.Todo.Response>>(x => x.GetRequiredService<Presenter>());
+            services.AddScoped<IResponseHandler<Core.Boundaries.List.Response>>(x => x.GetRequiredService<Presenter>());
 
-            services.AddScoped<IUseCase<Core.Boundaries.AddTodoItem.Request>, AddTodoItem>();
-            services.AddScoped<Core.Boundaries.RemoveTodoItem.IUseCase, Core.UseCases.RemoveTodoItem>();
-            services.AddScoped<Core.Boundaries.ListTodoItems.IUseCase, Core.UseCases.ListTodoItems>();
-            services.AddScoped<IUseCase<Core.Boundaries.UpdateTitle.Request>, Core.UseCases.UpdateTitle>();
+            services.AddScoped<IUseCase<Core.Boundaries.Todo.Request>, Todo>();
+            services.AddScoped<Core.Boundaries.Remove.IUseCase, Core.UseCases.Remove>();
+            services.AddScoped<Core.Boundaries.List.IUseCase, Core.UseCases.List>();
+            services.AddScoped<IUseCase<Core.Boundaries.Rename.Request>, Core.UseCases.Rename>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -10,39 +10,36 @@ namespace TodoList.ConsoleApp
 
     public sealed class Startup
     {
-        private IUseCase<Core.Boundaries.AddTodoItem.Request> _addTodoItem;
-        private TodoList.Core.Boundaries.RemoveTodoItem.IUseCase _removeTodoItem;
-        private TodoList.Core.Boundaries.ListTodoItems.IUseCase _listTodoItems;
-        private IUseCase<Core.Boundaries.UpdateTitle.Request> _updateTitle;
-        private TodoList.Core.Boundaries.MarkItemCompleted.IUseCase _markItemCompleted;
-        private TodoList.Core.Boundaries.MarkItemIncomplete.IUseCase _markItemIncomplete;
+        private IUseCase<Core.Boundaries.Todo.Request> _todoUseCase;
+        private TodoList.Core.Boundaries.Remove.IUseCase _removeUseCase;
+        private TodoList.Core.Boundaries.List.IUseCase _listUseCase;
+        private IUseCase<Core.Boundaries.Rename.Request> _renameUseCase;
+        private TodoList.Core.Boundaries.Do.IUseCase _doUseCase;
+        private TodoList.Core.Boundaries.Undo.IUseCase _undoUseCase;
 
 
         public Startup(
-            IUseCase<Core.Boundaries.AddTodoItem.Request> addTodoItem,
-            TodoList.Core.Boundaries.RemoveTodoItem.IUseCase removeTodoItem,
-            TodoList.Core.Boundaries.ListTodoItems.IUseCase listTodoItems,
-            IUseCase<TodoList.Core.Boundaries.UpdateTitle.Request> updateTitle,
-            TodoList.Core.Boundaries.MarkItemCompleted.IUseCase markItemCompleted,
-            TodoList.Core.Boundaries.MarkItemIncomplete.IUseCase markItemIncomplete)
+            IUseCase<Core.Boundaries.Todo.Request> todoUseCase,
+            TodoList.Core.Boundaries.Remove.IUseCase removeUseCase,
+            TodoList.Core.Boundaries.List.IUseCase listUseCase,
+            IUseCase<TodoList.Core.Boundaries.Rename.Request> renameUseCase,
+            TodoList.Core.Boundaries.Do.IUseCase doUseCase,
+            TodoList.Core.Boundaries.Undo.IUseCase undoUseCase)
         {
-            _addTodoItem = addTodoItem;
-            _removeTodoItem = removeTodoItem;
-            _listTodoItems = listTodoItems;
-            _updateTitle = updateTitle;
-            _markItemCompleted = markItemCompleted;
-            _markItemIncomplete = markItemIncomplete;
+            _todoUseCase = todoUseCase;
+            _removeUseCase = removeUseCase;
+            _listUseCase = listUseCase;
+            _renameUseCase = renameUseCase;
+            _doUseCase = doUseCase;
+            _undoUseCase = undoUseCase;
         }
 
-        internal void UpdateTodoItem(string[] args, string line)
+        internal void Rename(string[] args, string line)
         {
             if (args.Length < 3)
                 return;
 
-            Guid id;
-
-            if (!Guid.TryParse(args[1], out id))
-                return;
+            string id = args[1];
 
             int firstSeparatorIndex = line.IndexOf(' ');
             if (firstSeparatorIndex <= 0)
@@ -54,24 +51,24 @@ namespace TodoList.ConsoleApp
             
             string title = line.Substring(secondSeparatorIndex + 1);
 
-            var input = new TodoList.Core.Boundaries.UpdateTitle.Request(id, title);
-            _updateTitle.Execute(input);
+            var input = new TodoList.Core.Boundaries.Rename.Request(id, title);
+            _renameUseCase.Execute(input);
         }
 
-        internal void ListTodoItem()
+        internal void List()
         {
-            _listTodoItems.Execute();
+            _listUseCase.Execute();
         }
 
-        internal void RemoveTodoItem(string[] args)
+        internal void Remove(string[] args)
         {
             if (args.Length != 2)
                 return;
 
-            _removeTodoItem.Execute(new Guid(args[1]));
+            _removeUseCase.Execute(args[1]);
         }
 
-        internal void AddTodoItem(string line)
+        internal void Todo(string line)
         {
             int separatorIndex = line.IndexOf(' ');
             
@@ -80,24 +77,24 @@ namespace TodoList.ConsoleApp
             
             string title = line.Substring(separatorIndex + 1);
 
-            var input = new TodoList.Core.Boundaries.AddTodoItem.Request(title);
-            _addTodoItem.Execute(input);
+            var input = new TodoList.Core.Boundaries.Todo.Request(title);
+            _todoUseCase.Execute(input);
         }
 
-        internal void IncompleteTodoItem(string[] args)
+        internal void Undo(string[] args)
         {
             if (args.Length != 2)
                 return;
 
-            _markItemIncomplete.Execute(new Guid(args[1]));
+            _undoUseCase.Execute(args[1]);
         }
 
-        internal void CompleteTodoItem(string[] args)
+        internal void Do(string[] args)
         {
             if (args.Length != 2)
                 return;
 
-            _markItemCompleted.Execute(new Guid(args[1]));
+            _doUseCase.Execute(args[1]);
         }
     }
 }

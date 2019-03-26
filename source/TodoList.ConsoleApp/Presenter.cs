@@ -8,8 +8,8 @@ namespace TodoList.ConsoleApp
     using Console = Colorful.Console;
 
     public sealed class Presenter:
-        IResponseHandler<Core.Boundaries.AddTodoItem.Response>,
-        IResponseHandler<Core.Boundaries.ListTodoItems.Response>
+        IResponseHandler<Core.Boundaries.Todo.Response>,
+        IResponseHandler<Core.Boundaries.List.Response>
         {
             public void DisplayInstructions()
             {
@@ -23,24 +23,24 @@ namespace TodoList.ConsoleApp
                 Console.WriteLine("\texit");
             }
 
-            public void Handle(Core.Boundaries.AddTodoItem.Response response)
+            public void Handle(Core.Boundaries.Todo.Response response)
             {
-                Console.WriteLine($"Added {response.Id}.");
+                Console.WriteLine($"Added {response.ItemId}.");
             }
 
-            public void Handle(Core.Boundaries.ListTodoItems.Response response)
+            public void Handle(Core.Boundaries.List.Response response)
             {
                 Console.WriteLine($"id\t\t\t\t\t    title", Color.Gray);
                 Console.WriteLine($"----------------------------------------------------------", Color.Gray);
 
-                foreach (var item in response.Items.Where(e => !e.IsCompleted))
+                foreach (var item in response.Items.Where(e => !e.Done))
                 {
-                    Console.WriteLine($"{item.Id}\t[ ] {item.Title}", Color.White);
+                    Console.WriteLine($"{item.ItemId}\t[ ] {item.Title}", Color.White);
                 }
 
-                foreach (var item in response.Items.Where(e => e.IsCompleted))
+                foreach (var item in response.Items.Where(e => e.Done))
                 {
-                    Console.WriteLine($"{item.Id}\t[X] {item.Title}", Color.Green);
+                    Console.WriteLine($"{item.ItemId}\t[X] {item.Title}", Color.Green);
                 }
             }
         }

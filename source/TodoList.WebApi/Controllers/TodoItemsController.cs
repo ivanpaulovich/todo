@@ -18,17 +18,17 @@ namespace TodoList.WebApi.Controllers
     [ApiController]
     public class TodoItemsController : ControllerBase
     {
-        private IUseCase<Core.Boundaries.AddTodoItem.Request> _addTodoItem;
-        private Core.Boundaries.RemoveTodoItem.IUseCase _removeTodoItem;
-        private Core.Boundaries.ListTodoItems.IUseCase _listTodoItems;
-        private IUseCase<Core.Boundaries.UpdateTitle.Request> _updateTitle;
+        private IUseCase<Core.Boundaries.Todo.Request> _addTodoItem;
+        private Core.Boundaries.Remove.IUseCase _removeTodoItem;
+        private Core.Boundaries.List.IUseCase _listTodoItems;
+        private IUseCase<Core.Boundaries.Rename.Request> _updateTitle;
         private Presenter _presenter;
 
         public TodoItemsController(
-            IUseCase<Core.Boundaries.AddTodoItem.Request> addTodoItem,
-            Core.Boundaries.RemoveTodoItem.IUseCase removeTodoItem,
-            Core.Boundaries.ListTodoItems.IUseCase listTodoItems,
-            IUseCase<Core.Boundaries.UpdateTitle.Request> updateTitle,
+            IUseCase<Core.Boundaries.Todo.Request> addTodoItem,
+            Core.Boundaries.Remove.IUseCase removeTodoItem,
+            Core.Boundaries.List.IUseCase listTodoItems,
+            IUseCase<Core.Boundaries.Rename.Request> updateTitle,
             Presenter presenter)
         {
             _addTodoItem = addTodoItem;
@@ -50,22 +50,22 @@ namespace TodoList.WebApi.Controllers
         [HttpPost]
         public ActionResult<TodoItemViewModel> Post([FromBody] string value)
         {
-            var request = new Core.Boundaries.AddTodoItem.Request(value);
+            var request = new Core.Boundaries.Todo.Request(value);
             _addTodoItem.Execute(request);
             return CreatedAtAction(nameof(Post), new { id = _presenter.CreatedItem.Id }, _presenter.CreatedItem);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(Guid id, [FromBody] string value)
+        public void Put(string id, [FromBody] string value)
         {
-            var request = new Core.Boundaries.UpdateTitle.Request(id, value);
+            var request = new Core.Boundaries.Rename.Request(id, value);
             _updateTitle.Execute(request);
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        public void Delete(string id)
         {
             _removeTodoItem.Execute(id);
         }
