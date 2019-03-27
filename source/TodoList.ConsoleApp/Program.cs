@@ -28,7 +28,7 @@ namespace TodoList.ConsoleApp
                 renameUseCase,
                 doUseCase,
                 undoUseCase);
-                
+
             presenter.DisplayInstructions();
             startup.List();
 
