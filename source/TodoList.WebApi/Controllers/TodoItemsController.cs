@@ -22,6 +22,8 @@ namespace TodoList.WebApi.Controllers
         private Core.Boundaries.Remove.IUseCase _removeUseCase;
         private Core.Boundaries.List.IUseCase _listUseCase;
         private IUseCase<Core.Boundaries.Rename.Request> _renameUseCase;
+        private Core.Boundaries.Do.IUseCase _doUseCase;
+        private Core.Boundaries.Undo.IUseCase _undoUseCase;
         private Presenter _presenter;
 
         public TodoItemsController(
@@ -29,12 +31,16 @@ namespace TodoList.WebApi.Controllers
             Core.Boundaries.Remove.IUseCase removeUseCase,
             Core.Boundaries.List.IUseCase listUseCase,
             IUseCase<Core.Boundaries.Rename.Request> renameUseCase,
+            Core.Boundaries.Do.IUseCase doUseCase,
+            Core.Boundaries.Undo.IUseCase undoUseCase,
             Presenter presenter)
         {
             _todoUseCase = todoUseCase;
             _removeUseCase = removeUseCase;
             _listUseCase = listUseCase;
             _renameUseCase = renameUseCase;
+            _doUseCase = doUseCase;
+            _undoUseCase = undoUseCase;
             _presenter = presenter;
         }
 
@@ -55,12 +61,23 @@ namespace TodoList.WebApi.Controllers
             return CreatedAtAction(nameof(Post), new { id = _presenter.CreatedItem.Id }, _presenter.CreatedItem);
         }
 
-        // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(string id, [FromBody] string value)
         {
             var request = new Core.Boundaries.Rename.Request(id, value);
             _renameUseCase.Execute(request);
+        }
+
+        [HttpPut("{id}/Do")]
+        public void Do(string id)
+        {
+            _doUseCase.Execute(id);
+        }
+
+        [HttpPut("{id}/Undo")]
+        public void Undo(string id)
+        {
+            _undoUseCase.Execute(id);
         }
 
         // DELETE api/values/5
