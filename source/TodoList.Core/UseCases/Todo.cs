@@ -8,16 +8,16 @@ namespace TodoList.Core.UseCases
 
     public sealed class Todo : IUseCase<Request>
     {
-        private IResponseHandler<Response> _outputHandler;
+        private IResponseHandler<Response> _responseHandler;
         private IItemGateway _itemGateway;
         private IEntitiesFactory _entitiesFactory;
 
         public Todo(
-            IResponseHandler<Response> outputHandler,
+            IResponseHandler<Response> responseHandler,
             IItemGateway itemGateway,
             IEntitiesFactory entitiesFactory)
         {
-            _outputHandler = outputHandler;
+            _responseHandler = responseHandler;
             _itemGateway = itemGateway;
             _entitiesFactory = entitiesFactory;
         }
@@ -35,7 +35,7 @@ namespace TodoList.Core.UseCases
             _itemGateway.Add(todo);
 
             Response response = new Response(todo.Id);
-            _outputHandler.Handle(response);
+            _responseHandler.Handle(response);
         }
     }
 }

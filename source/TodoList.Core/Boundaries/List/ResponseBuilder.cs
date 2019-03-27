@@ -1,7 +1,7 @@
 namespace TodoList.Core.Boundaries.List
 {
-    using System;
     using System.Collections.Generic;
+    using System;
 
     public sealed class ResponseBuilder
     {

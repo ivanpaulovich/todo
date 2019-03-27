@@ -17,7 +17,6 @@ namespace TodoList.ConsoleApp
         private TodoList.Core.Boundaries.Do.IUseCase _doUseCase;
         private TodoList.Core.Boundaries.Undo.IUseCase _undoUseCase;
 
-
         public Startup(
             IUseCase<Core.Boundaries.Todo.Request> todoUseCase,
             TodoList.Core.Boundaries.Remove.IUseCase removeUseCase,
@@ -48,7 +47,7 @@ namespace TodoList.ConsoleApp
             int secondSeparatorIndex = line.IndexOf(' ', firstSeparatorIndex);
             if (secondSeparatorIndex <= 0)
                 return;
-            
+
             string title = line.Substring(secondSeparatorIndex + 1);
 
             var input = new TodoList.Core.Boundaries.Rename.Request(id, title);
@@ -71,10 +70,10 @@ namespace TodoList.ConsoleApp
         internal void Todo(string line)
         {
             int separatorIndex = line.IndexOf(' ');
-            
+
             if (separatorIndex <= 0)
                 return;
-            
+
             string title = line.Substring(separatorIndex + 1);
 
             var input = new TodoList.Core.Boundaries.Todo.Request(title);

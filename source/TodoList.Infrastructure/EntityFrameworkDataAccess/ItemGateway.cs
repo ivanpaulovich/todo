@@ -1,8 +1,8 @@
 namespace TodoList.Infrastructure.EntityFrameworkDataAccess
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
 
@@ -23,7 +23,7 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess
 
         public void Delete(string itemId)
         {
-            Item item = (Item)Get(itemId);
+            Item item = (Item) Get(itemId);
 
             if (item != null)
             {
@@ -37,7 +37,7 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess
             Item item = _todoContext
                 .Items
                 .Single(e => e.Id.ToString().StartsWith(itemId));
-                
+
             return item;
         }
 
