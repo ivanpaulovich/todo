@@ -21,7 +21,14 @@ namespace TodoList.ConsoleApp
             var doUseCase = new Core.UseCases.Do(gateway);
             var undoUseCase = new Core.UseCases.Undo(gateway);
 
-            Startup startup = new Startup(todoUseCase, removeUseCase, listUseCase, renameUseCase, doUseCase, undoUseCase);
+            Startup startup = new Startup(
+                todoUseCase,
+                removeUseCase,
+                listUseCase,
+                renameUseCase,
+                doUseCase,
+                undoUseCase);
+                
             presenter.DisplayInstructions();
             startup.List();
 
