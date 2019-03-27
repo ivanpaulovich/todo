@@ -3,19 +3,19 @@ namespace TodoList.Core.UseCases
     using System.Collections.Generic;
     using TodoList.Core.Boundaries.List;
     using TodoList.Core.Boundaries;
-    using TodoList.Core.Gateways;
     using TodoList.Core.Entities;
+    using TodoList.Core.Gateways;
 
     public sealed class List : IUseCase
     {
-        private IResponseHandler<Response> _outputHandler;
+        private IResponseHandler<Response> _responseHandler;
         private IItemGateway _itemGateway;
 
         public List(
-            IResponseHandler<Response> outputHandler,
+            IResponseHandler<Response> responseHandler,
             IItemGateway itemGateway)
         {
-            _outputHandler = outputHandler;
+            _responseHandler = responseHandler;
             _itemGateway = itemGateway;
         }
 
@@ -23,7 +23,7 @@ namespace TodoList.Core.UseCases
         {
             var items = _itemGateway.List();
             Response output = BuildOutput(items);
-            _outputHandler.Handle(output);
+            _responseHandler.Handle(output);
         }
 
         private Response BuildOutput(IList<IItem> items)
