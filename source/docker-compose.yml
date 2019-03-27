@@ -1,8 +1,0 @@
-version: '3'
-services:  
-  webapi:
-    image: ivanpaulovich/dotnet-clean-architecture
-    ports:
-        - 5200:80
-    environment:
-        - ASPNETCORE_ENVIRONMENT=Development

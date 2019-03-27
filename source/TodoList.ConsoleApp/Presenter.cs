@@ -28,17 +28,17 @@ namespace TodoList.ConsoleApp
 
         public void Handle(Core.Boundaries.List.Response response)
         {
-            Console.WriteLine($"id\t\t\t\t\t    title", Color.Gray);
+            Console.WriteLine($"id\t     title", Color.Gray);
             Console.WriteLine($"----------------------------------------------------------", Color.Gray);
 
             foreach (var item in response.Items.Where(e => !e.Done))
             {
-                Console.WriteLine($"{item.ItemId}\t[ ] {item.Title}", Color.White);
+                Console.WriteLine($"{item.ItemId.ToString().Substring(0, 8)} [ ] {item.Title}", Color.White);
             }
 
             foreach (var item in response.Items.Where(e => e.Done))
             {
-                Console.WriteLine($"{item.ItemId}\t[X] {item.Title}", Color.Green);
+                Console.WriteLine($"{item.ItemId.ToString().Substring(0, 8)} [X] {item.Title}", Color.Green);
             }
         }
     }
