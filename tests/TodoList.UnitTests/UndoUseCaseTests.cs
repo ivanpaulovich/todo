@@ -7,9 +7,9 @@ namespace TodoList.UnitTests
     using TodoList.Core.Exceptions;
     using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
+    using TodoList.Core.UseCases;
     using TodoList.Core;
     using Xunit;
-    using TodoList.Core.UseCases;
 
     public sealed class MarkItemIncompletedTests
     {
