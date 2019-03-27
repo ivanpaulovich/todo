@@ -71,6 +71,8 @@ namespace TodoList.WebApi
             services.AddScoped<Core.Boundaries.Remove.IUseCase, Core.UseCases.Remove>();
             services.AddScoped<Core.Boundaries.List.IUseCase, Core.UseCases.List>();
             services.AddScoped<IUseCase<Core.Boundaries.Rename.Request>, Core.UseCases.Rename>();
+            services.AddScoped<Core.Boundaries.Do.IUseCase, Core.UseCases.Do>();
+            services.AddScoped<Core.Boundaries.Undo.IUseCase, Core.UseCases.Undo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
