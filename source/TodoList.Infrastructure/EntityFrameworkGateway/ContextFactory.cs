@@ -1,4 +1,4 @@
-namespace TodoList.Infrastructure.EntityFrameworkDataAccess
+namespace TodoList.Infrastructure.EntityFrameworkGateway
 {
     using System.IO;
     using System;
@@ -7,15 +7,15 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
 
-    public sealed class ContextFactory : IDesignTimeDbContextFactory<TodoContext>
+    public sealed class ContextFactory : IDesignTimeDbContextFactory<SqlContext>
     {
-        public TodoContext CreateDbContext(string[] args)
+        public SqlContext CreateDbContext(string[] args)
         {
             string connectionString = ReadDefaultConnectionStringFromAppSettings();
 
-            var builder = new DbContextOptionsBuilder<TodoContext>();
+            var builder = new DbContextOptionsBuilder<SqlContext>();
             builder.UseSqlServer(connectionString);
-            return new TodoContext(builder.Options);
+            return new SqlContext(builder.Options);
         }
 
         private string ReadDefaultConnectionStringFromAppSettings()

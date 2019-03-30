@@ -19,8 +19,9 @@ using TodoList.Core.Boundaries.Rename;
 using TodoList.Core.Boundaries.Todo;
 using TodoList.Core.Entities;
 using TodoList.Core.Gateways;
+using TodoList.Core.Gateways.InMemory;
 using TodoList.Core.UseCases;
-using TodoList.Infrastructure.EntityFrameworkDataAccess;
+using TodoList.Infrastructure.EntityFrameworkGateway;
 using TodoList.WebApi.Controllers;
 
 namespace TodoList.WebApi
@@ -46,8 +47,8 @@ namespace TodoList.WebApi
 
         private void AddInMemoryPersistence(IServiceCollection services)
         {
-            services.AddSingleton<Core.Gateways.InMemory.InMemoryContext, Core.Gateways.InMemory.InMemoryContext>();
-            services.AddScoped<IItemGateway, TodoList.Core.Gateways.InMemory.ItemGateway>();
+            services.AddSingleton<InMemoryContext, InMemoryContext>();
+            services.AddScoped<IItemGateway, InMemoryItemGateway>();
         }
 
         private void AddSwagger(IServiceCollection services)

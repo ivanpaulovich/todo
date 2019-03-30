@@ -4,60 +4,25 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
+    using System.Collections.Generic;
+    using TodoList.Core.Boundaries;
 
+    /// <summary>
+    /// My to do list app
+    /// </summary>
     public class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// My to do list app
+        /// </summary>
+        /// <param name="commandType">The command types [todo, do, undo, rename, remove]</param>
+        /// <param name="id">The item id</param>
+        /// <param name="title">The item title</param>
+        static void Main(CommandType commandType = CommandType.Todo, string id = "", string title = "aaaa")
         {
-            InMemoryContext inMemoryContext = new InMemoryContext();
-            IItemGateway gateway = new ItemGateway(inMemoryContext);
-            EntitiesFactory entitiesFactory = new EntitiesFactory();
-            Presenter presenter = new Presenter();
-
-            var renameUseCase = new Core.UseCases.Rename(gateway);
-            var listUseCase = new Core.UseCases.List(presenter, gateway);
-            var removeUseCase = new Core.UseCases.Remove(gateway);
-            var todoUseCase = new Core.UseCases.Todo(presenter, gateway, entitiesFactory);
-            var doUseCase = new Core.UseCases.Do(gateway);
-            var undoUseCase = new Core.UseCases.Undo(gateway);
-
-            Startup startup = new Startup(
-                todoUseCase,
-                removeUseCase,
-                listUseCase,
-                renameUseCase,
-                doUseCase,
-                undoUseCase);
-
-            presenter.DisplayInstructions();
-            startup.List();
-
-            while (true)
-            {
-                string command = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(command) || string.Compare(command, "exit", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    break;
-
-                string[] input = command.Split(' ');
-
-                if (string.Compare(input[0], "todo", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.Todo(command);
-
-                if (string.Compare(input[0], "rm", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.Remove(input);
-
-                if (string.Compare(input[0], "ls", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.List();
-
-                if (string.Compare(input[0], "ren", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.Rename(input, command);
-
-                if (string.Compare(input[0], "do", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.Do(input);
-
-                if (string.Compare(input[0], "undo", StringComparison.CurrentCultureIgnoreCase) == 0)
-                    startup.Undo(input);
-            }
+            Startup startup = new Startup();
+            startup.ConfigureServices();
+            startup.Run(commandType, id, title);
         }
     }
 }

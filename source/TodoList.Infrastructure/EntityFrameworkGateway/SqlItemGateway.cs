@@ -1,4 +1,4 @@
-namespace TodoList.Infrastructure.EntityFrameworkDataAccess
+namespace TodoList.Infrastructure.EntityFrameworkGateway
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -6,11 +6,11 @@ namespace TodoList.Infrastructure.EntityFrameworkDataAccess
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
 
-    public sealed class TodoItemGateway : IItemGateway
+    public sealed class SqlItemGateway : IItemGateway
     {
-        private TodoContext _todoContext;
+        private SqlContext _todoContext;
 
-        public TodoItemGateway(TodoContext todoContext)
+        public SqlItemGateway(SqlContext todoContext)
         {
             _todoContext = todoContext;
         }

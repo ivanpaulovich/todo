@@ -20,7 +20,7 @@ using TodoList.Core.Boundaries.Todo;
 using TodoList.Core.Entities;
 using TodoList.Core.Gateways;
 using TodoList.Core.UseCases;
-using TodoList.Infrastructure.EntityFrameworkDataAccess;
+using TodoList.Infrastructure.EntityFrameworkGateway;
 using TodoList.WebApi.Controllers;
 
 namespace TodoList.WebApi
@@ -46,9 +46,9 @@ namespace TodoList.WebApi
 
         private void AddSQLPersistence(IServiceCollection services)
         {
-            services.AddDbContext<TodoList.Infrastructure.EntityFrameworkDataAccess.TodoContext>(
+            services.AddDbContext<SqlContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IItemGateway, TodoList.Infrastructure.EntityFrameworkDataAccess.TodoItemGateway>();
+            services.AddScoped<IItemGateway, SqlItemGateway>();
         }
 
         private void AddSwagger(IServiceCollection services)

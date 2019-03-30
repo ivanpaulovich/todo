@@ -39,7 +39,7 @@ namespace TodoList.UnitTests
         public void GivenTitle_ItemsWasAdded()
         {
             var context = new InMemoryContext();
-            var gateway = new ItemGateway(context);
+            var gateway = new InMemoryItemGateway(context);
             var responseHandler = new ResponseHandler();
             var entitiesFactory = new EntitiesFactory();
 
@@ -53,7 +53,7 @@ namespace TodoList.UnitTests
         public void GivenTitle_ReturnsId()
         {
             var context = new InMemoryContext();
-            var gateway = new ItemGateway(context);
+            var gateway = new InMemoryItemGateway(context);
             var responseHandler = new ResponseHandler();
             var entitiesFactory = new EntitiesFactory();
 

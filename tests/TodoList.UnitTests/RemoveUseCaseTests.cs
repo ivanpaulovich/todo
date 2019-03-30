@@ -17,7 +17,7 @@ namespace TodoList.UnitTests
         public void RemoveChangesContext()
         {
             InMemoryContext inMemory = new InMemoryContext();
-            IItemGateway gateway = new ItemGateway(inMemory);
+            IItemGateway gateway = new InMemoryItemGateway(inMemory);
             IUseCase sut = new Remove(gateway);
 
             sut.Execute(existingTodoItemId);
@@ -29,7 +29,7 @@ namespace TodoList.UnitTests
         public void RemoveThrowsException_WhenItemDoesNotExist()
         {
             InMemoryContext inMemory = new InMemoryContext();
-            IItemGateway gateway = new ItemGateway(inMemory);
+            IItemGateway gateway = new InMemoryItemGateway(inMemory);
             IUseCase sut = new Remove(gateway);
 
             Exception ex = Record.Exception(() => sut.Execute(Guid.NewGuid().ToString()));

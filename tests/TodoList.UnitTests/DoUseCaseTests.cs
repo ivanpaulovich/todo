@@ -19,7 +19,7 @@ namespace TodoList.UnitTests
         public void MarkItemCompletedSuccess()
         {
             InMemoryContext inMemory = new InMemoryContext();
-            IItemGateway gateway = new ItemGateway(inMemory);
+            IItemGateway gateway = new InMemoryItemGateway(inMemory);
             IUseCase sut = new Do(gateway);
 
             sut.Execute(existingTodoItemId);
@@ -31,7 +31,7 @@ namespace TodoList.UnitTests
         public void MarkItemCompleted_ThrowsException_WhenItemDoesNotExist()
         {
             InMemoryContext inMemory = new InMemoryContext();
-            IItemGateway gateway = new ItemGateway(inMemory);
+            IItemGateway gateway = new InMemoryItemGateway(inMemory);
             IUseCase sut = new Do(gateway);
 
             Exception ex = Record.Exception(() => sut.Execute(Guid.NewGuid().ToString()));

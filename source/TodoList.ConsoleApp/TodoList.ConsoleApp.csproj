@@ -2,6 +2,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TodoList.Core\TodoList.Core.csproj" />
+    <ProjectReference Include="..\TodoList.Infrastructure\TodoList.Infrastructure.csproj" />
+
   </ItemGroup>
 
   <PropertyGroup>
@@ -11,6 +13,7 @@
 
   <ItemGroup>
     <PackageReference Include="Colorful.Console" Version="1.2.9" />
+    <PackageReference Include="System.CommandLine.DragonFruit" Version="0.2.0-alpha.19174.3" />
   </ItemGroup>
 
 </Project>
