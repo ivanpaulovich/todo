@@ -34,8 +34,8 @@ namespace TodoList.ConsoleApp
 
         private void Rename(string id, string title)
         {
-            var input = new TodoList.Core.Boundaries.Rename.Request(id, title);
-            _renameUseCase.Execute(input);
+            var request = new TodoList.Core.Boundaries.Rename.Request(id, title);
+            _renameUseCase.Execute(request);
         }
 
         private void List()
@@ -50,8 +50,8 @@ namespace TodoList.ConsoleApp
 
         private void Todo(string title)
         {
-            var input = new TodoList.Core.Boundaries.Todo.Request(title);
-            _todoUseCase.Execute(input);
+            var request = new TodoList.Core.Boundaries.Todo.Request(title);
+            _todoUseCase.Execute(request);
         }
 
         private void Undo(string id)

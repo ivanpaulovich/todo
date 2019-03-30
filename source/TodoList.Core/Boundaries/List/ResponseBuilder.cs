@@ -26,8 +26,8 @@ namespace TodoList.Core.Boundaries.List
 
         public Response Build()
         {
-            var output = new Response(_items);
-            return output;
+            var response = new Response(_items);
+            return response;
         }
     }
 }
