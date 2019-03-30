@@ -22,11 +22,11 @@ namespace TodoList.Core.UseCases
         public void Execute()
         {
             var items = _itemGateway.List();
-            Response output = BuildOutput(items);
-            _responseHandler.Handle(output);
+            Response response = BuildResponse(items);
+            _responseHandler.Handle(response);
         }
 
-        private Response BuildOutput(IList<IItem> items)
+        private Response BuildResponse(IList<IItem> items)
         {
             ResponseBuilder builder = new ResponseBuilder();
             foreach (var item in items)
