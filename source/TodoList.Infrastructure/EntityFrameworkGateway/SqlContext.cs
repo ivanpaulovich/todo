@@ -1,12 +1,12 @@
-namespace TodoList.Infrastructure.EntityFrameworkDataAccess
+namespace TodoList.Infrastructure.EntityFrameworkGateway
 {
     using System;
     using Microsoft.EntityFrameworkCore;
     using TodoList.Core.Entities;
 
-    public sealed class TodoContext : DbContext
+    public sealed class SqlContext : DbContext
     {
-        public TodoContext(DbContextOptions options) : base(options)
+        public SqlContext(DbContextOptions options) : base(options)
         {
 
         }

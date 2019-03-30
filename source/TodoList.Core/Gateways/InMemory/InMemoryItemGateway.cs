@@ -7,11 +7,11 @@ namespace TodoList.Core.Gateways.InMemory
     using TodoList.Core.Entities;
     using TodoList.Core.Exceptions;
 
-    public sealed class ItemGateway : IItemGateway
+    public sealed class InMemoryItemGateway : IItemGateway
     {
         private readonly InMemoryContext _context;
 
-        public ItemGateway(InMemoryContext context)
+        public InMemoryItemGateway(InMemoryContext context)
         {
             _context = context;
         }

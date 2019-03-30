@@ -38,7 +38,7 @@ namespace TodoList.UnitTests
         public void GivenTodoItem_TitleChanged()
         {
             var context = new InMemoryContext();
-            var gateway = new ItemGateway(context);
+            var gateway = new InMemoryItemGateway(context);
             var responseHandler = new ResponseHandler();
             var entitiesFactory = new EntitiesFactory();
 

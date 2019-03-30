@@ -7,11 +7,12 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.UseCases;
     using Console = Colorful.Console;
 
-    public sealed class Presenter : IResponseHandler<Core.Boundaries.Todo.Response>, IResponseHandler<Core.Boundaries.List.Response>
+    internal sealed class Presenter : IResponseHandler<Core.Boundaries.Todo.Response>, IResponseHandler<Core.Boundaries.List.Response>
     {
         public void DisplayInstructions()
         {
-            Console.WriteLine("Usage");
+            Console.WriteLine("** In memory persistence and interactive. **");
+            Console.WriteLine("The usage");
             Console.WriteLine("\ttodo [title]");
             Console.WriteLine("\tren [id] [title]");
             Console.WriteLine("\tdo [id]");

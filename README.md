@@ -74,15 +74,18 @@ dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 ### Console Demo (InMemory Persistence)
 
 ```
-dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj"
-Usage
-        todo [title]
-        ren [id] [title]
-        do [id]
-        undo [id]
-        ls
-        rm [id]
-        exit
+dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj" -- -h
+TodoList.ConsoleApp:
+  My to do list app
+
+Usage:
+  TodoList.ConsoleApp [options]
+
+Options:
+  --command-type <COMMAND-TYPE>    The command types [todo, do, undo, rename, remove]
+  --id <ID>                        The item id
+  --title <TITLE>                  The item title
+  --version                        Display version information
 ```
 
 ### Web API (InMemory Persistence)
@@ -116,7 +119,7 @@ Server=localhost;User Id=sa;Password=<YourNewStrong!Passw0rd>;
 Run the EF Tool to add a migration to the `TodoList.Infrastructure` project.
 
 ```sh
-dotnet ef migrations add "InitialCreate" -o "EntityFrameworkDataAccess/Migrations" --project source/TodoList.Infrastructure --startup-project source/TodoList.WebApi
+dotnet ef migrations add "InitialCreate" -o "EntityFrameworkGateway/Migrations" --project source/TodoList.Infrastructure --startup-project source/TodoList.WebApi
 ```
 
 #### Update the Database

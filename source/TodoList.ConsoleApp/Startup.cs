@@ -7,9 +7,11 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
     using TodoList.Core;
+    using TodoList.Infrastructure.FileSystemGateway;
 
-    public sealed class Startup
+    internal sealed class Startup
     {
+        private Presenter _presenter;
         private IUseCase<Core.Boundaries.Todo.Request> _todoUseCase;
         private TodoList.Core.Boundaries.Remove.IUseCase _removeUseCase;
         private TodoList.Core.Boundaries.List.IUseCase _listUseCase;
@@ -17,83 +19,70 @@ namespace TodoList.ConsoleApp
         private TodoList.Core.Boundaries.Do.IUseCase _doUseCase;
         private TodoList.Core.Boundaries.Undo.IUseCase _undoUseCase;
 
-        public Startup(
-            IUseCase<Core.Boundaries.Todo.Request> todoUseCase,
-            TodoList.Core.Boundaries.Remove.IUseCase removeUseCase,
-            TodoList.Core.Boundaries.List.IUseCase listUseCase,
-            IUseCase<TodoList.Core.Boundaries.Rename.Request> renameUseCase,
-            TodoList.Core.Boundaries.Do.IUseCase doUseCase,
-            TodoList.Core.Boundaries.Undo.IUseCase undoUseCase)
+        internal void ConfigureServices()
         {
-            _todoUseCase = todoUseCase;
-            _removeUseCase = removeUseCase;
-            _listUseCase = listUseCase;
-            _renameUseCase = renameUseCase;
-            _doUseCase = doUseCase;
-            _undoUseCase = undoUseCase;
+            IItemGateway gateway = new FileSystemItemGateway();
+            EntitiesFactory entitiesFactory = new EntitiesFactory();
+            _presenter = new Presenter();
+            _renameUseCase = new Core.UseCases.Rename(gateway);
+            _listUseCase = new Core.UseCases.List(_presenter, gateway);
+            _removeUseCase = new Core.UseCases.Remove(gateway);
+            _todoUseCase = new Core.UseCases.Todo(_presenter, gateway, entitiesFactory);
+            _doUseCase = new Core.UseCases.Do(gateway);
+            _undoUseCase = new Core.UseCases.Undo(gateway);
         }
 
-        internal void Rename(string[] args, string line)
+        private void Rename(string id, string title)
         {
-            if (args.Length < 3)
-                return;
-
-            string id = args[1];
-
-            int firstSeparatorIndex = line.IndexOf(' ');
-            if (firstSeparatorIndex <= 0)
-                return;
-
-            int secondSeparatorIndex = line.IndexOf(' ', firstSeparatorIndex);
-            if (secondSeparatorIndex <= 0)
-                return;
-
-            string title = line.Substring(secondSeparatorIndex + 1);
-
             var input = new TodoList.Core.Boundaries.Rename.Request(id, title);
             _renameUseCase.Execute(input);
         }
 
-        internal void List()
+        private void List()
         {
             _listUseCase.Execute();
         }
 
-        internal void Remove(string[] args)
+        private void Remove(string id)
         {
-            if (args.Length != 2)
-                return;
-
-            _removeUseCase.Execute(args[1]);
+            _removeUseCase.Execute(id);
         }
 
-        internal void Todo(string line)
+        private void Todo(string title)
         {
-            int separatorIndex = line.IndexOf(' ');
-
-            if (separatorIndex <= 0)
-                return;
-
-            string title = line.Substring(separatorIndex + 1);
-
             var input = new TodoList.Core.Boundaries.Todo.Request(title);
             _todoUseCase.Execute(input);
         }
 
-        internal void Undo(string[] args)
+        private void Undo(string id)
         {
-            if (args.Length != 2)
-                return;
-
-            _undoUseCase.Execute(args[1]);
+            _undoUseCase.Execute(id);
         }
 
-        internal void Do(string[] args)
+        private void Do(string id)
         {
-            if (args.Length != 2)
-                return;
+            _doUseCase.Execute(id);
+        }
 
-            _doUseCase.Execute(args[1]);
+        internal void Run(CommandType commandType, string id, string title)
+        {
+            if (commandType == CommandType.Todo)
+                Todo(title);
+
+            if (commandType == CommandType.Remove)
+                Remove(id);
+
+            if (commandType == CommandType.List)
+                List();
+
+            if (commandType == CommandType.Rename)
+                Rename(id, title);
+
+            if (commandType == CommandType.Do)
+                Do(id);
+
+            if (commandType == CommandType.Undo)
+                Undo(id);
         }
     }
 }

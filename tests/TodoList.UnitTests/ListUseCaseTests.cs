@@ -11,7 +11,7 @@ namespace TodoList.UnitTests
         public void GivenContext_ReturnsItems()
         {
             var context = new InMemoryContext();
-            var gateway = new ItemGateway(context);
+            var gateway = new InMemoryItemGateway(context);
             var responseHandler = new ResponseHandler();
             var list = new List(responseHandler, gateway);
             list.Execute();
