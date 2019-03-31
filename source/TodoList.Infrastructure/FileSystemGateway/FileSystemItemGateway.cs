@@ -52,7 +52,7 @@ namespace TodoList.Infrastructure.FileSystemGateway
             var items = LoadItems();
 
             Item item = items
-                .Single(e => e.Id.ToString().StartsWith(itemId));
+                .SingleOrDefault(e => e.Id.ToString().StartsWith(itemId));
 
             if (item != null)
             {
@@ -65,7 +65,7 @@ namespace TodoList.Infrastructure.FileSystemGateway
         {
             var items = LoadItems();
             Item item = items
-                .Single(e => e.Id.ToString().StartsWith(itemId));
+                .SingleOrDefault(e => e.Id.ToString().StartsWith(itemId));
 
             return item;
         }
@@ -81,7 +81,7 @@ namespace TodoList.Infrastructure.FileSystemGateway
             var items = LoadItems();
 
             Item currentItem = items
-                .Single(e => e.Id.ToString().StartsWith(item.Id.ToString()));
+                .SingleOrDefault(e => e.Id.ToString().StartsWith(item.Id.ToString()));
 
             if (currentItem != null)
             {

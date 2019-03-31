@@ -3,6 +3,7 @@ namespace TodoList.Core.UseCases
     using System;
     using TodoList.Core.Boundaries.Do;
     using TodoList.Core.Entities;
+    using TodoList.Core.Exceptions;
     using TodoList.Core.Gateways;
 
     public sealed class Do : IUseCase
@@ -17,6 +18,10 @@ namespace TodoList.Core.UseCases
         public void Execute(string itemId)
         {
             IItem item = _itemGateway.Get(itemId);
+
+            if (item == null)
+                throw new BusinessException($"Item with id { itemId } was not found.");
+
             item.Do();
             _itemGateway.Update(item);
         }

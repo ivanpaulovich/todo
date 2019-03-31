@@ -24,18 +24,5 @@ namespace TodoList.UnitTests
 
             Assert.Empty(inMemory.Items.Where(e => e.Id == new Guid(existingTodoItemId)));
         }
-
-        [Fact]
-        public void RemoveThrowsException_WhenItemDoesNotExist()
-        {
-            InMemoryContext inMemory = new InMemoryContext();
-            IItemGateway gateway = new InMemoryItemGateway(inMemory);
-            IUseCase sut = new Remove(gateway);
-
-            Exception ex = Record.Exception(() => sut.Execute(Guid.NewGuid().ToString()));
-
-            Assert.NotNull(ex);
-            Assert.IsType<BusinessException>(ex);
-        }
     }
 }

@@ -27,9 +27,6 @@ namespace TodoList.Core.Gateways.InMemory
                 .Where(e => e.Id.ToString().StartsWith(itemId))
                 .SingleOrDefault();
 
-            if (existingItem == null)
-                throw new BusinessException($"Item with id { itemId } was not found.");
-
             _context.Items.Remove(existingItem);
         }
 
@@ -38,9 +35,6 @@ namespace TodoList.Core.Gateways.InMemory
             IItem existingItem = _context.Items
                 .Where(e => e.Id.ToString().StartsWith(itemId))
                 .SingleOrDefault();
-
-            if (existingItem == null)
-                throw new BusinessException($"Item with id { itemId } was not found.");
 
             return existingItem;
         }
@@ -55,9 +49,6 @@ namespace TodoList.Core.Gateways.InMemory
             IItem oldItem = _context.Items
                 .Where(e => e.Id == item.Id)
                 .SingleOrDefault();
-
-            if (oldItem == null)
-                throw new BusinessException($"Item with id { item.Id } was not found.");
 
             oldItem = item;
         }
