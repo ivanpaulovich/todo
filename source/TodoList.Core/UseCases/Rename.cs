@@ -5,6 +5,7 @@ namespace TodoList.Core.UseCases
     using TodoList.Core.Boundaries;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
+    using TodoList.Core.Exceptions;
 
     public sealed class Rename : IUseCase<Request>
     {
@@ -24,6 +25,10 @@ namespace TodoList.Core.UseCases
                 throw new Exception("Title is null");
 
             IItem item = _itemGateway.Get(request.ItemId);
+
+            if (item == null)
+                throw new BusinessException($"Item with id { request.ItemId } was not found.");
+                
             item.Rename(request.Title);
             _itemGateway.Update(item);
         }

@@ -74,18 +74,15 @@ dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
 ### Console Demo (InMemory Persistence)
 
 ```
-dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj" -- -h
-TodoList.ConsoleApp:
-  My to do list app
-
-Usage:
-  TodoList.ConsoleApp [options]
-
-Options:
-  --command-type <COMMAND-TYPE>    The command types [todo, do, undo, rename, remove]
-  --id <ID>                        The item id
-  --title <TITLE>                  The item title
-  --version                        Display version information
+dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj" -- help
+The usage
+        todo [title]
+        ren [id] [title]
+        do [id]
+        undo [id]
+        ls
+        rm [id]
+        exit
 ```
 
 ### Web API (InMemory Persistence)

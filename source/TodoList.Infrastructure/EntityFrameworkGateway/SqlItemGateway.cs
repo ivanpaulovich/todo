@@ -36,7 +36,7 @@ namespace TodoList.Infrastructure.EntityFrameworkGateway
         {
             Item item = _todoContext
                 .Items
-                .Single(e => e.Id.ToString().StartsWith(itemId));
+                .SingleOrDefault(e => e.Id.ToString().StartsWith(itemId));
 
             return item;
         }
