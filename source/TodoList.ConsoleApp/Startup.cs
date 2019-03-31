@@ -8,6 +8,7 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using TodoList.Infrastructure.FileSystemGateway;
+    using TodoList.ConsoleApp.Commands;
 
     internal sealed class Startup
     {
@@ -32,57 +33,34 @@ namespace TodoList.ConsoleApp
             _undoUseCase = new Core.UseCases.Undo(gateway);
         }
 
-        private void Rename(string id, string title)
+        internal void Run(ICommand command)
         {
-            var request = new TodoList.Core.Boundaries.Rename.Request(id, title);
-            _renameUseCase.Execute(request);
-        }
+            if (command is TodoCommand todoCommand)
+            {
+                var request = new TodoList.Core.Boundaries.Todo.Request(todoCommand.Title);
+                _todoUseCase.Execute(request);
+            }
 
-        private void List()
-        {
-            _listUseCase.Execute();
-        }
+            if (command is RemoveCommand removeCommand)
+                _removeUseCase.Execute(removeCommand.Id);
 
-        private void Remove(string id)
-        {
-            _removeUseCase.Execute(id);
-        }
+            if (command is ListCommand listCommand)
+                _listUseCase.Execute();
 
-        private void Todo(string title)
-        {
-            var request = new TodoList.Core.Boundaries.Todo.Request(title);
-            _todoUseCase.Execute(request);
-        }
+            if (command is RenameCommand renameCommand)
+            {
+                var request = new TodoList.Core.Boundaries.Rename.Request(renameCommand.Id, renameCommand.NewTitle);
+                _renameUseCase.Execute(request);
+            }
 
-        private void Undo(string id)
-        {
-            _undoUseCase.Execute(id);
-        }
+            if (command is DoCommand doCommand)
+                _doUseCase.Execute(doCommand.Id);
 
-        private void Do(string id)
-        {
-            _doUseCase.Execute(id);
-        }
+            if (command is UndoCommand undoCommand)
+                _undoUseCase.Execute(undoCommand.Id);
 
-        internal void Run(CommandType commandType, string id, string title)
-        {
-            if (commandType == CommandType.Todo)
-                Todo(title);
-
-            if (commandType == CommandType.Remove)
-                Remove(id);
-
-            if (commandType == CommandType.List)
-                List();
-
-            if (commandType == CommandType.Rename)
-                Rename(id, title);
-
-            if (commandType == CommandType.Do)
-                Do(id);
-
-            if (commandType == CommandType.Undo)
-                Undo(id);
+            if (command is HelpCommand helpCommand)
+                _presenter.DisplayInstructions();
         }
     }
 }
