@@ -1,6 +1,6 @@
 namespace TodoList.ConsoleApp.Commands
 {
-    public class ListCommand : ICommand
+    public class InteractiveCommand : ICommand
     {
 
     }

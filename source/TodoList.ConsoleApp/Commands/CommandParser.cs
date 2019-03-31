@@ -5,40 +5,43 @@ namespace TodoList.ConsoleApp.Commands
 {
     public class CommandParser
     {
-        public ICommand ParseCommand(string[] args)
+        public ICommand ParseCommand(string text)
         {
             ICommand command;
-            string text = string.Join(' ', args);
-
-            command = ParseTodo(args, text);
-            if (command != null)
-                return command;
-            
-            command = ParseRemove(args);
+            command = ParseTodo(text);
             if (command != null)
                 return command;
 
-            command = ParseDo(args);
+            command = ParseRemove(text);
             if (command != null)
                 return command;
 
-            command = ParseUndo(args);
+            command = ParseDo(text);
             if (command != null)
                 return command;
 
-            command = ParseList(args);
+            command = ParseUndo(text);
             if (command != null)
                 return command;
 
-            command = ParseRename(args, text);
+            command = ParseList(text);
             if (command != null)
                 return command;
-           
+
+            command = ParseRename(text);
+            if (command != null)
+                return command;
+
+            command = ParseInteractive(text);
+            if (command != null)
+                return command;
+
             return new HelpCommand();
         }
 
-        private ICommand ParseTodo(string[] args, string text)
+        private ICommand ParseTodo(string text)
         {
+            string[] args = text.Split(' ');
             if (args.Length == 0)
                 return null;
 
@@ -55,8 +58,9 @@ namespace TodoList.ConsoleApp.Commands
             return new TodoCommand(title);
         }
 
-        private ICommand ParseRemove(string[] args)
+        private ICommand ParseRemove(string text)
         {
+            string[] args = text.Split(' ');
             if (args.Length == 0)
                 return null;
 
@@ -69,8 +73,9 @@ namespace TodoList.ConsoleApp.Commands
             return new RemoveCommand(args[1]);
         }
 
-        private ICommand ParseDo(string[] args)
+        private ICommand ParseDo(string text)
         {
+            string[] args = text.Split(' ');
             if (args.Length == 0)
                 return null;
 
@@ -83,8 +88,9 @@ namespace TodoList.ConsoleApp.Commands
             return new DoCommand(args[1]);
         }
 
-        private ICommand ParseUndo(string[] args)
+        private ICommand ParseUndo(string text)
         {
+            string[] args = text.Split(' ');
             if (args.Length == 0)
                 return null;
 
@@ -97,8 +103,9 @@ namespace TodoList.ConsoleApp.Commands
             return new UndoCommand(args[1]);
         }
 
-        private ICommand ParseList(string[] args)
+        private ICommand ParseList(string text)
         {
+            string[] args = text.Split(' ');
             if (args.Length == 0)
                 return null;
 
@@ -108,8 +115,21 @@ namespace TodoList.ConsoleApp.Commands
             return new ListCommand();
         }
 
-        private ICommand ParseRename(string[] args, string text)
+        private ICommand ParseInteractive(string text)
         {
+            string[] args = text.Split(' ');
+            if (args.Length == 0)
+                return null;
+
+            if (string.Compare(args[0], "-i", StringComparison.CurrentCultureIgnoreCase) != 0)
+                return null;
+
+            return new InteractiveCommand();
+        }
+
+        private ICommand ParseRename(string text)
+        {
+            string[] args = text.Split(' ');
             if (args.Length == 0)
                 return null;
 

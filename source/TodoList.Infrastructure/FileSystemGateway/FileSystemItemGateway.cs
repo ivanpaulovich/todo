@@ -1,9 +1,9 @@
 namespace TodoList.Infrastructure.FileSystemGateway
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System;
     using Newtonsoft.Json;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
@@ -28,7 +28,7 @@ namespace TodoList.Infrastructure.FileSystemGateway
         {
             if (!File.Exists(TasksFileName))
                 Initialize();
-            
+
             string jsonContents = File.ReadAllText(TasksFileName);
             var items = JsonConvert.DeserializeObject<List<JsonItem>>(jsonContents);
             return items.Cast<Item>().ToList();
@@ -43,7 +43,7 @@ namespace TodoList.Infrastructure.FileSystemGateway
         public void Add(IItem item)
         {
             var items = LoadItems();
-            items.Add((Item)item);
+            items.Add((Item) item);
             SaveChanges(items);
         }
 
@@ -86,7 +86,7 @@ namespace TodoList.Infrastructure.FileSystemGateway
             if (currentItem != null)
             {
                 items.Remove(currentItem);
-                items.Add((Item)item);
+                items.Add((Item) item);
                 SaveChanges(items);
             }
         }

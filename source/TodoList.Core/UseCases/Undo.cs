@@ -20,7 +20,7 @@ namespace TodoList.Core.UseCases
 
             if (item == null)
                 throw new BusinessException($"Item with id { itemId } was not found.");
-                
+
             item.Undo();
             _itemGateway.Update(item);
         }
