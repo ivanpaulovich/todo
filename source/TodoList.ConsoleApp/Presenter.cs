@@ -11,7 +11,6 @@ namespace TodoList.ConsoleApp
     {
         public void DisplayInstructions()
         {
-            Console.WriteLine("** In memory persistence and interactive. **");
             Console.WriteLine("The usage");
             Console.WriteLine("\ttodo [title]");
             Console.WriteLine("\tren [id] [title]");
