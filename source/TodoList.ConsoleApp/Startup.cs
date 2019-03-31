@@ -1,6 +1,7 @@
 namespace TodoList.ConsoleApp
 {
     using System;
+    using TodoList.ConsoleApp.Commands;
     using TodoList.Core.Boundaries;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways.InMemory;
@@ -8,7 +9,6 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using TodoList.Infrastructure.FileSystemGateway;
-    using TodoList.ConsoleApp.Commands;
 
     internal sealed class Startup
     {
@@ -33,34 +33,54 @@ namespace TodoList.ConsoleApp
             _undoUseCase = new Core.UseCases.Undo(gateway);
         }
 
-        internal void Run(ICommand command)
+        internal void Run(string[] args)
         {
-            if (command is TodoCommand todoCommand)
+            string line = string.Join(' ', args);
+            bool interactive = false;
+
+            do
             {
-                var request = new TodoList.Core.Boundaries.Todo.Request(todoCommand.Title);
-                _todoUseCase.Execute(request);
-            }
+                CommandParser commandParser = new CommandParser();
+                ICommand command = commandParser.ParseCommand(line);
 
-            if (command is RemoveCommand removeCommand)
-                _removeUseCase.Execute(removeCommand.Id);
+                if (command is TodoCommand todoCommand)
+                {
+                    var request = new TodoList.Core.Boundaries.Todo.Request(todoCommand.Title);
+                    _todoUseCase.Execute(request);
+                }
 
-            if (command is ListCommand listCommand)
-                _listUseCase.Execute();
+                if (command is RemoveCommand removeCommand)
+                    _removeUseCase.Execute(removeCommand.Id);
 
-            if (command is RenameCommand renameCommand)
-            {
-                var request = new TodoList.Core.Boundaries.Rename.Request(renameCommand.Id, renameCommand.NewTitle);
-                _renameUseCase.Execute(request);
-            }
+                if (command is ListCommand listCommand)
+                    _listUseCase.Execute();
 
-            if (command is DoCommand doCommand)
-                _doUseCase.Execute(doCommand.Id);
+                if (command is RenameCommand renameCommand)
+                {
+                    var request = new TodoList.Core.Boundaries.Rename.Request(renameCommand.Id, renameCommand.NewTitle);
+                    _renameUseCase.Execute(request);
+                }
 
-            if (command is UndoCommand undoCommand)
-                _undoUseCase.Execute(undoCommand.Id);
+                if (command is DoCommand doCommand)
+                    _doUseCase.Execute(doCommand.Id);
 
-            if (command is HelpCommand helpCommand)
-                _presenter.DisplayInstructions();
+                if (command is UndoCommand undoCommand)
+                    _undoUseCase.Execute(undoCommand.Id);
+
+                if (command is HelpCommand helpCommand)
+                    _presenter.DisplayInstructions();
+
+                if (command is InteractiveCommand interactiveCommand)
+                    interactive = true;
+
+                if (interactive)
+                {
+                    line = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(line))
+                        break;
+                }
+
+            } while (true);
         }
     }
 }
