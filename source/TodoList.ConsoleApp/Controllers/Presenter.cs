@@ -7,7 +7,7 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.UseCases;
     using Console = Colorful.Console;
 
-    internal sealed class Presenter : IResponseHandler<Core.Boundaries.Todo.Response>, IResponseHandler<Core.Boundaries.List.Response>
+    public sealed class Presenter : IResponseHandler<Core.Boundaries.Todo.Response>, IResponseHandler<Core.Boundaries.List.Response>
     {
         public void DisplayInstructions()
         {
