@@ -9,28 +9,35 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using TodoList.Infrastructure.FileSystemGateway;
+    using TodoList.ConsoleApp.Controllers;
+    using System.Collections.Generic;
 
     internal sealed class Startup
     {
-        private Presenter _presenter;
-        private IUseCase<Core.Boundaries.Todo.Request> _todoUseCase;
-        private TodoList.Core.Boundaries.Remove.IUseCase _removeUseCase;
-        private TodoList.Core.Boundaries.List.IUseCase _listUseCase;
-        private IUseCase<Core.Boundaries.Rename.Request> _renameUseCase;
-        private TodoList.Core.Boundaries.Do.IUseCase _doUseCase;
-        private TodoList.Core.Boundaries.Undo.IUseCase _undoUseCase;
+        private TodoItemsController _controller;
 
         internal void ConfigureServices()
         {
             IItemGateway gateway = new FileSystemItemGateway();
             EntitiesFactory entitiesFactory = new EntitiesFactory();
-            _presenter = new Presenter();
-            _renameUseCase = new Core.UseCases.Rename(gateway);
-            _listUseCase = new Core.UseCases.List(_presenter, gateway);
-            _removeUseCase = new Core.UseCases.Remove(gateway);
-            _todoUseCase = new Core.UseCases.Todo(_presenter, gateway, entitiesFactory);
-            _doUseCase = new Core.UseCases.Do(gateway);
-            _undoUseCase = new Core.UseCases.Undo(gateway);
+            Presenter presenter = new Presenter();
+
+            var renameUseCase = new Core.UseCases.Rename(gateway);
+            var listUseCase = new Core.UseCases.List(presenter, gateway);
+            var removeUseCase = new Core.UseCases.Remove(gateway);
+            var todoUseCase = new Core.UseCases.Todo(presenter, gateway, entitiesFactory);
+            var doUseCase = new Core.UseCases.Do(gateway);
+            var undoUseCase = new Core.UseCases.Undo(gateway);
+            
+            _controller = new TodoItemsController(
+                todoUseCase,
+                removeUseCase,
+                listUseCase,
+                renameUseCase,
+                doUseCase,
+                undoUseCase,
+                presenter
+            );
         }
 
         internal void Run(string[] args)
@@ -44,31 +51,25 @@ namespace TodoList.ConsoleApp
                 ICommand command = commandParser.ParseCommand(line);
 
                 if (command is TodoCommand todoCommand)
-                {
-                    var request = new TodoList.Core.Boundaries.Todo.Request(todoCommand.Title);
-                    _todoUseCase.Execute(request);
-                }
+                    _controller.Execute(todoCommand);
 
                 if (command is RemoveCommand removeCommand)
-                    _removeUseCase.Execute(removeCommand.Id);
+                    _controller.Execute(removeCommand);
 
                 if (command is ListCommand listCommand)
-                    _listUseCase.Execute();
+                    _controller.Execute(listCommand);
 
                 if (command is RenameCommand renameCommand)
-                {
-                    var request = new TodoList.Core.Boundaries.Rename.Request(renameCommand.Id, renameCommand.NewTitle);
-                    _renameUseCase.Execute(request);
-                }
+                    _controller.Execute(renameCommand);
 
                 if (command is DoCommand doCommand)
-                    _doUseCase.Execute(doCommand.Id);
+                    _controller.Execute(doCommand);
 
                 if (command is UndoCommand undoCommand)
-                    _undoUseCase.Execute(undoCommand.Id);
+                    _controller.Execute(undoCommand);
 
                 if (command is HelpCommand helpCommand)
-                    _presenter.DisplayInstructions();
+                    _controller.Execute(helpCommand);
 
                 if (command is InteractiveCommand interactiveCommand)
                     interactive = true;
@@ -80,7 +81,7 @@ namespace TodoList.ConsoleApp
                         break;
                 }
 
-            } while (true);
+            } while (interactive);
         }
     }
 }
