@@ -5,12 +5,12 @@ namespace TodoList.ConsoleApp.Controllers
 
     public class TodoItemsController
     {
-        private IUseCase<Core.Boundaries.Todo.Request> _todoUseCase;
-        private Core.Boundaries.Remove.IUseCase _removeUseCase;
-        private Core.Boundaries.List.IUseCase _listUseCase;
-        private IUseCase<Core.Boundaries.Rename.Request> _renameUseCase;
-        private Core.Boundaries.Do.IUseCase _doUseCase;
-        private Core.Boundaries.Undo.IUseCase _undoUseCase;
+        private IUseCase<Core.Boundaries.Todo.Request> todoUseCase;
+        private Core.Boundaries.Remove.IUseCase removeUseCase;
+        private Core.Boundaries.List.IUseCase listUseCase;
+        private IUseCase<Core.Boundaries.Rename.Request> renameUseCase;
+        private Core.Boundaries.Do.IUseCase doUseCase;
+        private Core.Boundaries.Undo.IUseCase undoUseCase;
         private Presenter _presenter;
 
         public TodoItemsController(
@@ -22,45 +22,45 @@ namespace TodoList.ConsoleApp.Controllers
             Core.Boundaries.Undo.IUseCase undoUseCase,
             Presenter presenter)
         {
-            _todoUseCase = todoUseCase;
-            _removeUseCase = removeUseCase;
-            _listUseCase = listUseCase;
-            _renameUseCase = renameUseCase;
-            _doUseCase = doUseCase;
-            _undoUseCase = undoUseCase;
+            this.todoUseCase = todoUseCase;
+            this.removeUseCase = removeUseCase;
+            this.listUseCase = listUseCase;
+            this.renameUseCase = renameUseCase;
+            this.doUseCase = doUseCase;
+            this.undoUseCase = undoUseCase;
             _presenter = presenter;
         }
 
         public void Execute(TodoCommand todoCommand)
         {
             var request = new TodoList.Core.Boundaries.Todo.Request(todoCommand.Title);
-            _todoUseCase.Execute(request);
+            todoUseCase.Execute(request);
         }
 
         public void Execute(RemoveCommand removeCommand)
         {
-            _removeUseCase.Execute(removeCommand.Id);
+            removeUseCase.Execute(removeCommand.Id);
         }
 
         public void Execute(ListCommand listCommand)
         {
-            _listUseCase.Execute();
+            listUseCase.Execute();
         }
 
         public void Execute(RenameCommand renameCommand)
         {
             var request = new TodoList.Core.Boundaries.Rename.Request(renameCommand.Id, renameCommand.NewTitle);
-            _renameUseCase.Execute(request);
+            renameUseCase.Execute(request);
         }
 
         public void Execute(DoCommand doCommand)
         {
-            _doUseCase.Execute(doCommand.Id);
+            doUseCase.Execute(doCommand.Id);
         }
 
         public void Execute(UndoCommand undoCommand)
         {
-            _undoUseCase.Execute(undoCommand.Id);
+            undoUseCase.Execute(undoCommand.Id);
         }
 
         public void Execute(HelpCommand helpCommand)
