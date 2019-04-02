@@ -1,6 +1,6 @@
 namespace TodoList.ConsoleApp.Commands
 {
-    public class RemoveCommand : ICommand
+    public sealed class RemoveCommand : ICommand
     {
         public string Id { get; }
 

@@ -1,6 +1,6 @@
 namespace TodoList.ConsoleApp.Commands
 {
-    public class RenameCommand : ICommand
+    public sealed class RenameCommand : ICommand
     {
         public string Id { get; }
         public string NewTitle { get; }

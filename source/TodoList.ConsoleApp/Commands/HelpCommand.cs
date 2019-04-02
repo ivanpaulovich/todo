@@ -1,6 +1,6 @@
 namespace TodoList.ConsoleApp.Commands
 {
-    public class HelpCommand : ICommand
+    public sealed class HelpCommand : ICommand
     {
 
     }

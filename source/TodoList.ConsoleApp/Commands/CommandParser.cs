@@ -3,7 +3,7 @@ using System.IO;
 
 namespace TodoList.ConsoleApp.Commands
 {
-    public class CommandParser
+    public sealed class CommandParser
     {
         public ICommand ParseCommand(string text)
         {

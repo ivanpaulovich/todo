@@ -1,6 +1,6 @@
 namespace TodoList.ConsoleApp.Commands
 {
-    public class UndoCommand : ICommand
+    public sealed class UndoCommand : ICommand
     {
         public string Id { get; }
 

@@ -15,4 +15,7 @@
     <PackageReference Include="Colorful.Console" Version="1.2.9" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <RunWorkingDirectory>$(MSBuildThisFileDirectory)</RunWorkingDirectory>
+  </PropertyGroup>
 </Project>

@@ -1,6 +1,6 @@
 namespace TodoList.ConsoleApp.Commands
 {
-    public class DoCommand : ICommand
+    public sealed class DoCommand : ICommand
     {
         public string Id { get; }
 
