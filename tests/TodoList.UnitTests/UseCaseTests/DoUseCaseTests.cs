@@ -1,15 +1,15 @@
-namespace TodoList.UnitTests
+namespace TodoList.UseCaseTests.UnitTests
 {
     using System.Linq;
     using System;
     using TodoList.Core.Boundaries.Do;
     using TodoList.Core.Entities;
     using TodoList.Core.Exceptions;
-    using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using Xunit;
+    using TodoList.Infrastructure.InMemoryGateway;
 
     public sealed class DoUseCaseTestsß
     {
