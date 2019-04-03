@@ -1,9 +1,9 @@
-namespace TodoList.UnitTests
+namespace TodoList.UseCaseTests.UnitTests
 {
     using System;
-    using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.UseCases;
     using Xunit;
+    using TodoList.Infrastructure.InMemoryGateway;
 
     public sealed class ListUseCaseTests
     {

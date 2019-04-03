@@ -1,13 +1,13 @@
-namespace TodoList.UnitTests
+namespace TodoList.UseCaseTests.UnitTests
 {
     using System.Linq;
     using System;
     using TodoList.Core.Boundaries.Remove;
     using TodoList.Core.Exceptions;
-    using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
     using Xunit;
+    using TodoList.Infrastructure.InMemoryGateway;
 
     public sealed class RemoveUseCaseTests
     {
