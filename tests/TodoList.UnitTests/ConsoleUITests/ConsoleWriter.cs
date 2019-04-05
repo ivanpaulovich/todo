@@ -12,8 +12,6 @@ namespace TodoList.UnitTests.ConsoleUITests
 
         public async Task<string> GetOutput()
         {
-            await Task.Delay(1000 * 2);
-            System.Threading.Thread.Sleep(1000 * 2);
             string outputText = output.ToString();
             return outputText;
         }
