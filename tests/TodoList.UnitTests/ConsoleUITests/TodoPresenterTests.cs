@@ -1,56 +1,44 @@
 namespace TodoList.UnitTests.ConsoleUITests
 {
     using System;
-    using System.Collections.Generic;
-    using Colorful;
-    using TodoList.ConsoleApp;
+    using System.Threading.Tasks;
     using TodoList.Core.Boundaries.Todo;
     using Xunit;
 
-    public sealed class TodoPresenterTests
+    public sealed class TodoPresenterTests : IClassFixture<ControllerFixture>
     {
-        private readonly Guid Item1 = new Guid("af15e64c-94b0-4220-b49c-231824f1711c");
+        private ControllerFixture _controllerFixture;
 
-        [Fact]
-        public void PrintsError_WhenNull()
+        public TodoPresenterTests(ControllerFixture controllerFixture)
         {
-            using (var consoleWriter = new ConsoleWriter())
-            {
-                Colorful.Console.SetOut(consoleWriter);
-                Presenter sut = new Presenter();
-                Response response = null;
-                sut.Handle(response);
-                string output = consoleWriter.GetOutput();
-                Assert.Contains("error", output);
-            }
+            _controllerFixture = controllerFixture;
         }
 
         [Fact]
-        public void PrintsWarning_WhenInvalid()
+        public async Task PrintsError_WhenNull()
         {
-            using (var consoleWriter = new ConsoleWriter())
-            {
-                Colorful.Console.SetOut(consoleWriter);
-                Presenter sut = new Presenter();
-                Response response = new Response(Guid.Empty);
-                sut.Handle(response);
-                string output = consoleWriter.GetOutput();
-                Assert.Contains("not added", output);
-            }
+            Response response = null;
+            _controllerFixture.TodoPresenter.Handle(response);
+            string output = await _controllerFixture.ConsoleWriter.GetOutput();
+            Assert.Contains("error", output);
         }
 
         [Fact]
-        public void PrintsData()
+        public async Task PrintsWarning_WhenInvalid()
         {
-            using (var consoleWriter = new ConsoleWriter())
-            {
-                Colorful.Console.SetOut(consoleWriter);
-                Presenter sut = new Presenter();
-                Response response = new Response(Item1);
-                sut.Handle(response);
-                string output = consoleWriter.GetOutput();
-                Assert.Contains("af15e64c", output);
-            }
+            Response response = new Response(Guid.Empty);
+            _controllerFixture.TodoPresenter.Handle(response);
+            string output = await _controllerFixture.ConsoleWriter.GetOutput();
+            Assert.Contains("not added", output);
+        }
+
+        [Fact]
+        public async Task PrintsData()
+        {
+            Response response = new Response(_controllerFixture.ItemId1);
+            _controllerFixture.TodoPresenter.Handle(response);
+            string output = await _controllerFixture.ConsoleWriter.GetOutput();
+            Assert.Contains("af15e64c", output);
         }
     }
 }

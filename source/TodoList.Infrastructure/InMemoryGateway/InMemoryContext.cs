@@ -1,4 +1,4 @@
-namespace TodoList.Core.Gateways.InMemory
+namespace TodoList.Infrastructure.InMemoryGateway
 {
     using System.Collections.ObjectModel;
     using System.Linq;

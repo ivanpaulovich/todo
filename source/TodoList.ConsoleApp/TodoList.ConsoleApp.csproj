@@ -1,5 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <AssemblyName>todo</AssemblyName>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\TodoList.Core\TodoList.Core.csproj" />
     <ProjectReference Include="..\TodoList.Infrastructure\TodoList.Infrastructure.csproj" />
@@ -14,8 +18,4 @@
   <ItemGroup>
     <PackageReference Include="Colorful.Console" Version="1.2.9" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <RunWorkingDirectory>$(MSBuildThisFileDirectory)</RunWorkingDirectory>
-  </PropertyGroup>
 </Project>

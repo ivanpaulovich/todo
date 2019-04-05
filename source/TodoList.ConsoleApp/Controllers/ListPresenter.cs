@@ -1,4 +1,4 @@
-namespace TodoList.ConsoleApp
+namespace TodoList.ConsoleApp.Controllers
 {
     using System.Drawing;
     using System.Linq;
@@ -7,7 +7,7 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.UseCases;
     using Console = Colorful.Console;
 
-    public sealed class Presenter : IResponseHandler<Core.Boundaries.Todo.Response>, IResponseHandler<Core.Boundaries.List.Response>
+    public sealed class ListPresenter : IResponseHandler<Core.Boundaries.List.Response>
     {
         public void DisplayInstructions()
         {
@@ -21,13 +21,20 @@ namespace TodoList.ConsoleApp
             Console.WriteLine("\texit");
         }
 
-        public void Handle(Core.Boundaries.Todo.Response response)
-        {
-            Console.WriteLine($"Added {response.ItemId}.");
-        }
-
         public void Handle(Core.Boundaries.List.Response response)
         {
+            if (response == null)
+            {
+                Console.WriteLine($"The infrastructure returned an unexpected value. Check for infrastructure errors.", Color.Red);
+                return;
+            }
+
+            if (response.Items.Count() == 0)
+            {
+                Console.WriteLine($"The list is empty. Try adding something todo.", Color.Yellow);
+                return;
+            }
+
             Console.WriteLine($"id\t     title", Color.Gray);
             Console.WriteLine($"----------------------------------------------------------", Color.Gray);
 

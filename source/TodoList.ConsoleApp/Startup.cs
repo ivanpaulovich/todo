@@ -8,12 +8,12 @@ namespace TodoList.ConsoleApp
     using TodoList.ConsoleApp.Controllers;
     using TodoList.Core.Boundaries;
     using TodoList.Core.Entities;
-    using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
     using TodoList.Core;
     using TodoList.Infrastructure.EntityFrameworkGateway;
     using TodoList.Infrastructure.FileSystemGateway;
+    using TodoList.Infrastructure.InMemoryGateway;
 
     internal sealed class Startup
     {
@@ -55,12 +55,13 @@ namespace TodoList.ConsoleApp
             IItemGateway gateway,
             IEntitiesFactory entitiesFactory)
         {
-            Presenter presenter = new Presenter();
+            ListPresenter listPresenter = new ListPresenter();
+            TodoPresenter todoPresenter = new TodoPresenter();
 
             var renameUseCase = new Core.UseCases.Rename(gateway);
-            var listUseCase = new Core.UseCases.List(presenter, gateway);
+            var listUseCase = new Core.UseCases.List(listPresenter, gateway);
             var removeUseCase = new Core.UseCases.Remove(gateway);
-            var todoUseCase = new Core.UseCases.Todo(presenter, gateway, entitiesFactory);
+            var todoUseCase = new Core.UseCases.Todo(todoPresenter, gateway, entitiesFactory);
             var doUseCase = new Core.UseCases.Do(gateway);
             var undoUseCase = new Core.UseCases.Undo(gateway);
 
@@ -71,7 +72,8 @@ namespace TodoList.ConsoleApp
                 renameUseCase,
                 doUseCase,
                 undoUseCase,
-                presenter
+                todoPresenter,
+                listPresenter
             );
         }
 

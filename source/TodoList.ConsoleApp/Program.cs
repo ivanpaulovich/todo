@@ -7,7 +7,6 @@ namespace TodoList.ConsoleApp
     using TodoList.ConsoleApp.Commands;
     using TodoList.Core.Boundaries;
     using TodoList.Core.Entities;
-    using TodoList.Core.Gateways.InMemory;
     using TodoList.Core.Gateways;
 
     public class Program

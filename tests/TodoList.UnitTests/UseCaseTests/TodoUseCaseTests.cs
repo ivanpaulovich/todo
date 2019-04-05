@@ -1,14 +1,11 @@
 namespace TodoList.UseCaseTests.UnitTests
 {
-    using System.Linq;
     using System;
     using TodoList.Core.Boundaries.Todo;
     using TodoList.Core.Entities;
-    using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
-    using TodoList.Core;
-    using Xunit;
     using TodoList.Infrastructure.InMemoryGateway;
+    using Xunit;
 
     public sealed class TodoUseCaseTests
     {
