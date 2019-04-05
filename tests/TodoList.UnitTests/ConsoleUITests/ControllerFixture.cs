@@ -23,6 +23,8 @@ namespace TodoList.UnitTests.ConsoleUITests
 
         public ControllerFixture()
         {
+            ConsoleWriter = ConsoleWriter.SharedConsoleWriter;
+
             Todo = new Mock<IUseCase<Core.Boundaries.Todo.Request>>();
             Remove = new Mock<Core.Boundaries.Remove.IUseCase>();
             List = new Mock<Core.Boundaries.List.IUseCase>();
@@ -42,10 +44,6 @@ namespace TodoList.UnitTests.ConsoleUITests
                 TodoPresenter,
                 ListPresenter);
 
-            ConsoleWriter = ConsoleWriter.SharedConsoleWriter;
-
-            Colorful.Console.SetOut(ConsoleWriter.SharedConsoleWriter);
-
             Item1 = new Core.Boundaries.List.Item(
                 new Guid("af15e64c-94b0-4220-b49c-231824f1711c"),
                 "Title1",
@@ -57,7 +55,6 @@ namespace TodoList.UnitTests.ConsoleUITests
                 true);
 
             ItemId1 = new Guid("af15e64c-94b0-4220-b49c-231824f1711c");
-
         }
     }
 }
