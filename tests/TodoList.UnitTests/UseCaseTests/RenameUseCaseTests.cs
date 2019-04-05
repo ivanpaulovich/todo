@@ -3,11 +3,9 @@ namespace TodoList.UseCaseTests.UnitTests
     using System;
     using TodoList.Core.Boundaries.Rename;
     using TodoList.Core.Entities;
-    using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
-    using TodoList.Core;
-    using Xunit;
     using TodoList.Infrastructure.InMemoryGateway;
+    using Xunit;
 
     public sealed class RenameUseCaseTests
     {

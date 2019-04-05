@@ -11,7 +11,8 @@ namespace TodoList.ConsoleApp.Controllers
         private IUseCase<Core.Boundaries.Rename.Request> renameUseCase;
         private Core.Boundaries.Do.IUseCase doUseCase;
         private Core.Boundaries.Undo.IUseCase undoUseCase;
-        private Presenter _presenter;
+        private TodoPresenter todoPresenter;
+        private ListPresenter listPresenter;
 
         public TodoItemsController(
             IUseCase<Core.Boundaries.Todo.Request> todoUseCase,
@@ -20,7 +21,8 @@ namespace TodoList.ConsoleApp.Controllers
             IUseCase<Core.Boundaries.Rename.Request> renameUseCase,
             Core.Boundaries.Do.IUseCase doUseCase,
             Core.Boundaries.Undo.IUseCase undoUseCase,
-            Presenter presenter)
+            TodoPresenter todoPresenter,
+            ListPresenter listPresenter)
         {
             this.todoUseCase = todoUseCase;
             this.removeUseCase = removeUseCase;
@@ -28,7 +30,8 @@ namespace TodoList.ConsoleApp.Controllers
             this.renameUseCase = renameUseCase;
             this.doUseCase = doUseCase;
             this.undoUseCase = undoUseCase;
-            _presenter = presenter;
+            this.todoPresenter = todoPresenter;
+            this.listPresenter = listPresenter;
         }
 
         public void Execute(TodoCommand todoCommand)
@@ -65,7 +68,7 @@ namespace TodoList.ConsoleApp.Controllers
 
         public void Execute(HelpCommand helpCommand)
         {
-            _presenter.DisplayInstructions();
+            listPresenter.DisplayInstructions();
         }
     }
 }

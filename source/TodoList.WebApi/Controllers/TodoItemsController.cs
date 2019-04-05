@@ -8,7 +8,6 @@ using TodoList.Core;
 using TodoList.Core.Boundaries;
 using TodoList.Core.Entities;
 using TodoList.Core.Gateways;
-using TodoList.Core.Gateways.InMemory;
 using TodoList.Core.UseCases;
 using TodoList.WebApi.Models;
 
@@ -24,7 +23,8 @@ namespace TodoList.WebApi.Controllers
         private IUseCase<Core.Boundaries.Rename.Request> _renameUseCase;
         private Core.Boundaries.Do.IUseCase _doUseCase;
         private Core.Boundaries.Undo.IUseCase _undoUseCase;
-        private Presenter _presenter;
+        private TodoPresenter _todoPresenter;
+        private ListPresenter _listPresenter;
 
         public TodoItemsController(
             IUseCase<Core.Boundaries.Todo.Request> todoUseCase,
@@ -33,7 +33,8 @@ namespace TodoList.WebApi.Controllers
             IUseCase<Core.Boundaries.Rename.Request> renameUseCase,
             Core.Boundaries.Do.IUseCase doUseCase,
             Core.Boundaries.Undo.IUseCase undoUseCase,
-            Presenter presenter)
+            TodoPresenter todoPresenter,
+            ListPresenter listPresenter)
         {
             _todoUseCase = todoUseCase;
             _removeUseCase = removeUseCase;
@@ -41,15 +42,17 @@ namespace TodoList.WebApi.Controllers
             _renameUseCase = renameUseCase;
             _doUseCase = doUseCase;
             _undoUseCase = undoUseCase;
-            _presenter = presenter;
+            _todoPresenter = todoPresenter;
+            _listPresenter = listPresenter;
+
         }
 
         // GET api/values
         [HttpGet]
-        public IEnumerable<TodoItemViewModel> Get()
+        public ActionResult<IEnumerable<TodoItemViewModel>> Get()
         {
             _listUseCase.Execute();
-            return _presenter.ListItems;
+            return _listPresenter.BuildResponse(this);
         }
 
         // POST api/values
@@ -58,7 +61,7 @@ namespace TodoList.WebApi.Controllers
         {
             var request = new Core.Boundaries.Todo.Request(value);
             _todoUseCase.Execute(request);
-            return CreatedAtAction(nameof(Post), new { id = _presenter.CreatedItem.Id }, _presenter.CreatedItem);
+            return _todoPresenter.BuildResponse(this);
         }
 
         [HttpPut("{id}")]

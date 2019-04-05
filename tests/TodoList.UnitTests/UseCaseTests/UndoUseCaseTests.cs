@@ -1,15 +1,13 @@
 namespace TodoList.UseCaseTests.UnitTests
 {
-    using System.Linq;
     using System;
+    using System.Linq;
     using TodoList.Core.Boundaries.Undo;
-    using TodoList.Core.Entities;
     using TodoList.Core.Exceptions;
     using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
-    using TodoList.Core;
-    using Xunit;
     using TodoList.Infrastructure.InMemoryGateway;
+    using Xunit;
 
     public sealed class MarkItemIncompletedTests
     {

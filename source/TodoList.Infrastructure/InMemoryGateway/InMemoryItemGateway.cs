@@ -1,4 +1,4 @@
-namespace TodoList.Core.Gateways.InMemory
+namespace TodoList.Infrastructure.InMemoryGateway
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -6,6 +6,7 @@ namespace TodoList.Core.Gateways.InMemory
     using System;
     using TodoList.Core.Entities;
     using TodoList.Core.Exceptions;
+    using TodoList.Core.Gateways;
 
     public sealed class InMemoryItemGateway : IItemGateway
     {

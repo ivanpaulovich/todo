@@ -19,9 +19,9 @@ using TodoList.Core.Boundaries.Rename;
 using TodoList.Core.Boundaries.Todo;
 using TodoList.Core.Entities;
 using TodoList.Core.Gateways;
-using TodoList.Core.Gateways.InMemory;
 using TodoList.Core.UseCases;
 using TodoList.Infrastructure.EntityFrameworkGateway;
+using TodoList.Infrastructure.InMemoryGateway;
 using TodoList.WebApi.Controllers;
 
 namespace TodoList.WebApi
@@ -63,9 +63,11 @@ namespace TodoList.WebApi
         {
             services.AddScoped<IEntitiesFactory, EntitiesFactory>();
 
-            services.AddScoped<Presenter, Presenter>();
-            services.AddScoped<IResponseHandler<Core.Boundaries.Todo.Response>>(x => x.GetRequiredService<Presenter>());
-            services.AddScoped<IResponseHandler<Core.Boundaries.List.Response>>(x => x.GetRequiredService<Presenter>());
+            services.AddScoped<TodoPresenter, TodoPresenter>();
+            services.AddScoped<ListPresenter, ListPresenter>();
+
+            services.AddScoped<IResponseHandler<Core.Boundaries.Todo.Response>>(x => x.GetRequiredService<TodoPresenter>());
+            services.AddScoped<IResponseHandler<Core.Boundaries.List.Response>>(x => x.GetRequiredService<ListPresenter>());
 
             services.AddScoped<IUseCase<Core.Boundaries.Todo.Request>, Todo>();
             services.AddScoped<Core.Boundaries.Remove.IUseCase, Core.UseCases.Remove>();

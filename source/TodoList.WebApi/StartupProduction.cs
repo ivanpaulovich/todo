@@ -63,9 +63,11 @@ namespace TodoList.WebApi
         {
             services.AddScoped<IEntitiesFactory, EntitiesFactory>();
 
-            services.AddScoped<Presenter, Presenter>();
-            services.AddScoped<IResponseHandler<Core.Boundaries.Todo.Response>>(x => x.GetRequiredService<Presenter>());
-            services.AddScoped<IResponseHandler<Core.Boundaries.List.Response>>(x => x.GetRequiredService<Presenter>());
+            services.AddScoped<TodoPresenter, TodoPresenter>();
+            services.AddScoped<ListPresenter, ListPresenter>();
+
+            services.AddScoped<IResponseHandler<Core.Boundaries.Todo.Response>>(x => x.GetRequiredService<TodoPresenter>());
+            services.AddScoped<IResponseHandler<Core.Boundaries.List.Response>>(x => x.GetRequiredService<ListPresenter>());
 
             services.AddScoped<IUseCase<Core.Boundaries.Todo.Request>, Todo>();
             services.AddScoped<Core.Boundaries.Remove.IUseCase, Core.UseCases.Remove>();

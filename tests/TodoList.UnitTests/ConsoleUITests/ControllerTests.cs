@@ -2,55 +2,63 @@ namespace TodoList.UnitTests.ConsoleUITests
 {
     using Moq;
     using TodoList.ConsoleApp.Commands;
-    using TodoList.ConsoleApp.Controllers;
-    using TodoList.Core.Boundaries;
     using Xunit;
 
-    public sealed class ControllerTests
+    public sealed class ControllerTests : IClassFixture<ControllerFixture>
     {
-        [Fact]
-        public void TodoCommand_CallsTodo()
+        private ControllerFixture _controllerFixture;
+
+        public ControllerTests(ControllerFixture controllerFixture)
         {
-            var todo = new Mock<IUseCase<Core.Boundaries.Todo.Request>>();
-            var remove = new Mock<Core.Boundaries.Remove.IUseCase>();
-            var list = new Mock<Core.Boundaries.List.IUseCase>();
-            var rename = new Mock<IUseCase<Core.Boundaries.Rename.Request>>();
-            var doUC = new Mock<Core.Boundaries.Do.IUseCase>();
-            var undo = new Mock<Core.Boundaries.Undo.IUseCase>();
+            _controllerFixture = controllerFixture;
+        }
 
-            TodoItemsController controller = new TodoItemsController(
-                todo.Object,
-                remove.Object,
-                list.Object,
-                rename.Object,
-                doUC.Object,
-                undo.Object,
-                null);
-            
+        [Fact]
+        public void CallsTodoWhenTodoCommand()
+        {
             TodoCommand todoCommand = new TodoCommand(null);
-            controller.Execute(todoCommand);
+            _controllerFixture.Controller.Execute(todoCommand);
+            _controllerFixture.Todo.Verify(x => x.Execute(It.IsAny<Core.Boundaries.Todo.Request>()), Times.Once);
+        }
 
+        [Fact]
+        public void CallsRemoveWhenRemoveCommand()
+        {
             RemoveCommand removeCommand = new RemoveCommand(null);
-            controller.Execute(removeCommand);
+            _controllerFixture.Controller.Execute(removeCommand);
+            _controllerFixture.Remove.Verify(x => x.Execute(It.IsAny<string>()), Times.Once);
+        }
 
+        [Fact]
+        public void CallsListWhenListCommand()
+        {
             ListCommand listCommand = new ListCommand();
-            controller.Execute(listCommand);
+            _controllerFixture.Controller.Execute(listCommand);
+            _controllerFixture.List.Verify(x => x.Execute(), Times.Once);
+        }
 
+        [Fact]
+        public void CallsRenameWhenRenameCommand()
+        {
             RenameCommand renameCommand = new RenameCommand(null, null);
-            controller.Execute(renameCommand);
+            _controllerFixture.Controller.Execute(renameCommand);
+            _controllerFixture.Rename.Verify(x => x.Execute(It.IsAny<Core.Boundaries.Rename.Request>()), Times.Once);
+        }
 
+        [Fact]
+        public void CallsDoWhenDoCommand()
+        {
             DoCommand doCommand = new DoCommand(null);
-            controller.Execute(doCommand);
+            _controllerFixture.Controller.Execute(doCommand);
+            _controllerFixture.Do.Verify(x => x.Execute(It.IsAny<string>()), Times.Once);
+        }
 
+        [Fact]
+        public void CallsUndoWhenUndoCommand()
+        {
             UndoCommand undoCommand = new UndoCommand(null);
-            controller.Execute(undoCommand);
-
-            todo.Verify(x => x.Execute(It.IsAny<Core.Boundaries.Todo.Request>()), Times.Once);
-            remove.Verify(x => x.Execute(It.IsAny<string>()), Times.Once);
-            list.Verify(x => x.Execute(), Times.Once);
-            rename.Verify(x => x.Execute(It.IsAny<Core.Boundaries.Rename.Request>()), Times.Once);
-            doUC.Verify(x => x.Execute(It.IsAny<string>()), Times.Once);
-            undo.Verify(x => x.Execute(It.IsAny<string>()), Times.Once);
+            _controllerFixture.Controller.Execute(undoCommand);
+            _controllerFixture.Undo.Verify(x => x.Execute(It.IsAny<string>()), Times.Once);
         }
     }
 }

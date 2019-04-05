@@ -2,16 +2,20 @@ namespace TodoList.UnitTests.ConsoleUITests
 {
     using System.IO;
     using System.Text;
+    using System.Threading.Tasks;
 
-    public class ConsoleWriter : TextWriter
+    public sealed class ConsoleWriter : TextWriter
     {
         public override Encoding Encoding { get { return Encoding.UTF8; } }
 
         private StringBuilder output;
 
-        public string GetOutput()
+        public async Task<string> GetOutput()
         {
-            return output.ToString();
+            await Task.Delay(1000 * 2);
+            System.Threading.Thread.Sleep(1000 * 2);
+            string outputText = output.ToString();
+            return outputText;
         }
 
         public ConsoleWriter()
@@ -27,6 +31,19 @@ namespace TodoList.UnitTests.ConsoleUITests
         public override void WriteLine(string value)
         {
             output.AppendLine(value);
+        }
+
+        public static ConsoleWriter sharedConsoleWriter;
+
+        public static ConsoleWriter SharedConsoleWriter
+        {
+            get
+            {
+                if (sharedConsoleWriter == null)
+                    sharedConsoleWriter = new ConsoleWriter();
+
+                return sharedConsoleWriter;
+            }
         }
     }
 }
