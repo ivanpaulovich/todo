@@ -2,25 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <IsPackable>false</IsPackable>
-    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
-    <PackageReference Include="Moq" Version="4.10.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
-    <PackageReference Include="coverlet.msbuild" Version="2.6.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\source\TodoList.Core\TodoList.Core.csproj" />
     <ProjectReference Include="..\..\source\TodoList.Infrastructure\TodoList.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\source\TodoList.ConsoleApp\TodoList.ConsoleApp.csproj" />
-    <ProjectReference Include="..\..\source\TodoList.WebApi\TodoList.WebApi.csproj" />
   </ItemGroup>
 
 </Project>

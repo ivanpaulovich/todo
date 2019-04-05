@@ -3,7 +3,7 @@ namespace TodoList.ConsoleApp.Controllers
     using TodoList.ConsoleApp.Commands;
     using TodoList.Core.Boundaries;
 
-    public class TodoItemsController
+    public sealed class TodoItemsController
     {
         private IUseCase<Core.Boundaries.Todo.Request> todoUseCase;
         private Core.Boundaries.Remove.IUseCase removeUseCase;
