@@ -10,7 +10,7 @@ namespace TodoList.UnitTests.ConsoleUITests
 
         private StringBuilder output;
 
-        public async Task<string> GetOutput()
+        public string GetOutput()
         {
             string outputText = output.ToString();
             return outputText;
@@ -38,7 +38,10 @@ namespace TodoList.UnitTests.ConsoleUITests
             get
             {
                 if (sharedConsoleWriter == null)
+                {
                     sharedConsoleWriter = new ConsoleWriter();
+                    Colorful.Console.SetOut(sharedConsoleWriter);
+                }
 
                 return sharedConsoleWriter;
             }

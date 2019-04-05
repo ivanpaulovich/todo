@@ -7,7 +7,7 @@ namespace TodoList.UnitTests.ConsoleUITests
 
     public sealed class TodoPresenterTests : IClassFixture<ControllerFixture>
     {
-        private ControllerFixture _controllerFixture;
+        private readonly ControllerFixture _controllerFixture;
 
         public TodoPresenterTests(ControllerFixture controllerFixture)
         {
@@ -15,29 +15,29 @@ namespace TodoList.UnitTests.ConsoleUITests
         }
 
         [Fact]
-        public async Task PrintsError_WhenNull()
+        public void PrintsError_WhenNull()
         {
             Response response = null;
             _controllerFixture.TodoPresenter.Handle(response);
-            string output = await _controllerFixture.ConsoleWriter.GetOutput();
+            string output = _controllerFixture.ConsoleWriter.GetOutput();
             Assert.Contains("error", output);
         }
 
         [Fact]
-        public async Task PrintsWarning_WhenInvalid()
+        public void PrintsWarning_WhenInvalid()
         {
             Response response = new Response(Guid.Empty);
             _controllerFixture.TodoPresenter.Handle(response);
-            string output = await _controllerFixture.ConsoleWriter.GetOutput();
+            string output = _controllerFixture.ConsoleWriter.GetOutput();
             Assert.Contains("not added", output);
         }
 
         [Fact]
-        public async Task PrintsData()
+        public void PrintsData()
         {
             Response response = new Response(_controllerFixture.ItemId1);
             _controllerFixture.TodoPresenter.Handle(response);
-            string output = await _controllerFixture.ConsoleWriter.GetOutput();
+            string output = _controllerFixture.ConsoleWriter.GetOutput();
             Assert.Contains("af15e64c", output);
         }
     }
