@@ -17,7 +17,6 @@ namespace TodoList.Infrastructure.FileSystemGateway
         {
             string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             TasksFileName = System.IO.Path.Combine(Directory.GetCurrentDirectory(), ".todolist");
-            Console.WriteLine(TasksFileName);
         }
 
         private void Initialize()

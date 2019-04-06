@@ -22,9 +22,6 @@ namespace TodoList.ConsoleApp.Controllers
                 return;
             }
 
-            Console.WriteLine($"id\t     title", Color.Gray);
-            Console.WriteLine($"----------------------------------------------------------", Color.Gray);
-
             foreach (var item in response.Items.Where(e => !e.Done))
             {
                 Console.WriteLine($"{item.ItemId.ToString().Substring(0, 8)} [ ] {item.Title}", Color.White);
