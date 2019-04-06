@@ -7,6 +7,7 @@ namespace TodoList.Infrastructure.FileSystemGateway
     using Newtonsoft.Json;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
+    using System.Reflection;
 
     public sealed class FileSystemItemGateway : IItemGateway
     {
@@ -14,7 +15,8 @@ namespace TodoList.Infrastructure.FileSystemGateway
 
         public FileSystemItemGateway()
         {
-            TasksFileName = Directory.GetCurrentDirectory() + ".todolist";
+            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            TasksFileName = System.IO.Path.Combine(Directory.GetCurrentDirectory(), ".todolist");
             Console.WriteLine(TasksFileName);
         }
 
