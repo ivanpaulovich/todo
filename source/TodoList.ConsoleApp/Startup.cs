@@ -75,57 +75,21 @@ namespace TodoList.ConsoleApp
         internal void Run(string[] args)
         {
             string line = string.Join(' ', args);
-            bool interactive = false;
 
             do
             {
                 CommandParser commandParser = new CommandParser();
                 ICommand command = commandParser.ParseCommand(line);
+                command.Execute(controller);
 
-                if (command is TodoCommand todoCommand)
-                    controller.Execute(todoCommand);
-
-                if (command is RemoveCommand removeCommand)
-                    controller.Execute(removeCommand);
-
-                if (command is ListCommand listCommand)
-                    controller.Execute(listCommand);
-
-                if (command is RenameCommand renameCommand)
-                    controller.Execute(renameCommand);
-
-                if (command is DoCommand doCommand)
-                    controller.Execute(doCommand);
-
-                if (command is UndoCommand undoCommand)
-                    controller.Execute(undoCommand);
-
-                if (command is HelpCommand)
-                    DisplayInstructions();
-
-                if (command is InteractiveCommand)
-                    interactive = true;
-
-                if (interactive)
+                if (controller.IsInteractive)
                 {
                     line = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(line))
                         break;
                 }
 
-            } while (interactive);
-        }
-
-        private void DisplayInstructions()
-        {
-            Console.WriteLine("The usage");
-            Console.WriteLine("\ttodo [title]");
-            Console.WriteLine("\tren [id] [title]");
-            Console.WriteLine("\tdo [id]");
-            Console.WriteLine("\tundo [id]");
-            Console.WriteLine("\tls");
-            Console.WriteLine("\trm [id]");
-            Console.WriteLine("\texit");
+            } while (controller.IsInteractive);
         }
     }
 }

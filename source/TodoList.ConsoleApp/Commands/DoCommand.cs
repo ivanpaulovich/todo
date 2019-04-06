@@ -1,5 +1,7 @@
 namespace TodoList.ConsoleApp.Commands
 {
+    using TodoList.ConsoleApp.Controllers;
+
     public sealed class DoCommand : ICommand
     {
         public string Id { get; }
@@ -7,6 +9,11 @@ namespace TodoList.ConsoleApp.Commands
         public DoCommand(string id)
         {
             Id = id;
+        }
+
+        public void Execute(TodoItemsController controller)
+        {
+            controller.Execute(this);
         }
     }
 }

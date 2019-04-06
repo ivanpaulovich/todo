@@ -1,5 +1,6 @@
 namespace TodoList.ConsoleApp.Controllers
 {
+    using Colorful;
     using TodoList.ConsoleApp.Commands;
     using TodoList.Core.Boundaries;
 
@@ -11,6 +12,7 @@ namespace TodoList.ConsoleApp.Controllers
         private IUseCase<Core.Boundaries.Rename.Request> renameUseCase;
         private Core.Boundaries.Do.IUseCase doUseCase;
         private Core.Boundaries.Undo.IUseCase undoUseCase;
+        public bool IsInteractive { get; private set; }
 
         public TodoItemsController(
             IUseCase<Core.Boundaries.Todo.Request> todoUseCase,
@@ -39,7 +41,7 @@ namespace TodoList.ConsoleApp.Controllers
             removeUseCase.Execute(removeCommand.Id);
         }
 
-        public void Execute(ListCommand listCommand)
+        public void List()
         {
             listUseCase.Execute();
         }
@@ -58,6 +60,28 @@ namespace TodoList.ConsoleApp.Controllers
         public void Execute(UndoCommand undoCommand)
         {
             undoUseCase.Execute(undoCommand.Id);
+        }
+
+        public void Help()
+        {
+            DisplayInstructions();
+        }
+
+        public void Interactive()
+        {
+            IsInteractive = false;
+        }
+
+        private void DisplayInstructions()
+        {
+            Console.WriteLine("The usage");
+            Console.WriteLine("\ttodo [title]");
+            Console.WriteLine("\tren [id] [title]");
+            Console.WriteLine("\tdo [id]");
+            Console.WriteLine("\tundo [id]");
+            Console.WriteLine("\tls");
+            Console.WriteLine("\trm [id]");
+            Console.WriteLine("\texit");
         }
     }
 }
