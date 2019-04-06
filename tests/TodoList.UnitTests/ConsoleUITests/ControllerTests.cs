@@ -32,8 +32,7 @@ namespace TodoList.UnitTests.ConsoleUITests
         [Fact]
         public void CallsListWhenListCommand()
         {
-            ListCommand listCommand = new ListCommand();
-            _controllerFixture.Controller.Execute(listCommand);
+            _controllerFixture.Controller.List();
             _controllerFixture.List.Verify(x => x.Execute(), Times.Once);
         }
 
