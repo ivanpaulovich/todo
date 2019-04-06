@@ -40,9 +40,7 @@ namespace TodoList.UnitTests.ConsoleUITests
                 List.Object,
                 Rename.Object,
                 Do.Object,
-                Undo.Object,
-                TodoPresenter,
-                ListPresenter);
+                Undo.Object);
 
             Item1 = new Core.Boundaries.List.Item(
                 new Guid("af15e64c-94b0-4220-b49c-231824f1711c"),

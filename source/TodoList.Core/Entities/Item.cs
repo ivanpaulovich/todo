@@ -8,10 +8,7 @@ namespace TodoList.Core.Entities
         public virtual string Title { get; protected set; }
         public virtual bool Done { get; protected set; }
 
-        public Item()
-        {
-            Id = Guid.NewGuid();
-        }
+        public Item() => Id = Guid.NewGuid();
 
         public void Rename(string title)
         {

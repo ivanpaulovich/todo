@@ -14,13 +14,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using TodoList.Core.Boundaries;
-using TodoList.Core.Boundaries.List;
-using TodoList.Core.Boundaries.Rename;
-using TodoList.Core.Boundaries.Todo;
 using TodoList.Core.Entities;
 using TodoList.Core.Gateways;
 using TodoList.Core.UseCases;
-using TodoList.Infrastructure.EntityFrameworkGateway;
 using TodoList.Infrastructure.InMemoryGateway;
 using TodoList.WebApi.Controllers;
 
@@ -70,11 +66,11 @@ namespace TodoList.WebApi
             services.AddScoped<IResponseHandler<Core.Boundaries.List.Response>>(x => x.GetRequiredService<ListPresenter>());
 
             services.AddScoped<IUseCase<Core.Boundaries.Todo.Request>, Todo>();
-            services.AddScoped<Core.Boundaries.Remove.IUseCase, Core.UseCases.Remove>();
-            services.AddScoped<Core.Boundaries.List.IUseCase, Core.UseCases.List>();
-            services.AddScoped<IUseCase<Core.Boundaries.Rename.Request>, Core.UseCases.Rename>();
-            services.AddScoped<Core.Boundaries.Do.IUseCase, Core.UseCases.Do>();
-            services.AddScoped<Core.Boundaries.Undo.IUseCase, Core.UseCases.Undo>();
+            services.AddScoped<Core.Boundaries.Remove.IUseCase, Remove>();
+            services.AddScoped<Core.Boundaries.List.IUseCase, List>();
+            services.AddScoped<IUseCase<Core.Boundaries.Rename.Request>, Rename>();
+            services.AddScoped<Core.Boundaries.Do.IUseCase, Do>();
+            services.AddScoped<Core.Boundaries.Undo.IUseCase, Undo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
