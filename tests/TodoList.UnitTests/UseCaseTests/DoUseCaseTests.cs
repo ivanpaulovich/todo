@@ -9,7 +9,7 @@ namespace TodoList.UseCaseTests.UnitTests
     using TodoList.Infrastructure.InMemoryGateway;
     using Xunit;
 
-    public sealed class DoUseCaseTestsß
+    public sealed class DoUseCaseTests
     {
         string existingTodoItemId = "3b35f11e-7080-45e2-a152-afff5a325508";
 
