@@ -1,5 +1,7 @@
 namespace TodoList.ConsoleApp.Commands
 {
+    using TodoList.ConsoleApp.Controllers;
+
     public sealed class RenameCommand : ICommand
     {
         public string Id { get; }
@@ -9,6 +11,11 @@ namespace TodoList.ConsoleApp.Commands
         {
             Id = id;
             NewTitle = newTitle;
+        }
+        
+        public void Execute(TodoItemsController controller)
+        {
+            controller.Execute(this);
         }
     }
 }
