@@ -1,16 +1,13 @@
 namespace TodoList.ConsoleApp
 {
-    using System.Collections.Generic;
     using System;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using TodoList.ConsoleApp.Commands;
     using TodoList.ConsoleApp.Controllers;
-    using TodoList.Core.Boundaries;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;
-    using TodoList.Core;
     using TodoList.Infrastructure.EntityFrameworkGateway;
     using TodoList.Infrastructure.FileSystemGateway;
     using TodoList.Infrastructure.InMemoryGateway;
@@ -30,24 +27,24 @@ namespace TodoList.ConsoleApp
         {
             var optionsBuilder = new DbContextOptionsBuilder<SqlContext>();
             optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            SqlContext context = new SqlContext(optionsBuilder.Options);
-            IItemGateway gateway = new SqlItemGateway(context);
-            EntitiesFactory entitiesFactory = new EntitiesFactory();
+            var context = new SqlContext(optionsBuilder.Options);
+            var gateway = new SqlItemGateway(context);
+            var entitiesFactory = new Infrastructure.EntityFrameworkGateway.EntitiesFactory();
             ConfigureUseCases(gateway, entitiesFactory);
         }
 
         internal void ConfigureInMemoryServices()
         {
-            InMemoryContext context = new InMemoryContext();
-            IItemGateway gateway = new InMemoryItemGateway(context);
-            EntitiesFactory entitiesFactory = new EntitiesFactory();
+            var context = new InMemoryContext();
+            var gateway = new InMemoryItemGateway(context);
+            var entitiesFactory = new Infrastructure.InMemoryGateway.EntitiesFactory();
             ConfigureUseCases(gateway, entitiesFactory);
         }
 
         internal void ConfigureFileSystemServices()
         {
-            IItemGateway gateway = new FileSystemItemGateway();
-            EntitiesFactory entitiesFactory = new EntitiesFactory();
+            var gateway = new FileSystemItemGateway();
+            var entitiesFactory = new Infrastructure.FileSystemGateway.EntitiesFactory();
             ConfigureUseCases(gateway, entitiesFactory);
         }
 
@@ -58,12 +55,12 @@ namespace TodoList.ConsoleApp
             ListPresenter listPresenter = new ListPresenter();
             TodoPresenter todoPresenter = new TodoPresenter();
 
-            var renameUseCase = new Core.UseCases.Rename(gateway);
-            var listUseCase = new Core.UseCases.List(listPresenter, gateway);
-            var removeUseCase = new Core.UseCases.Remove(gateway);
-            var todoUseCase = new Core.UseCases.Todo(todoPresenter, gateway, entitiesFactory);
-            var doUseCase = new Core.UseCases.Do(gateway);
-            var undoUseCase = new Core.UseCases.Undo(gateway);
+            var renameUseCase = new Rename(gateway);
+            var listUseCase = new List(listPresenter, gateway);
+            var removeUseCase = new Remove(gateway);
+            var todoUseCase = new Todo(todoPresenter, gateway, entitiesFactory);
+            var doUseCase = new Do(gateway);
+            var undoUseCase = new Undo(gateway);
 
             controller = new TodoItemsController(
                 todoUseCase,
@@ -71,9 +68,7 @@ namespace TodoList.ConsoleApp
                 listUseCase,
                 renameUseCase,
                 doUseCase,
-                undoUseCase,
-                todoPresenter,
-                listPresenter
+                undoUseCase
             );
         }
 
@@ -105,10 +100,10 @@ namespace TodoList.ConsoleApp
                 if (command is UndoCommand undoCommand)
                     controller.Execute(undoCommand);
 
-                if (command is HelpCommand helpCommand)
-                    controller.Execute(helpCommand);
+                if (command is HelpCommand)
+                    DisplayInstructions();
 
-                if (command is InteractiveCommand interactiveCommand)
+                if (command is InteractiveCommand)
                     interactive = true;
 
                 if (interactive)
@@ -119,6 +114,18 @@ namespace TodoList.ConsoleApp
                 }
 
             } while (interactive);
+        }
+
+        private void DisplayInstructions()
+        {
+            Console.WriteLine("The usage");
+            Console.WriteLine("\ttodo [title]");
+            Console.WriteLine("\tren [id] [title]");
+            Console.WriteLine("\tdo [id]");
+            Console.WriteLine("\tundo [id]");
+            Console.WriteLine("\tls");
+            Console.WriteLine("\trm [id]");
+            Console.WriteLine("\texit");
         }
     }
 }

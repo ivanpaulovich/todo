@@ -11,8 +11,6 @@ namespace TodoList.ConsoleApp.Controllers
         private IUseCase<Core.Boundaries.Rename.Request> renameUseCase;
         private Core.Boundaries.Do.IUseCase doUseCase;
         private Core.Boundaries.Undo.IUseCase undoUseCase;
-        private TodoPresenter todoPresenter;
-        private ListPresenter listPresenter;
 
         public TodoItemsController(
             IUseCase<Core.Boundaries.Todo.Request> todoUseCase,
@@ -20,9 +18,7 @@ namespace TodoList.ConsoleApp.Controllers
             Core.Boundaries.List.IUseCase listUseCase,
             IUseCase<Core.Boundaries.Rename.Request> renameUseCase,
             Core.Boundaries.Do.IUseCase doUseCase,
-            Core.Boundaries.Undo.IUseCase undoUseCase,
-            TodoPresenter todoPresenter,
-            ListPresenter listPresenter)
+            Core.Boundaries.Undo.IUseCase undoUseCase)
         {
             this.todoUseCase = todoUseCase;
             this.removeUseCase = removeUseCase;
@@ -30,13 +26,11 @@ namespace TodoList.ConsoleApp.Controllers
             this.renameUseCase = renameUseCase;
             this.doUseCase = doUseCase;
             this.undoUseCase = undoUseCase;
-            this.todoPresenter = todoPresenter;
-            this.listPresenter = listPresenter;
         }
 
         public void Execute(TodoCommand todoCommand)
         {
-            var request = new TodoList.Core.Boundaries.Todo.Request(todoCommand.Title);
+            var request = new Core.Boundaries.Todo.Request(todoCommand.Title);
             todoUseCase.Execute(request);
         }
 
@@ -52,7 +46,7 @@ namespace TodoList.ConsoleApp.Controllers
 
         public void Execute(RenameCommand renameCommand)
         {
-            var request = new TodoList.Core.Boundaries.Rename.Request(renameCommand.Id, renameCommand.NewTitle);
+            var request = new Core.Boundaries.Rename.Request(renameCommand.Id, renameCommand.NewTitle);
             renameUseCase.Execute(request);
         }
 
@@ -64,11 +58,6 @@ namespace TodoList.ConsoleApp.Controllers
         public void Execute(UndoCommand undoCommand)
         {
             undoUseCase.Execute(undoCommand.Id);
-        }
-
-        public void Execute(HelpCommand helpCommand)
-        {
-            listPresenter.DisplayInstructions();
         }
     }
 }

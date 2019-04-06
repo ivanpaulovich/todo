@@ -1,13 +1,7 @@
 namespace TodoList.ConsoleApp
 {
-    using System.Collections.Generic;
     using System.IO;
-    using System;
     using Microsoft.Extensions.Configuration;
-    using TodoList.ConsoleApp.Commands;
-    using TodoList.Core.Boundaries;
-    using TodoList.Core.Entities;
-    using TodoList.Core.Gateways;
 
     public class Program
     {
@@ -15,7 +9,7 @@ namespace TodoList.ConsoleApp
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional : false, reloadOnChange : true);
+                .AddJsonFile("appsettings.json");
 
             IConfigurationRoot configuration = builder.Build();
 

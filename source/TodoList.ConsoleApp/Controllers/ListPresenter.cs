@@ -2,26 +2,13 @@ namespace TodoList.ConsoleApp.Controllers
 {
     using System.Drawing;
     using System.Linq;
-    using System;
     using TodoList.Core.Boundaries;
-    using TodoList.Core.UseCases;
+    using TodoList.Core.Boundaries.List;
     using Console = Colorful.Console;
 
-    public sealed class ListPresenter : IResponseHandler<Core.Boundaries.List.Response>
+    public sealed class ListPresenter : IResponseHandler<Response>
     {
-        public void DisplayInstructions()
-        {
-            Console.WriteLine("The usage");
-            Console.WriteLine("\ttodo [title]");
-            Console.WriteLine("\tren [id] [title]");
-            Console.WriteLine("\tdo [id]");
-            Console.WriteLine("\tundo [id]");
-            Console.WriteLine("\tls");
-            Console.WriteLine("\trm [id]");
-            Console.WriteLine("\texit");
-        }
-
-        public void Handle(Core.Boundaries.List.Response response)
+        public void Handle(Response response)
         {
             if (response == null)
             {
@@ -29,7 +16,7 @@ namespace TodoList.ConsoleApp.Controllers
                 return;
             }
 
-            if (response.Items.Count() == 0)
+            if (!response.Items.Any())
             {
                 Console.WriteLine($"The list is empty. Try adding something todo.", Color.Yellow);
                 return;

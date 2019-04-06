@@ -1,8 +1,7 @@
-using System;
-using System.IO;
-
 namespace TodoList.ConsoleApp.Commands
 {
+    using System;
+
     public sealed class CommandParser
     {
         public ICommand ParseCommand(string text)
@@ -39,7 +38,7 @@ namespace TodoList.ConsoleApp.Commands
             return new HelpCommand();
         }
 
-        private ICommand ParseTodo(string text)
+        private TodoCommand ParseTodo(string text)
         {
             string[] args = text.Split(' ');
             if (args.Length == 0)
@@ -58,7 +57,7 @@ namespace TodoList.ConsoleApp.Commands
             return new TodoCommand(title);
         }
 
-        private ICommand ParseRemove(string text)
+        private RemoveCommand ParseRemove(string text)
         {
             string[] args = text.Split(' ');
             if (args.Length == 0)
@@ -73,7 +72,7 @@ namespace TodoList.ConsoleApp.Commands
             return new RemoveCommand(args[1]);
         }
 
-        private ICommand ParseDo(string text)
+        private DoCommand ParseDo(string text)
         {
             string[] args = text.Split(' ');
             if (args.Length == 0)
@@ -88,7 +87,7 @@ namespace TodoList.ConsoleApp.Commands
             return new DoCommand(args[1]);
         }
 
-        private ICommand ParseUndo(string text)
+        private UndoCommand ParseUndo(string text)
         {
             string[] args = text.Split(' ');
             if (args.Length == 0)
@@ -103,7 +102,7 @@ namespace TodoList.ConsoleApp.Commands
             return new UndoCommand(args[1]);
         }
 
-        private ICommand ParseList(string text)
+        private ListCommand ParseList(string text)
         {
             string[] args = text.Split(' ');
             if (args.Length == 0)
@@ -115,7 +114,7 @@ namespace TodoList.ConsoleApp.Commands
             return new ListCommand();
         }
 
-        private ICommand ParseInteractive(string text)
+        private InteractiveCommand ParseInteractive(string text)
         {
             string[] args = text.Split(' ');
             if (args.Length == 0)
@@ -127,7 +126,7 @@ namespace TodoList.ConsoleApp.Commands
             return new InteractiveCommand();
         }
 
-        private ICommand ParseRename(string text)
+        private RenameCommand ParseRename(string text)
         {
             string[] args = text.Split(' ');
             if (args.Length == 0)
