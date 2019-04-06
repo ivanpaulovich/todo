@@ -16,6 +16,7 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>todo</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

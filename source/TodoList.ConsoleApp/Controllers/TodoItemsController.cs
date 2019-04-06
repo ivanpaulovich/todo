@@ -75,7 +75,7 @@ namespace TodoList.ConsoleApp.Controllers
         private void DisplayInstructions()
         {
             Console.WriteLine("The usage");
-            Console.WriteLine("\ttodo [title]");
+            Console.WriteLine("\t[title]");
             Console.WriteLine("\tren [id] [title]");
             Console.WriteLine("\tdo [id]");
             Console.WriteLine("\tundo [id]");
