@@ -4,6 +4,7 @@ namespace TodoList.ConsoleApp.Commands
 
     public interface ICommand
     {
+        bool Match(string[] args);
         void Execute(TodoItemsController controller);
     }
 }

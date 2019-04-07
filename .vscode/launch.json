@@ -29,8 +29,8 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/source/TodoList.ConsoleApp/bin/Debug/netcoreapp2.2/TodoList.ConsoleApp.dll",
-            "args": ["help"],
+            "program": "${workspaceFolder}/source/TodoList.ConsoleApp/bin/Debug/netcoreapp2.2/todo.dll",
+            "args": ["i"],
             "cwd": "${workspaceFolder}/source/TodoList.ConsoleApp",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
             "console": "integratedTerminal",
