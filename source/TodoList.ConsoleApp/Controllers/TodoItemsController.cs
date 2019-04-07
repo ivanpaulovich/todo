@@ -75,12 +75,12 @@ namespace TodoList.ConsoleApp.Controllers
         private void DisplayInstructions()
         {
             Console.WriteLine("The usage");
-            Console.WriteLine("\t[title]");
-            Console.WriteLine("\tren [id] [title]");
-            Console.WriteLine("\tdo [id]");
-            Console.WriteLine("\tundo [id]");
-            Console.WriteLine("\tls");
-            Console.WriteLine("\trm [id]");
+            Console.WriteLine("\ttodo [title]");
+            Console.WriteLine("\ttodo ren [id] [title]");
+            Console.WriteLine("\ttodo do [id]");
+            Console.WriteLine("\ttodo undo [id]");
+            Console.WriteLine("\ttodo ls");
+            Console.WriteLine("\ttodo rm [id]");
             Console.WriteLine("\texit");
         }
     }
