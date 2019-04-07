@@ -6,7 +6,7 @@ The simple, powerfull and extensible Todo List app in your terminal powered by .
 ## Install
 
 ```
-dotnet tool install --global todo --version 1.0.2
+dotnet tool install --global todo
 ```
 
 ## Usage
