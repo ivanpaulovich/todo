@@ -16,7 +16,7 @@ namespace TodoList.UnitTests.ConsoleUITests
         [Fact]
         public void CallsTodoWhenTodoCommand()
         {
-            TodoCommand todoCommand = new TodoCommand(null);
+            TodoCommand todoCommand = new TodoCommand();
             _controllerFixture.Controller.Execute(todoCommand);
             _controllerFixture.Todo.Verify(x => x.Execute(It.IsAny<Core.Boundaries.Todo.Request>()), Times.Once);
         }
@@ -24,7 +24,7 @@ namespace TodoList.UnitTests.ConsoleUITests
         [Fact]
         public void CallsRemoveWhenRemoveCommand()
         {
-            RemoveCommand removeCommand = new RemoveCommand(null);
+            RemoveCommand removeCommand = new RemoveCommand();
             _controllerFixture.Controller.Execute(removeCommand);
             _controllerFixture.Remove.Verify(x => x.Execute(It.IsAny<string>()), Times.Once);
         }
@@ -39,7 +39,7 @@ namespace TodoList.UnitTests.ConsoleUITests
         [Fact]
         public void CallsRenameWhenRenameCommand()
         {
-            RenameCommand renameCommand = new RenameCommand(null, null);
+            RenameCommand renameCommand = new RenameCommand();
             _controllerFixture.Controller.Execute(renameCommand);
             _controllerFixture.Rename.Verify(x => x.Execute(It.IsAny<Core.Boundaries.Rename.Request>()), Times.Once);
         }
@@ -47,7 +47,7 @@ namespace TodoList.UnitTests.ConsoleUITests
         [Fact]
         public void CallsDoWhenDoCommand()
         {
-            DoCommand doCommand = new DoCommand(null);
+            DoCommand doCommand = new DoCommand();
             _controllerFixture.Controller.Execute(doCommand);
             _controllerFixture.Do.Verify(x => x.Execute(It.IsAny<string>()), Times.Once);
         }
@@ -55,7 +55,7 @@ namespace TodoList.UnitTests.ConsoleUITests
         [Fact]
         public void CallsUndoWhenUndoCommand()
         {
-            UndoCommand undoCommand = new UndoCommand(null);
+            UndoCommand undoCommand = new UndoCommand();
             _controllerFixture.Controller.Execute(undoCommand);
             _controllerFixture.Undo.Verify(x => x.Execute(It.IsAny<string>()), Times.Once);
         }

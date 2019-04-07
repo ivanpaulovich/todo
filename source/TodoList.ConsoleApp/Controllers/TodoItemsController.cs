@@ -69,7 +69,7 @@ namespace TodoList.ConsoleApp.Controllers
 
         public void Interactive()
         {
-            IsInteractive = false;
+            IsInteractive = true;
         }
 
         private void DisplayInstructions()

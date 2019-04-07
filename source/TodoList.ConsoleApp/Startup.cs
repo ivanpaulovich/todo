@@ -74,19 +74,19 @@ namespace TodoList.ConsoleApp
 
         internal void Run(string[] args)
         {
-            string line = string.Join(' ', args);
-
             do
             {
                 CommandParser commandParser = new CommandParser();
-                ICommand command = commandParser.ParseCommand(line);
+                ICommand command = commandParser.ParseCommand(args);
                 command.Execute(controller);
 
                 if (controller.IsInteractive)
                 {
-                    line = Console.ReadLine();
+                    string line = Console.ReadLine();
                     if (string.IsNullOrWhiteSpace(line))
                         break;
+                    else
+                        args = CommandArgsParser.TokenizeCommandLineToStringArray(line);
                 }
 
             } while (controller.IsInteractive);
