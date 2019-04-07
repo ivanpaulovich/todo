@@ -6,7 +6,7 @@ The simple, powerfull and extensible Todo List app in your terminal powered by .
 ## Install
 
 ```
-dotnet tool install --global todo
+$ dotnet tool install --global todo
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ dotnet tool install --global todo
 ## Demo
 
 ```
-todo ls
+$ todo ls
 1286e19b [ ] Salt the water with at least a tablespoon
 6dc154c1 [ ] Add pasta
 692394f8 [ ] Stir the pasta
@@ -37,7 +37,7 @@ f02a57b8 [ ] Drain the pasta
 ### Running from source
 
 ```
-dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj" -- i 
+$ dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj" -- i 
 ```
 
 ## :checkered_flag: Development Environment
