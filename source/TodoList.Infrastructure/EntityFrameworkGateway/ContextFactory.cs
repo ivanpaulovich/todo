@@ -22,7 +22,7 @@ namespace TodoList.Infrastructure.EntityFrameworkGateway
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.production.json")
+                .AddJsonFile("appsettings.Production.json")
                 .Build();
 
             string connectionString = configuration.GetConnectionString("DefaultConnection");

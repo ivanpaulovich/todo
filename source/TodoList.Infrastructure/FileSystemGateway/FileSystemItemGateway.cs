@@ -7,7 +7,6 @@ namespace TodoList.Infrastructure.FileSystemGateway
     using Newtonsoft.Json;
     using TodoList.Core.Entities;
     using TodoList.Core.Gateways;
-    using System.Reflection;
 
     public sealed class FileSystemItemGateway : IItemGateway
     {
@@ -15,8 +14,14 @@ namespace TodoList.Infrastructure.FileSystemGateway
 
         public FileSystemItemGateway()
         {
-            string assemblyFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            TasksFileName = System.IO.Path.Combine(Directory.GetCurrentDirectory(), ".todolist");
+            string homePath;
+
+            if (Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX)
+                homePath = Environment.GetEnvironmentVariable("HOME");
+            else
+                homePath = Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%");
+
+            TasksFileName = System.IO.Path.Combine(homePath, ".todolist");
         }
 
         private void Initialize()
@@ -27,18 +32,32 @@ namespace TodoList.Infrastructure.FileSystemGateway
 
         private List<Item> LoadItems()
         {
-            if (!File.Exists(TasksFileName))
-                Initialize();
+            try
+            {
+                if (!File.Exists(TasksFileName))
+                    Initialize();
 
-            string jsonContents = File.ReadAllText(TasksFileName);
-            var items = JsonConvert.DeserializeObject<List<JsonItem>>(jsonContents);
-            return items.Cast<Item>().ToList();
+                string jsonContents = File.ReadAllText(TasksFileName);
+                var items = JsonConvert.DeserializeObject<List<JsonItem>>(jsonContents);
+                return items.Cast<Item>().ToList();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"The file `{ TasksFileName }` is not accessible to read. Try running `todo` with adminstrator rights.", ex);
+            }
         }
 
         private void SaveChanges(List<Item> items)
         {
-            var jsonContents = JsonConvert.SerializeObject(items, Formatting.Indented);
-            File.WriteAllText(TasksFileName, jsonContents);
+            try
+            {
+                var jsonContents = JsonConvert.SerializeObject(items, Formatting.Indented);
+                File.WriteAllText(TasksFileName, jsonContents);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"The file `{ TasksFileName }` is not accessible to write. Try running `todo` with adminstrator rights.", ex);
+            }
         }
 
         public void Add(IItem item)

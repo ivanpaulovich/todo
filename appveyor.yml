@@ -3,32 +3,27 @@ image:
   - Ubuntu
 services:
   - docker
-environment:
-  CLOUDSDK_CORE_DISABLE_PROMPTS: 1
-  PROJECT_ID: todolist-234110
-  IMAGE_NAME: webapi
-cache:
-  - $HOME/google-cloud-sdk
-install:
-  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf "$HOME/google-cloud-sdk"; curl https://sdk.cloud.google.com | bash > /dev/null; fi
-  - source $HOME/google-cloud-sdk/path.bash.inc
-  - gcloud components update kubectl
-  - gcloud version
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
 build_script:
-  - echo $GOOGLE_AUTH > $HOME/gcp-key.json
-  - pushd source && docker build --rm=false -t gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION . && popd
-  - gcloud auth activate-service-account --key-file $HOME/gcp-key.json
-  - gcloud config set project $PROJECT_ID
-  - gcloud config set compute/zone us-central1-b
-  - gcloud container clusters create todolist --num-nodes=1 2> /dev/null || true
-  - gcloud auth configure-docker
-  - docker push gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION
-  - gcloud container clusters get-credentials todolist
-  - kubectl delete deployment todolist
-  - kubectl run todolist --image=gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION --port 80 --env=ASPNETCORE_ENVIRONMENT=Development
-  - kubectl set image deployment/todolist todolist=gcr.io/$PROJECT_ID/$IMAGE_NAME:$APPVEYOR_BUILD_VERSION
-  - kubectl expose deployment todolist --type=LoadBalancer --port 80 --target-port 80 2> /dev/null || true
-  - kubectl get pods
-  - kubectl get service
+  - docker pull mcr.microsoft.com/mssql/server:2017-latest || true
+  - docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=<YourStrong!Passw0rd>' -p 1433:1433 --name sql1 -d mcr.microsoft.com/mssql/server:2017-latest || true
+  - docker exec -i sql1 /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P '<YourStrong!Passw0rd>' -Q 'ALTER LOGIN SA WITH PASSWORD="<YourNewStrong!Passw0rd>"' || true
+  - dotnet ef database update --project source/TodoList.Infrastructure --startup-project source/TodoList.WebApi
+  - dotnet build
+  - dotnet pack --configuration Release
 test_script:
   - dotnet test tests/TodoList.UnitTests/TodoList.UnitTests.csproj
+  - dotnet test tests/TodoList.IntegrationTests/TodoList.IntegrationTests.csproj
+  - dotnet test tests/TodoList.AcceptanceTests/TodoList.AcceptanceTests.csproj
+deploy:
+  - provider: NuGet
+    on:
+      branch: master
+      configuration: Release
+    api_key:
+      secure: w3VEkxHD76f281nKX7yKFKfzka1YdBlb3wXL/yqZ65mC5iJZSSJw5hsUXOboHpCx
+    skip_symbols: true
+    artifact: /.*\.nupkg/
