@@ -25,4 +25,4 @@ deploy:
     api_key:
       secure: w3VEkxHD76f281nKX7yKFKfzka1YdBlb3wXL/yqZ65mC5iJZSSJw5hsUXOboHpCx
     skip_symbols: true
-    artifact: /.*\todo.nupkg/
+    artifact: /.*nupkg.*\.nupkg/
