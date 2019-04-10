@@ -1,5 +1,5 @@
 # :white_check_mark: An extensible Todo List app in your terminal :fire:
-<a href="https://www.nuget.org/packages/todo/" rel="todo">![NuGet](https://buildstats.info/nuget/todo)</a> [![Build status](https://ci.appveyor.com/api/projects/status/005aoqa8g79skmn6/branch/master?svg=true)](https://ci.appveyor.com/project/ivanpaulovich/dotnet-clean-architecture/branch/master) [![Docker Cloud Automated Build](https://img.shields.io/docker/cloud/automated/ivanpaulovich/dotnet-clean-architecture.svg?style=plastic)](https://cloud.docker.com/repository/docker/ivanpaulovich/dotnet-clean-architecture)
+<a href="https://www.nuget.org/packages/todo/" rel="todo">![NuGet](https://buildstats.info/nuget/todo)</a> [![Build status](https://ci.appveyor.com/api/projects/status/so416rowstopr46r/branch/master?svg=true)](https://ci.appveyor.com/project/ivanpaulovich/todo/branch/master)
 
 The simple, powerfull and extensible Todo List app in your terminal powered by .NET Core Global Tools.
 
