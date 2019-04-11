@@ -3,10 +3,14 @@
 
 The simple, powerfull and extensible Todo List app in your terminal powered by .NET Core Global Tools.
 
+## Demo
+
+![todo](https://github.com/ivanpaulovich/todo/raw/master/todo.gif "todo")
+
 ## Install
 
 ```
-$ dotnet tool install --global todo
+$ dotnet tool install -g todo
 ```
 
 ## Usage
@@ -21,18 +25,6 @@ $ dotnet tool install --global todo
 | `todo rm f02a57b8` | Removes task with id `f02a57b8`. |
 | `todo i` | Enters interactive mode. |
 | `todo help` | For complete list os parameters. |
-
-## Demo
-
-```
-$ todo ls
-1286e19b [ ] Salt the water with at least a tablespoon
-6dc154c1 [ ] Add pasta
-692394f8 [ ] Stir the pasta
-f1381d68 [ ] Test the pasta by tasting it
-f02a57b8 [ ] Drain the pasta
-2cebc5cb [X] Boil water in a large pot
-```
 
 ### Running from source
 
