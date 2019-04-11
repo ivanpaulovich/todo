@@ -34,12 +34,12 @@ $ dotnet run --project "source/TodoList.ConsoleApp/TodoList.ConsoleApp.csproj" -
 
 ## :checkered_flag: Development Environment
 
-* MacOS Sierra
-* VSCode :heart:
-* [.NET Core SDK 2.2](https://www.microsoft.com/net/download/dotnet-core/2.2).
-* Docker :whale:
-* SQL Server.
+* MacOS Mojave :apple:
+* Visual Studio Code :heart:
+* [.NET Core SDK 2.2](https://www.microsoft.com/net/download/dotnet-core/2.2)
+* Docker :whale: (Optional)
+* SQL Server (Optional)
 
 ## :telephone: Support and Issues
 
-Please open an issue. Leave a star if you like the project!
+Please give it a `star` then open an issue.
