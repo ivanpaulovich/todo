@@ -1,9 +1,9 @@
 namespace TodoList.ConsoleApp.Commands
 {
     using System.Collections.Generic;
-    using System.Text;
     using System.Linq;
-    
+    using System.Text;
+
     //
     // Code from https://github.com/nelyom/cmdLineTokenizer/blob/master/cmdLineTokenizer/Tokenizer.cs
     //
@@ -23,7 +23,6 @@ namespace TodoList.ConsoleApp.Commands
             List<string> tokens = new List<string>();
             StringBuilder token = new StringBuilder(255);
             var sections = commandLine.Split(' ');
-            
 
             for (int curPart = 0; curPart < sections.Length; curPart++)
             {
@@ -66,7 +65,7 @@ namespace TodoList.ConsoleApp.Commands
                     //remove trailing " if we had a leftover
                     //if we didn't have a leftover then we go to the end of the command line without an enclosing " 
                     //so it gets treated as a quoted argument anyway
-                    if (quoteCount%2 != 0)
+                    if (quoteCount % 2 != 0)
                     {
                         token.Remove(token.Length - 1, 1);
                     }
@@ -80,8 +79,8 @@ namespace TodoList.ConsoleApp.Commands
 
                 //strip whitespace (because).
                 if (!string.IsNullOrEmpty(token.ToString().Trim()))
-                tokens.Add(token.ToString().Trim());
-                
+                    tokens.Add(token.ToString().Trim());
+
                 token.Clear();
             }
 

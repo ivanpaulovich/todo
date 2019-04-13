@@ -1,9 +1,9 @@
 namespace TodoList.IntegrationTests
 {
-    using Xunit;
-    using TodoList.Infrastructure.FileSystemGateway;
-    using TodoList.Core.Entities;
     using System.Linq;
+    using TodoList.Core.Entities;
+    using TodoList.Infrastructure.FileSystemGateway;
+    using Xunit;
 
     public sealed class FileSystemTests
     {

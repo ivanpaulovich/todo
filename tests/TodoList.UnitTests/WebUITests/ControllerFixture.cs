@@ -2,8 +2,8 @@ namespace TodoList.UnitTests.WebUITests
 {
     using System;
     using Moq;
-    using TodoList.Core.Boundaries;
     using TodoList.Core.Boundaries.List;
+    using TodoList.Core.Boundaries;
     using TodoList.WebApi.Controllers;
 
     public sealed class ControllerFixture

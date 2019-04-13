@@ -1,10 +1,10 @@
 namespace TodoList.IntegrationTests
 {
-    using Xunit;
-    using TodoList.Infrastructure.EntityFrameworkGateway;
-    using TodoList.Core.Entities;
     using System.Linq;
     using Microsoft.EntityFrameworkCore;
+    using TodoList.Core.Entities;
+    using TodoList.Infrastructure.EntityFrameworkGateway;
+    using Xunit;
 
     public class SqlTests
     {

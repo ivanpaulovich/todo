@@ -6,7 +6,7 @@ namespace TodoList.ConsoleApp.Commands
     public sealed class TodoCommand : ICommand
     {
         public string Title { get; private set; }
-        
+
         public void Execute(TodoItemsController controller)
         {
             controller.Execute(this);

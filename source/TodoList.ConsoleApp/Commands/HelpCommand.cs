@@ -22,7 +22,7 @@ namespace TodoList.ConsoleApp.Commands
             foreach (var token in Tokens)
                 if (string.Compare(args[0].Trim(), token, StringComparison.CurrentCultureIgnoreCase) == 0)
                     match = true;
-            
+
             if (!match)
                 return false;
 

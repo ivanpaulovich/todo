@@ -1,7 +1,7 @@
 namespace TodoList.UseCaseTests.UnitTests
 {
-    using System;
     using System.Linq;
+    using System;
     using TodoList.Core.Boundaries.Remove;
     using TodoList.Core.Gateways;
     using TodoList.Core.UseCases;

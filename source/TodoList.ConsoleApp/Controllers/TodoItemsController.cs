@@ -1,6 +1,10 @@
 namespace TodoList.ConsoleApp.Controllers
 {
+    using System.IO;
+    using System.Reflection;
     using Colorful;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using TodoList.ConsoleApp.Commands;
     using TodoList.Core.Boundaries;
 
@@ -81,7 +85,51 @@ namespace TodoList.ConsoleApp.Controllers
             Console.WriteLine("\ttodo undo [id]");
             Console.WriteLine("\ttodo ls");
             Console.WriteLine("\ttodo rm [id]");
+            Console.WriteLine("\ttodo gt [Gist Token]");
+            Console.WriteLine("\ttodo gi [Gist ID]");
             Console.WriteLine("\texit");
+        }
+
+        public void Execute(GistTokenCommand gistTokenCommand)
+        {
+            SetGistTokenSettings(gistTokenCommand.GistToken);
+        }
+
+        public void Execute(GistIdCommand gistTokenCommand)
+        {
+            SetGistIdSettings(gistTokenCommand.GistId);
+        }
+
+        private void SetGistTokenSettings(string gistToken)
+        {
+            var appsettingsPath = Path.GetDirectoryName(
+                    Assembly.GetExecutingAssembly().Location) +
+                    Path.DirectorySeparatorChar +
+                    "appsettings.json";
+            
+            var contents = File.ReadAllText(appsettingsPath);
+            var configuration = JsonConvert.DeserializeObject<JObject>(contents);
+
+            configuration["GistToken"] = gistToken;
+
+            contents = JsonConvert.SerializeObject(configuration, Formatting.Indented);
+            File.WriteAllText(appsettingsPath, contents);
+        }
+
+        private void SetGistIdSettings(string gistId)
+        {
+            var appsettingsPath = Path.GetDirectoryName(
+                    Assembly.GetExecutingAssembly().Location) +
+                    Path.DirectorySeparatorChar +
+                    "appsettings.json";
+            
+            var contents = File.ReadAllText(appsettingsPath);
+            var configuration = JsonConvert.DeserializeObject<JObject>(contents);
+
+            configuration["GistId"] = gistId;
+
+            contents = JsonConvert.SerializeObject(configuration, Formatting.Indented);
+            File.WriteAllText(appsettingsPath, contents);
         }
     }
 }

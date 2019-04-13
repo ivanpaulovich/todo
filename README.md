@@ -1,7 +1,7 @@
 # :white_check_mark: An extensible Todo List app in your terminal :fire:
 <a href="https://www.nuget.org/packages/todo/" rel="todo">![NuGet](https://buildstats.info/nuget/todo)</a> [![Build status](https://ci.appveyor.com/api/projects/status/so416rowstopr46r/branch/master?svg=true)](https://ci.appveyor.com/project/ivanpaulovich/todo/branch/master)
 
-The simple, powerfull and extensible Todo List app in your terminal powered by .NET Core Global Tools.
+The simple task management powered .NET Core Global Tools and accesible everywhere with GitHub Gist.
 
 ## Demo
 
@@ -12,6 +12,16 @@ The simple, powerfull and extensible Todo List app in your terminal powered by .
 ```
 $ dotnet tool install -g todo
 ```
+
+## Setup
+
+This tool requires a [Personal Access Token](https://github.com/settings/tokens) from your GitHub account. Create one and make sure to include `Gist` in the scope. Then run the following command:
+
+```
+todo gt YOUR_GIST_TOKEN
+```
+
+It will create a secret `Gist` in your account and it is accessible everywhere.
 
 ## Usage
 
@@ -25,6 +35,9 @@ $ dotnet tool install -g todo
 | `todo rm f02a57b8` | Removes task with id `f02a57b8`. |
 | `todo i` | Enters interactive mode. |
 | `todo help` | For complete list os parameters. |
+| `todo gt YOUR_GIST_TOKEN` | Set the GitHub account ID. |
+| `todo gi YOUR_GIST_ID` | Set the Gist ID to sync your tasks. |
+
 
 ### Running from source
 

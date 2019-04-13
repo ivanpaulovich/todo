@@ -38,7 +38,7 @@ namespace TodoList.UseCaseTests.UnitTests
             var context = new InMemoryContext();
             var gateway = new InMemoryItemGateway(context);
             var responseHandler = new ResponseHandler();
-            var entitiesFactory = new EntitiesFactory();
+            var entitiesFactory = new DefaultEntitiesFactory();
 
             var todo = new Core.UseCases.Todo(responseHandler, gateway, entitiesFactory);
             todo.Execute(new Core.Boundaries.Todo.Request("My Title"));

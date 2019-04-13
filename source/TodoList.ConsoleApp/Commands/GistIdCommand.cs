@@ -3,12 +3,11 @@ namespace TodoList.ConsoleApp.Commands
     using System;
     using TodoList.ConsoleApp.Controllers;
 
-    public sealed class RenameCommand : ICommand
+    public sealed class GistIdCommand : ICommand
     {
-        public string Id { get; private set; }
-        public string NewTitle { get; private set; }
+        public string GistId { get; private set; }
 
-        private readonly string[] Tokens = { "-ren", "/ren", "ren", "-r", "/r", "r", "rename", "--rename" };
+        private readonly string[] Tokens = { "-gi", "/gi", "gi", "gist-id", "--gist-id"};
 
         public void Execute(TodoItemsController controller)
         {
@@ -17,7 +16,7 @@ namespace TodoList.ConsoleApp.Commands
 
         public bool Match(string[] args)
         {
-            if (args.Length != 3)
+            if (args.Length != 2)
                 return false;
 
             bool match = false;
@@ -29,8 +28,7 @@ namespace TodoList.ConsoleApp.Commands
             if (!match)
                 return false;
 
-            Id = args[1];
-            NewTitle = args[2];
+            GistId = args[1];
 
             return true;
         }

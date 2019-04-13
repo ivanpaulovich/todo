@@ -7,7 +7,10 @@
   <ItemGroup>
     <ProjectReference Include="..\TodoList.Core\TodoList.Core.csproj" />
     <ProjectReference Include="..\TodoList.Infrastructure\TodoList.Infrastructure.csproj" />
+  </ItemGroup>
 
+  <ItemGroup>
+      <PackageReference Include="NewtonSoft.Json" Version="12.0.1" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -16,7 +19,7 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>todo</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
-    <Version>1.0.4</Version>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

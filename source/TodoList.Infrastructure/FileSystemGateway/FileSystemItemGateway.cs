@@ -41,7 +41,7 @@ namespace TodoList.Infrastructure.FileSystemGateway
                 var items = JsonConvert.DeserializeObject<List<JsonItem>>(jsonContents);
                 return items.Cast<Item>().ToList();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"The file `{ TasksFileName }` is not accessible to read. Try running `todo` with adminstrator rights.", ex);
             }
@@ -54,7 +54,7 @@ namespace TodoList.Infrastructure.FileSystemGateway
                 var jsonContents = JsonConvert.SerializeObject(items, Formatting.Indented);
                 File.WriteAllText(TasksFileName, jsonContents);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"The file `{ TasksFileName }` is not accessible to write. Try running `todo` with adminstrator rights.", ex);
             }

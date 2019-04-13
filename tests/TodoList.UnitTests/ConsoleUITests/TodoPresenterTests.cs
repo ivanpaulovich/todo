@@ -1,7 +1,7 @@
 namespace TodoList.UnitTests.ConsoleUITests
 {
-    using System;
     using System.Threading.Tasks;
+    using System;
     using TodoList.Core.Boundaries.Todo;
     using Xunit;
 

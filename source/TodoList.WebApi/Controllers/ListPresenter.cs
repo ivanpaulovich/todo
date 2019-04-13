@@ -26,7 +26,7 @@ namespace TodoList.WebApi.Controllers
             var listItems = new Collection<TodoItemViewModel>();
             foreach (var item in _response.Items)
                 listItems.Add(new TodoItemViewModel() { Title = item.Title, Id = item.ItemId });
-                
+
             return listItems;
         }
     }

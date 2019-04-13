@@ -16,7 +16,7 @@ namespace TodoList.UnitTests.ConsoleUITests
         public TodoItemsController Controller { get; }
         public ListPresenter ListPresenter { get; }
         public TodoPresenter TodoPresenter { get; }
-        public Core.Boundaries.List.Item  Item1 { get; }
+        public Core.Boundaries.List.Item Item1 { get; }
         public Core.Boundaries.List.Item Item2 { get; }
         public Guid ItemId1 { get; }
         public ConsoleWriter ConsoleWriter { get; }

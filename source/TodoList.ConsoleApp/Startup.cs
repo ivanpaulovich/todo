@@ -10,6 +10,7 @@ namespace TodoList.ConsoleApp
     using TodoList.Core.UseCases;
     using TodoList.Infrastructure.EntityFrameworkGateway;
     using TodoList.Infrastructure.FileSystemGateway;
+    using TodoList.Infrastructure.GistGateway;
     using TodoList.Infrastructure.InMemoryGateway;
 
     internal sealed class Startup
@@ -29,7 +30,7 @@ namespace TodoList.ConsoleApp
             optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             var context = new SqlContext(optionsBuilder.Options);
             var gateway = new SqlItemGateway(context);
-            var entitiesFactory = new Infrastructure.EntityFrameworkGateway.EntitiesFactory();
+            var entitiesFactory = new DefaultEntitiesFactory();
             ConfigureUseCases(gateway, entitiesFactory);
         }
 
@@ -37,14 +38,21 @@ namespace TodoList.ConsoleApp
         {
             var context = new InMemoryContext();
             var gateway = new InMemoryItemGateway(context);
-            var entitiesFactory = new Infrastructure.InMemoryGateway.EntitiesFactory();
+            var entitiesFactory = new DefaultEntitiesFactory();
             ConfigureUseCases(gateway, entitiesFactory);
         }
 
         internal void ConfigureFileSystemServices()
         {
             var gateway = new FileSystemItemGateway();
-            var entitiesFactory = new Infrastructure.FileSystemGateway.EntitiesFactory();
+            var entitiesFactory = new DefaultEntitiesFactory();
+            ConfigureUseCases(gateway, entitiesFactory);
+        }
+
+        internal void ConfigureGistServices()
+        {
+            var gateway = new GistItemGateway();
+            var entitiesFactory = new DefaultEntitiesFactory();
             ConfigureUseCases(gateway, entitiesFactory);
         }
 

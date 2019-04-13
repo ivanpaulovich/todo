@@ -8,7 +8,8 @@ namespace TodoList.ConsoleApp.Commands
 
         public CommandParser()
         {
-            commands = new ICommand[] {
+            commands = new ICommand[]
+            {
                 new InteractiveCommand(),
                 new DoCommand(),
                 new HelpCommand(),
@@ -16,7 +17,9 @@ namespace TodoList.ConsoleApp.Commands
                 new RemoveCommand(),
                 new RenameCommand(),
                 new TodoCommand(),
-                new UndoCommand()
+                new UndoCommand(),
+                new GistTokenCommand(),
+                new GistIdCommand()
             };
         }
 

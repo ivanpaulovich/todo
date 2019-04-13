@@ -38,7 +38,7 @@ namespace TodoList.UseCaseTests.UnitTests
             var context = new InMemoryContext();
             var gateway = new InMemoryItemGateway(context);
             var responseHandler = new ResponseHandler();
-            var entitiesFactory = new EntitiesFactory();
+            var entitiesFactory = new DefaultEntitiesFactory();
 
             var request = new Request("My Title");
             var todo = new Todo(responseHandler, gateway, entitiesFactory);
@@ -52,7 +52,7 @@ namespace TodoList.UseCaseTests.UnitTests
             var context = new InMemoryContext();
             var gateway = new InMemoryItemGateway(context);
             var responseHandler = new ResponseHandler();
-            var entitiesFactory = new EntitiesFactory();
+            var entitiesFactory = new DefaultEntitiesFactory();
 
             var request = new Request("My Title");
             var todo = new Todo(responseHandler, gateway, entitiesFactory);

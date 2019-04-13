@@ -2,8 +2,8 @@ namespace TodoList.ConsoleApp.Controllers
 {
     using System.Drawing;
     using System.Linq;
-    using TodoList.Core.Boundaries;
     using TodoList.Core.Boundaries.List;
+    using TodoList.Core.Boundaries;
     using Console = Colorful.Console;
 
     public sealed class ListPresenter : IResponseHandler<Response>

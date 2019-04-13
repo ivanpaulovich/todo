@@ -57,7 +57,7 @@ namespace TodoList.WebApi
 
         private void AddTodoListCore(IServiceCollection services)
         {
-            services.AddScoped<IEntitiesFactory, EntitiesFactory>();
+            services.AddScoped<IEntitiesFactory, DefaultEntitiesFactory>();
 
             services.AddScoped<TodoPresenter, TodoPresenter>();
             services.AddScoped<ListPresenter, ListPresenter>();
