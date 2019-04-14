@@ -20,11 +20,7 @@ namespace TodoList.ConsoleApp.Commands
             if (args.Length != 3)
                 return false;
 
-            bool match = false;
-
-            foreach (var token in Tokens)
-                if (string.Compare(args[0].Trim(), token, StringComparison.CurrentCultureIgnoreCase) == 0)
-                    match = true;
+            bool match = CommandArgsParser.Match(args, Tokens);
 
             if (!match)
                 return false;

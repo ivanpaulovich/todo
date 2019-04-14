@@ -1,5 +1,6 @@
 namespace TodoList.ConsoleApp.Commands
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -10,13 +11,6 @@ namespace TodoList.ConsoleApp.Commands
 
     public static class CommandArgsParser
     {
-        /// <summary>
-        /// Pulls apart the input string, traditionally the command line, and tokenises it to each item.  
-        /// The GOD separator between each argument is SPACE.
-        /// If the input contains double quoted (i.e. " ) arguments, these will be returned without quotes, unless the arument contains quotes (whether escaped or unescaped).
-        /// </summary>
-        /// <param name="commandLine">The command line used to launch the application.  Usually Environment.CommandLine</param>
-        /// <returns>List<string></returns>
         public static List<string> TokenizeCommandLineToList(string commandLine)
         {
 
@@ -88,17 +82,21 @@ namespace TodoList.ConsoleApp.Commands
             return tokens;
         }
 
-        /// <summary>
-        /// Pulls apart the input string, traditionally the command line, and tokenises it to each item.  
-        /// The GOD separator between each argument is SPACE.
-        /// If the input contains double quoted (i.e. " ) arguments, these will be returned without quotes, unless the arument contains quotes (whether escaped or unescaped).
-        /// </summary>
-        /// <param name="commandLine">The command line used to launch the application.  Usually Environment.CommandLine</param>
-        /// <returns>string[]</returns>
         public static string[] TokenizeCommandLineToStringArray(string commandLine)
         {
             List<string> tokens = TokenizeCommandLineToList(commandLine);
             return tokens.ToArray<string>();
+        }
+
+        public static bool Match(string[] args, string[] tokens)
+        {
+            bool match = false;
+
+            foreach (var token in tokens)
+                if (string.Compare(args[0].Trim(), token, StringComparison.CurrentCultureIgnoreCase) == 0)
+                    match = true;
+
+            return match;
         }
     }
 }

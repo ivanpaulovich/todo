@@ -1,7 +1,7 @@
 # :white_check_mark: Command-Line Task management with Gist support :fire:
 <a href="https://www.nuget.org/packages/todo/" rel="todo">![NuGet](https://buildstats.info/nuget/todo)</a> [![Build status](https://ci.appveyor.com/api/projects/status/so416rowstopr46r/branch/master?svg=true)](https://ci.appveyor.com/project/ivanpaulovich/todo/branch/master)
 
-The simple task management powered by .NET Core Global Tools and accesible everywhere with Gist.
+The simple task management powered by .NET Core Global Tools and accesible everywhere with your GitHub account.
 
 ## Demo
 

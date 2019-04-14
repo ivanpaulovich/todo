@@ -17,16 +17,8 @@ namespace TodoList.ConsoleApp.Commands
             if (args.Length != 1)
                 return false;
 
-            bool match = false;
-
-            foreach (var token in Tokens)
-                if (string.Compare(args[0].Trim(), token, StringComparison.CurrentCultureIgnoreCase) == 0)
-                    match = true;
-
-            if (!match)
-                return false;
-
-            return true;
+            bool match = CommandArgsParser.Match(args, Tokens);
+            return match;
         }
     }
 }
