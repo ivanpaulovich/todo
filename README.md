@@ -5,7 +5,7 @@ The simple task management powered by .NET Core Global Tools and accesible every
 
 ## Demo
 
-![todo](https://github.com/ivanpaulovich/todo/raw/master/todo.gif "todo")
+![todo](https://github.com/ivanpaulovich/todo/raw/master/todo-v1.gif "todo")
 
 ## Install
 
