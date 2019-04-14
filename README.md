@@ -28,7 +28,7 @@ todo gt YOUR_GIST_TOKEN
 | Command  |  Description |
 |---|---|
 | `todo "Boil water in a large pot"`  |  Adds a new task. |
-| `todo ls`  |  Enlist all the tasks. |
+| `todo ls`  |  List all tasks. |
 | `todo ren 128 "Salt the water"` |  Renames task title with id `128` to `Salt the water`. |
 | `todo do 6d` | Marks task with id `6d` to done. |
 | `todo undo f1381d68` | Marks task with id `f1381d68` to incomplete. |
