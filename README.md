@@ -20,7 +20,7 @@ It requires a [Personal Access Token](https://github.com/settings/tokens) from y
 Replace the `YOUR_GIST_TOKEN` with the copied token then run the following command:
 
 ```
-todo gt YOUR_GIST_TOKEN
+$ todo gt YOUR_GIST_TOKEN
 ```
 
 ## Task Management Commands
