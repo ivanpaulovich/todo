@@ -15,15 +15,24 @@ namespace TodoList.Infrastructure.GistGateway
 
     public sealed class GistItemGateway : IItemGateway
     {
-        private GitHubClient _githubClient;
+        private static GitHubClient _gitHubClient;
+
+        private GitHubClient GitHubClient
+        {
+            get
+            {
+                if (_gitHubClient != null)
+                    return _gitHubClient;
+                
+                _gitHubClient = new GitHubClient(new ProductHeaderValue("todo"));
+                _gitHubClient.Credentials = new Credentials(_gistToken);
+
+                return _gitHubClient;
+            }
+        }
+
         private string _gistToken;
         private string _gistId;
-
-        private void CreateGitHubConnection()
-        {
-            _githubClient = new GitHubClient(new ProductHeaderValue("todo"));
-            _githubClient.Credentials = new Credentials(_gistToken);
-        }
 
         private List<Item> EnsureItemsAreLoaded()
         {
@@ -51,7 +60,7 @@ namespace TodoList.Infrastructure.GistGateway
 
         private Gist LoadGist()
         {
-            var gist = _githubClient
+            var gist = GitHubClient
                 .Gist
                 .Get(_gistId).GetAwaiter()
                 .GetResult();
@@ -66,7 +75,7 @@ namespace TodoList.Infrastructure.GistGateway
             newGist.Description = "todolist";
             newGist.Files.Add("todolist.json", jsonContents);
 
-            var gist = _githubClient.Gist
+            var gist = GitHubClient.Gist
                 .Create(newGist)
                 .GetAwaiter()
                 .GetResult();
@@ -87,7 +96,7 @@ namespace TodoList.Infrastructure.GistGateway
             var gistUpdate = new GistUpdate();
             gistUpdate.Description = "todolist";
             gistUpdate.Files.Add("todolist.json", gistFileUpdate);
-            _githubClient.Gist
+            GitHubClient.Gist
                 .Edit(_gistId, gistUpdate)
                 .GetAwaiter()
                 .GetResult();
@@ -135,7 +144,6 @@ namespace TodoList.Infrastructure.GistGateway
         public void Add(IItem item)
         {
             ReadGitHubCredentialsFromAppSettings();
-            CreateGitHubConnection();
 
             var items = EnsureItemsAreLoaded();
             items.Add((Item) item);
@@ -145,7 +153,6 @@ namespace TodoList.Infrastructure.GistGateway
         public void Delete(string itemId)
         {
             ReadGitHubCredentialsFromAppSettings();
-            CreateGitHubConnection();
 
             var items = EnsureItemsAreLoaded();
 
@@ -162,7 +169,6 @@ namespace TodoList.Infrastructure.GistGateway
         public IItem Get(string itemId)
         {
             ReadGitHubCredentialsFromAppSettings();
-            CreateGitHubConnection();
 
             var items = EnsureItemsAreLoaded();
             Item item = items
@@ -174,7 +180,6 @@ namespace TodoList.Infrastructure.GistGateway
         public IList<IItem> List()
         {
             ReadGitHubCredentialsFromAppSettings();
-            CreateGitHubConnection();
 
             var items = EnsureItemsAreLoaded();
             return items.Cast<IItem>().ToList();
@@ -183,7 +188,6 @@ namespace TodoList.Infrastructure.GistGateway
         public void Update(IItem item)
         {
             ReadGitHubCredentialsFromAppSettings();
-            CreateGitHubConnection();
 
             var items = EnsureItemsAreLoaded();
 

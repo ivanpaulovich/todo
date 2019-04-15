@@ -131,5 +131,21 @@ namespace TodoList.ConsoleApp.Controllers
             contents = JsonConvert.SerializeObject(configuration, Formatting.Indented);
             File.WriteAllText(appsettingsPath, contents);
         }
+
+        public void DevelopmentMode()
+        {
+            var appsettingsPath = Path.GetDirectoryName(
+                    Assembly.GetExecutingAssembly().Location) +
+                    Path.DirectorySeparatorChar +
+                    "appsettings.json";
+            
+            var contents = File.ReadAllText(appsettingsPath);
+            var configuration = JsonConvert.DeserializeObject<JObject>(contents);
+
+            configuration["Environment"] = "Development";
+
+            contents = JsonConvert.SerializeObject(configuration, Formatting.Indented);
+            File.WriteAllText(appsettingsPath, contents);
+        }
     }
 }

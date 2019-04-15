@@ -10,6 +10,7 @@ namespace TodoList.ConsoleApp.Commands
         {
             commands = new ICommand[]
             {
+                new DevelopmentModeCommand(),
                 new InteractiveCommand(),
                 new DoCommand(),
                 new HelpCommand(),
