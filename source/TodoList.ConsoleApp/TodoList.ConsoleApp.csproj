@@ -2,6 +2,26 @@
 
   <PropertyGroup>
     <AssemblyName>todo</AssemblyName>
+    <Authors>Ivan Paulovich</Authors>
+    <Copyright>Ivan Paulovich</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <PackageLicenseUrl>https://github.com/ivanpaulovich/todo/blob/master/LICENSE</PackageLicenseUrl>
+    <Owners>Ivan Paulovich</Owners>
+    <PackageProjectUrl>http://github.com/ivanpaulovich/todo</PackageProjectUrl>
+    <PackageReleaseNotes>https://github.com/ivanpaulovich/todo/blob/master/CHANGELOG.md</PackageReleaseNotes>
+    <Summary>The simple task management powered by .NET Core Global Tools and accesible everywhere with your GitHub account.</Summary>
+    <PackageTags>
+      clean-architecture
+      clean-code
+      evolutionary-architecture
+      tdd
+      dotnet-core
+      solid-principles
+      dotnet-cli
+      gist
+    </PackageTags>
+    <Title>Commad-Line Task management with storage on your GitHub</Title>
+    <Description>The simple task management powered by .NET Core Global Tools and accesible everywhere with your GitHub account.</Description>
   </PropertyGroup>
 
   <ItemGroup>
