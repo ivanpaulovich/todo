@@ -110,7 +110,7 @@ namespace TodoList.Infrastructure.GistGateway
             _gistId = configuration["GistId"].Value<string>();
 
             if (string.IsNullOrWhiteSpace(_gistToken))
-                throw new InfrastructureException($"The Gist Token was not setup. Create one at https://github.com/settings/tokens.");
+                throw new InfrastructureException($"The Gist Token was not setup. Create one at https://github.com/ivanpaulovich/todo#setup.");
         }
 
         private void WriteGistIdToAppSettings()
