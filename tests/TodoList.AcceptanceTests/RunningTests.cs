@@ -12,7 +12,7 @@ namespace TodoList.AcceptanceTests
             var processStartInfo = new ProcessStartInfo()
             {
                 FileName = "dotnet",
-                Arguments = "todo.dll ls",
+                Arguments = "todo.dll help",
                 WorkingDirectory = "../../../../../source/TodoList.ConsoleApp/bin/Debug/netcoreapp2.2/",
                 RedirectStandardOutput = true
             };
@@ -20,7 +20,7 @@ namespace TodoList.AcceptanceTests
             var process = Process.Start(processStartInfo);
             process.WaitForExit();
             string output = process.StandardOutput.ReadToEnd();
-            Assert.Contains("[X] Fork the repository", output);
+            Assert.Contains("The usage", output);
         }
     }
 }
